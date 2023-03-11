@@ -1,4 +1,4 @@
-package com.example.mypokedex.data
+package com.example.mypokedex.data.model
 
 import com.example.mypokedex.core.getPokemonId
 
