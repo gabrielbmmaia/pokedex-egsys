@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.mypokedex.core.BASE_URL
 import com.example.mypokedex.core.OK_HTTP
 import com.example.mypokedex.data.networking.PokemonServices
+import com.example.mypokedex.data.repository.PokemonRepositoryImpl
+import com.example.mypokedex.domain.repository.PokemonRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.context.loadKoinModules
@@ -14,8 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object DataModule {
 
+    /**
+     * Load dos Módulos da camada de Data
+     * */
     fun load() {
-        loadKoinModules(networkModule())
+        loadKoinModules(networkModule() + repositoryModule())
     }
 
     private fun networkModule(): Module {
@@ -32,6 +37,12 @@ object DataModule {
                     .addInterceptor(interceptor)
                     .build()
             }
+        }
+    }
+
+    private fun repositoryModule(): Module {
+        return module {
+            single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get()) }
         }
     }
 
