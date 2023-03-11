@@ -1,4 +1,4 @@
-package com.example.mypokedex.data
+package com.example.mypokedex.data.paging
 
 import android.util.Log
 import androidx.paging.PagingSource

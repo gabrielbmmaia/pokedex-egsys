@@ -1,4 +1,4 @@
-package com.example.mypokedex.presentation
+package com.example.mypokedex.presentation.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,4 +25,7 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
+
 }
