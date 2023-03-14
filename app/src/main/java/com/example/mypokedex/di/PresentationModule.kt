@@ -14,9 +14,7 @@ object PresentationModule {
         loadKoinModules(viewModelModule())
     }
 
-    private fun viewModelModule(): Module {
-        return module {
-            factory { HomeViewModel(pokemonUseCases = get()) }
-        }
+    private fun viewModelModule(): Module = module {
+        factory { HomeViewModel(pokemonUseCases = get()) }
     }
 }

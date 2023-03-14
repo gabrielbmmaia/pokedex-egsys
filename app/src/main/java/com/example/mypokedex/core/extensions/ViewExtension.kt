@@ -2,6 +2,7 @@ package com.example.mypokedex.core.extensions
 
 import android.widget.ImageView
 import coil.load
+import com.example.mypokedex.R
 
 
 /**
@@ -9,7 +10,7 @@ import coil.load
  * Possível adicionar fade colocando fade = true
  * */
 fun ImageView.loadImageFromUrl(pokemonId: String, fade: Boolean = false) {
-    val imageUrl = getPokemonImageUrl(pokemonId)
+    val imageUrl = getPokemonSprite(pokemonId)
     if (!fade)
         load(imageUrl)
     else {

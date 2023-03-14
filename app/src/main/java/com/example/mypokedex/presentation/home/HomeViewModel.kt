@@ -20,7 +20,7 @@ class HomeViewModel(
         loadPokemons()
     }
 
-    private fun loadPokemons(){
+    private fun loadPokemons() {
         viewModelScope.launch {
             pokemonUseCases.getPokemonList().cachedIn(this).collectLatest {
                 _pokemonList.value = PokemonListState.Data(pokemons = it)

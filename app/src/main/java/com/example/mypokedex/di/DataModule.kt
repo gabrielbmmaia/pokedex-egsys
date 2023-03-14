@@ -23,27 +23,22 @@ object DataModule {
         loadKoinModules(networkModule() + repositoryModule())
     }
 
-    private fun networkModule(): Module {
-        return module {
+    private fun networkModule(): Module = module {
 
-            single<PokemonServices> { createService(client = get()) }
-
-            single {
-                val interceptor = HttpLoggingInterceptor {
-                    Log.e(OK_HTTP, it)
-                }
-                interceptor.level = HttpLoggingInterceptor.Level.BODY
-                OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    .build()
+        single<PokemonServices> { createService(client = get()) }
+        single {
+            val interceptor = HttpLoggingInterceptor {
+                Log.e(OK_HTTP, it)
             }
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
         }
     }
 
-    private fun repositoryModule(): Module {
-        return module {
-            single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get()) }
-        }
+    private fun repositoryModule(): Module = module {
+        single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get()) }
     }
 
     private fun createService(

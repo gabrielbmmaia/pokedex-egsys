@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
 import com.example.mypokedex.core.extensions.loadImageFromUrl
 import com.example.mypokedex.databinding.VhPokemonBinding
 import com.example.mypokedex.domain.model.Pokemon
@@ -23,8 +24,11 @@ class PokemonPagingAdapter : PagingDataAdapter<Pokemon, RecyclerView.ViewHolder>
 
     class PokemonViewHolder(val binding: VhPokemonBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon) {
-            binding.pokemonImage.loadImageFromUrl(pokemon.id, fade = true)
-            binding.pokemonName.text = pokemon.name
+            with(binding) {
+                pokemonImage.loadImageFromUrl(pokemon.id, fade = true)
+                pokemonName.text = pokemon.name
+                pokemonNumber.text = getFormatedPokemonNumber(pokemon)
+            }
         }
     }
 

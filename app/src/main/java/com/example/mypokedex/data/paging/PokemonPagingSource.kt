@@ -12,7 +12,6 @@ class PokemonPagingSource(
     private val pokemonServices: PokemonServices
 ) : PagingSource<String, PokemonDto>() {
 
-
     override fun getRefreshKey(state: PagingState<String, PokemonDto>): String? {
         return state.anchorPosition?.let { state.closestPageToPosition(it)?.prevKey }
     }

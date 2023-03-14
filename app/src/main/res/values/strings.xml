@@ -3,4 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pokemon_image">Imagem do Pokemon</string>
+    <string name="internet_problems">Sem conexão com a Internet</string>
+    <string name="try_again">Tentar Novamente</string>
+    <string name="vh_background">Background</string>
+    <string name="image_not_found">Image Not Found</string>
+    <string name="search_pokemon">Pesquisar Pokemon</string>
+    <string name="button_tipos">Tipos</string>
+    <string name="pokeball_icon">Pokeball</string>
 </resources>

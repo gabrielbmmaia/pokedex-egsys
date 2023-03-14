@@ -15,10 +15,9 @@ object DomainModule {
         loadKoinModules(useCaseModule())
     }
 
-    private fun useCaseModule(): Module {
-        return module {
-            factory { PokemonUseCases(getPokemonList = get()) }
-            factory { GetPokemonListUseCase(repository = get()) }
-        }
+    private fun useCaseModule(): Module = module {
+        factory { PokemonUseCases(getPokemonList = get()) }
+        factory { GetPokemonListUseCase(repository = get()) }
     }
 }
+

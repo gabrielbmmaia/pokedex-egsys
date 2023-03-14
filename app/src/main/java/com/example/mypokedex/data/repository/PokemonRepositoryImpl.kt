@@ -16,6 +16,9 @@ class PokemonRepositoryImpl(
     private val pokemonServices: PokemonServices
 ) : PokemonRepository {
 
+    /**
+     * Cria um PagingData apartir do PokemonPagingSource
+     * */
     override fun getPokemonList(): Flow<PagingData<Pokemon>> {
 
         val pagingSourceFactory = { PokemonPagingSource(pokemonServices = pokemonServices) }
@@ -28,6 +31,4 @@ class PokemonRepositoryImpl(
             pagingData.map { it.toPokemon() }
         }
     }
-
-
 }

@@ -5,41 +5,119 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:elevation="8dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/grey_whisper"
         app:cardCornerRadius="6dp"
-        app:cardPreventCornerOverlap="false"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:strokeColor="@color/grey_whisper_darkened"
+        app:strokeWidth="1dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/pokemon_image"
-                android:layout_width="match_parent"
+            <!--            Red dots-->
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/pokemon_image"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/layout_images"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <View
+                    android:id="@+id/red_dot01"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/shape_red_dot"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/red_dot02"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/shape_red_dot"
+                    app:layout_constraintStart_toEndOf="@+id/red_dot01"
+                    app:layout_constraintTop_toTopOf="@+id/red_dot01" />
+            </LinearLayout>
+
+            <!--            Composição das imagens-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_images"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:background="#000000"
+                android:padding="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--                Imagem do Background-->
+                <ImageView
+                    android:id="@+id/vh_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/vh_background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/vh_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--                Imagem do Pokemon-->
+                <ImageView
+                    android:id="@+id/pokemon_image"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="60dp"
+                    android:contentDescription="@string/pokemon_image"
+                    app:layout_constraintEnd_toEndOf="@+id/vh_background"
+                    app:layout_constraintStart_toStartOf="@+id/vh_background"
+                    app:layout_constraintTop_toTopOf="@+id/vh_background"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            Numero do Pokemon-->
+            <TextView
+                android:id="@+id/pokemon_number"
+                style="@style/ViewHolderPokemonNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="@id/layout_images"
+                app:layout_constraintStart_toStartOf="@+id/layout_images"
+                app:layout_constraintTop_toBottomOf="@+id/layout_images"
+                tools:text="No.xxx" />
+
+            <!--            Nome do Pokemon-->
             <TextView
                 android:id="@+id/pokemon_name"
-                style="@style/ViewHolderTitle"
-                android:layout_width="match_parent"
+                style="@style/ViewHolderPokemonName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="4dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/layout_images"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/layout_images"
+                app:layout_constraintTop_toBottomOf="@+id/pokemon_number"
                 tools:text="Nome do Pokemon" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
