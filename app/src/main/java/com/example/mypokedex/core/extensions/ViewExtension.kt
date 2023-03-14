@@ -1,15 +1,15 @@
 package com.example.mypokedex.core.extensions
 
+import android.view.View
 import android.widget.ImageView
 import coil.load
-import com.example.mypokedex.R
 
 
 /**
  * Função para carregar imagem por url
  * Possível adicionar fade colocando fade = true
  * */
-fun ImageView.loadImageFromUrl(pokemonId: String, fade: Boolean = false) {
+fun ImageView.loadImageFromUrl(pokemonId: Int, fade: Boolean = false) {
     val imageUrl = getPokemonSprite(pokemonId)
     if (!fade)
         load(imageUrl)
@@ -19,4 +19,11 @@ fun ImageView.loadImageFromUrl(pokemonId: String, fade: Boolean = false) {
             crossfade(durationMillis = 500)
         }
     }
+}
+
+fun View.visibilityVisible() {
+    this.visibility = View.VISIBLE
+}
+fun View.visibilityGone(){
+    this.visibility = View.GONE
 }

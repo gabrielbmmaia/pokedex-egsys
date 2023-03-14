@@ -4,20 +4,36 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import com.example.mypokedex.R
 import com.example.mypokedex.core.Constantes.HOME_FRAGMENT_TITLE
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_AGUA
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_DRAGAO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ELETRICO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_FADA
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_FANTASMA
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_FOGO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_GELO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_INSETO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_LUTADOR
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_NORMAL
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_PEDRA
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_PLANTA
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_PSIQUICO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_SOMBRIO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_TERRESTRE
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VENENOSO
+import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VOADOR
+import com.example.mypokedex.core.extensions.visibilityGone
+import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +41,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<HomeViewModel>()
-    private lateinit var pokemonAdapter: PokemonPagingAdapter
+    private lateinit var pokemonAdapter: PokemonAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +49,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         setToolbar()
+        initRecyclerView()
         return binding.root
     }
 
@@ -43,7 +60,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPokemonRecyclerView()
+        populateRecyclerView()
         initPokeballButton()
         setMenu()
     }
@@ -69,13 +86,65 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
                 when (menuItem.itemId) {
+                    R.id.menu_popup_todos -> {
+                        viewModel.loadPokemon()
+                    }
                     R.id.menu_popup_elemento_aco -> {
-                        Toast.makeText(requireContext(), "jesus", Toast.LENGTH_SHORT).show()
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ACO)
+                    }
+                    R.id.menu_popup_elemento_agua -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_AGUA)
+                    }
+                    R.id.menu_popup_elemento_dragao -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_DRAGAO)
+                    }
+                    R.id.menu_popup_elemento_eletrico -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ELETRICO)
+                    }
+                    R.id.menu_popup_elemento_fada -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FADA)
+                    }
+                    R.id.menu_popup_elemento_fantasma -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FANTASMA)
+                    }
+                    R.id.menu_popup_elemento_fogo -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FOGO)
+                    }
+                    R.id.menu_popup_elemento_gelo -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_GELO)
+                    }
+                    R.id.menu_popup_elemento_inseto -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_INSETO)
+                    }
+                    R.id.menu_popup_elemento_lutador -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_LUTADOR)
+                    }
+                    R.id.menu_popup_elemento_normal -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_NORMAL)
+                    }
+                    R.id.menu_popup_elemento_pedra -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PEDRA)
+                    }
+                    R.id.menu_popup_elemento_planta -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PLANTA)
+                    }
+                    R.id.menu_popup_elemento_psiquico -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PSIQUICO)
+                    }
+                    R.id.menu_popup_elemento_sombrio -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_SOMBRIO)
+                    }
+                    R.id.menu_popup_elemento_terrestre -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_TERRESTRE)
+                    }
+                    R.id.menu_popup_elemento_venenoso -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VENENOSO)
+                    }
+                    R.id.menu_popup_elemento_voador -> {
+                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
                     }
                 }
-
                 return true
             }
         }, viewLifecycleOwner)
@@ -93,41 +162,46 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initPokemonRecyclerView() {
-        // Configurando Adapter
-        pokemonAdapter = PokemonPagingAdapter()
-        val pokemonRV = binding.rvHomefragment
-        with(pokemonRV) {
-            hasFixedSize()
-            adapter = pokemonAdapter.withLoadStateFooter(
-                footer = LoadStateAdapter { pokemonAdapter.retry() }
-            )
-        }
-        // Adicionando Pokemon
+    private fun initRecyclerView() {
+        pokemonAdapter = PokemonAdapter()
+        binding.rvHomefragment.adapter = pokemonAdapter
+        binding.rvHomefragment.hasFixedSize()
+    }
+
+    private fun populateRecyclerView() {
         lifecycleScope.launchWhenStarted {
             viewModel.pokemonList.collectLatest { result ->
                 when (result) {
                     is PokemonListState.Data -> {
-                        pokemonAdapter.submitData(result.pokemons)
+                        with(binding.internetProblems) {
+                            progressBar.visibilityGone()
+                            errorMessage.visibilityGone()
+                            retryButton.visibilityGone()
+                        }
+                        pokemonAdapter.setData(result.pokemonList)
+                        binding.rvHomefragment.scrollToPosition(0)
                     }
-                    else -> {}
-                }
-            }
-        }
-        // State Handling
-        pokemonAdapter.addLoadStateListener { loadState ->
-            with(binding) {
-                rvHomefragment.isVisible =
-                    loadState.source.refresh is LoadState.NotLoading
-                internetProblems.retryButton.isVisible =
-                    loadState.source.refresh is LoadState.Error
-                internetProblems.progressBar.isVisible =
-                    loadState.source.refresh is LoadState.Loading
-                internetProblems.errorMessage.isVisible =
-                    loadState.source.refresh is LoadState.Error
+                    is PokemonListState.Error -> {
+                        with(binding.internetProblems) {
+                            errorMessage.visibilityVisible()
+                            retryButton.visibilityVisible()
+                            progressBar.visibilityGone()
+                            errorMessage.text = result.message
 
-                internetProblems.retryButton.setOnClickListener {
-                    pokemonAdapter.retry()
+                            retryButton.setOnClickListener {
+                                lifecycleScope.launchWhenStarted {
+                                    viewModel.loadPokemon()
+                                }
+                            }
+                        }
+                    }
+                    PokemonListState.Loading -> {
+                        with(binding.internetProblems) {
+                            errorMessage.visibilityGone()
+                            retryButton.visibilityGone()
+                            progressBar.visibilityVisible()
+                        }
+                    }
                 }
             }
         }

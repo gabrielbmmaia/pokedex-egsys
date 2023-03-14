@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class PokemonTipoRequest(
     @SerializedName("pokemon")
-    val results: List<PokemonDto>
+    val results: PokemonDto
 )

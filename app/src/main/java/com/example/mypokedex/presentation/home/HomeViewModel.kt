@@ -2,7 +2,6 @@ package com.example.mypokedex.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,21 +20,44 @@ class HomeViewModel(
         loadPokemon()
     }
 
-    private fun loadPokemon() {
-        viewModelScope.launch {
-            pokemonUseCases.getPokemonList().cachedIn(this).collectLatest {
-                _pokemonList.value = PokemonListState.Data(pokemons = it)
+    fun loadPokemon(pokemonType: String? = null) {
+        if (pokemonType.isNullOrBlank()) {
+            viewModelScope.launch {
+                pokemonUseCases.getPokemonList().collectLatest { result ->
+                    when (result) {
+                        is Resource.Error -> {
+                            _pokemonList.value =
+                                PokemonListState.Error(result.message!!)
+                        }
+                        Resource.Loading -> {
+                            _pokemonList.value =
+                                PokemonListState.Loading
+                        }
+                        is Resource.Success -> {
+                            _pokemonList.value =
+                                PokemonListState.Data(result.data!!)
+                        }
+                    }
+                }
             }
         }
-    }
-
-    fun loadPokemonByType(pokemonType: String) {
-        viewModelScope.launch {
-            pokemonUseCases.getPokemonListByType(pokemonType).collectLatest { result ->
-                when (result) {
-                    is Resource.Error -> TODO()
-                    Resource.Loading -> TODO()
-                    is Resource.Success -> TODO()
+        if (!pokemonType.isNullOrBlank()) {
+            viewModelScope.launch {
+                pokemonUseCases.getPokemonListByType(pokemonType).collectLatest { result ->
+                    when (result) {
+                        is Resource.Error -> {
+                            _pokemonList.value =
+                                PokemonListState.Error(result.message!!)
+                        }
+                        Resource.Loading -> {
+                            _pokemonList.value =
+                                PokemonListState.Loading
+                        }
+                        is Resource.Success -> {
+                            _pokemonList.value =
+                                PokemonListState.Data(result.data!!)
+                        }
+                    }
                 }
             }
         }

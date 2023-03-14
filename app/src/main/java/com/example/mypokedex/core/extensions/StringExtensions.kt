@@ -6,23 +6,24 @@ import com.example.mypokedex.domain.model.Pokemon
 /**
  * Utilizado para pegar o ID do pokemon a partir do final da URL disponibilizada pela API
  * */
-fun String.getPokemonId(): String {
+fun String.getPokemonId(): Int {
     return this.replace(BASE_POKEMON_URL, "")
         .replace("/", "")
+        .toInt()
 }
 
 /**
  * Utilizado para deixar o numero com 3 casas sendo as iniciais "0"
  * */
-fun String.formatToPokemonNumber(): String {
-    return this.padStart(3, '0')
-}
+fun formatToPokemonNumber(pokemonId: Int): String =
+    pokemonId.toString().padStart(3, '0')
+
 
 /**
  * Utilizado para pegar a url da imagem do pokemon apartir de seu ID
  * */
 fun getPokemonSprite(
-    pokemonId: String
+    pokemonId: Int
 ): String =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
 
