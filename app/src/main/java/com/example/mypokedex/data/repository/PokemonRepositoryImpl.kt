@@ -31,4 +31,13 @@ class PokemonRepositoryImpl(
             pagingData.map { it.toPokemon() }
         }
     }
+
+    override suspend fun getPokemonByType(pokemonType: String): List<Pokemon> {
+        val serviceReturn = pokemonServices.getPokemonFromType(pokemonType)
+        val pokemonList = serviceReturn.results.first().results
+
+        return pokemonList.map { it.toPokemon() }
+    }
+
+
 }

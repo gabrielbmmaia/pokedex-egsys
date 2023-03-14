@@ -13,4 +13,8 @@ object Constantes {
 
     // Constantes do PagingSource
     const val PAGINGSOURCE_TAG = "paging_source"
+
+    // Constantes UseCase
+    const val USE_CASE = "use_case"
+    const val POKEMON_LIST_ERROR_MESSAGE = "Error ao carregar a lista de Pokemon"
 }

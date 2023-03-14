@@ -1,5 +1,6 @@
 package com.example.mypokedex.di
 
+import com.example.mypokedex.domain.useCases.GetPokemonListByTypeUseCase
 import com.example.mypokedex.domain.useCases.GetPokemonListUseCase
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import org.koin.core.context.loadKoinModules
@@ -16,8 +17,9 @@ object DomainModule {
     }
 
     private fun useCaseModule(): Module = module {
-        factory { PokemonUseCases(getPokemonList = get()) }
+        factory { PokemonUseCases(getPokemonList = get(), getPokemonListByType = get()) }
         factory { GetPokemonListUseCase(repository = get()) }
+        factory { GetPokemonListByTypeUseCase(repository = get()) }
     }
 }
 

@@ -8,4 +8,6 @@ interface PokemonRepository {
 
     fun getPokemonList(): Flow<PagingData<Pokemon>>
 
+    suspend fun getPokemonByType(pokemonType: String): List<Pokemon>
+
 }
