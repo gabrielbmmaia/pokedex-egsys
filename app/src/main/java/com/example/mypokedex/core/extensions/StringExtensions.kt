@@ -1,6 +1,6 @@
 package com.example.mypokedex.core.extensions
 
-import com.example.mypokedex.core.BASE_POKEMON_URL
+import com.example.mypokedex.core.Constantes.BASE_POKEMON_URL
 import com.example.mypokedex.domain.model.Pokemon
 
 /**

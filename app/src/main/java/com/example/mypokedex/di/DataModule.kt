@@ -1,8 +1,8 @@
 package com.example.mypokedex.di
 
 import android.util.Log
-import com.example.mypokedex.core.BASE_URL
-import com.example.mypokedex.core.OK_HTTP
+import com.example.mypokedex.core.Constantes.BASE_URL
+import com.example.mypokedex.core.Constantes.OK_HTTP
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.data.repository.PokemonRepositoryImpl
 import com.example.mypokedex.domain.repository.PokemonRepository

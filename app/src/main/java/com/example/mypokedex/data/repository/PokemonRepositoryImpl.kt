@@ -4,11 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.example.mypokedex.core.PAGING_LIMIT
+import com.example.mypokedex.core.Constantes.PAGING_LIMIT
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.data.paging.PokemonPagingSource
-import com.example.mypokedex.domain.repository.PokemonRepository
 import com.example.mypokedex.domain.model.Pokemon
+import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

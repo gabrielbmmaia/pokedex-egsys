@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.mypokedex.R
+import com.example.mypokedex.core.Constantes.HOME_FRAGMENT_TITLE
 import com.example.mypokedex.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -83,6 +84,7 @@ class HomeFragment : Fragment() {
     private fun setToolbar() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.homeToolbar)
+        activity.title = HOME_FRAGMENT_TITLE
     }
 
     private fun initPokeballButton() {

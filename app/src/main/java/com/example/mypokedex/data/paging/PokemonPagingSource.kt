@@ -3,8 +3,8 @@ package com.example.mypokedex.data.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.mypokedex.core.INITIAL_PAGE
-import com.example.mypokedex.core.PAGINGSOURCE_TAG
+import com.example.mypokedex.core.Constantes.INITIAL_PAGE
+import com.example.mypokedex.core.Constantes.PAGINGSOURCE_TAG
 import com.example.mypokedex.data.model.PokemonDto
 import com.example.mypokedex.data.networking.PokemonServices
 
