@@ -7,7 +7,29 @@
     <string name="try_again">Tentar Novamente</string>
     <string name="vh_background">Background</string>
     <string name="image_not_found">Image Not Found</string>
-    <string name="search_pokemon">Pesquisar Pokemon</string>
-    <string name="button_tipos">Tipos</string>
+    <string name="search_pokemon">Pokémon ou Número</string>
     <string name="pokeball_icon">Pokeball</string>
+
+    <!--    menus-->
+    <string name="menu_search_icon">Search</string>
+    <string name="menu_elementos_icon">Elementos</string>
+    <string name="menu_todos_icon">Todos</string>
+    <string name="menu_aco_icon">Aço</string>
+    <string name="menu_agua_icon">Água</string>
+    <string name="menu_dragao_icon">Dragão</string>
+    <string name="menu_eletrico_icon">Elétrico</string>
+    <string name="menu_fada_icon">Fada</string>
+    <string name="menu_fantasma_icon">Fantasma</string>
+    <string name="menu_fogo_icon">Fogo</string>
+    <string name="menu_gelo_icon">Gelo</string>
+    <string name="menu_inseto_icon">Inseto</string>
+    <string name="menu_lutador_icon">Lutador</string>
+    <string name="menu_normal_icon">Normal</string>
+    <string name="menu_pedra_icon">Pedra</string>
+    <string name="menu_planta_icon">Planta</string>
+    <string name="menu_psiquico_icon">Psíquico</string>
+    <string name="menu_sombrio_icon">Sombrio</string>
+    <string name="menu_terrestre_icon">Terrestre</string>
+    <string name="menu_venenoso_icon">Venenoso</string>
+    <string name="menu_voador_icon">Voador</string>
 </resources>

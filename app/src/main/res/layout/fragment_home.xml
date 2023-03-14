@@ -6,58 +6,55 @@
     android:layout_height="match_parent"
     android:background="@color/red_crimson">
 
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/main_toolbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="?attr/actionBarSize"-->
-    <!--        android:background="@color/red_crimson"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/home_toolbar"
+            android:layout_width="match_parent"
+            app:menu="@menu/home_menu"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/red_crimson"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <!--    SearchView  -  Botão Tipos -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_home_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/layout_top"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingHorizontal="16dp"-->
+<!--        android:paddingVertical="12dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/home_search_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/shape_black_stroke"
-            app:iconifiedByDefault="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/elementos_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Pokemon ou Número ..." />
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:id="@+id/search_view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/shape_black_stroke"-->
+<!--            app:iconifiedByDefault="false"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/elementos_button"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:queryBackground="@android:color/transparent"-->
+<!--            app:queryHint="Pokemon ou Número ..." />-->
 
-        <TextView
-            android:id="@+id/elementos_button"
-            style="@style/DefaultText"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="@drawable/shape_black_stroke"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp"
-            android:text="@string/button_tipos"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/elementos_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:src="@drawable/ic_elementos"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rv_layout"
+        android:id="@+id/layout_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
@@ -66,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_home_search_view">
+        app:layout_constraintTop_toBottomOf="@id/home_toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_homefragment"
@@ -97,9 +94,9 @@
         android:layout_height="80dp"
         android:contentDescription="@string/pokeball_icon"
         android:src="@drawable/pokeball_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_layout"
-        app:layout_constraintEnd_toEndOf="@+id/rv_layout"
-        app:layout_constraintStart_toStartOf="@id/rv_layout"
-        app:layout_constraintTop_toBottomOf="@+id/rv_layout" />
+        app:layout_constraintBottom_toBottomOf="@+id/layout_rv"
+        app:layout_constraintEnd_toEndOf="@+id/layout_rv"
+        app:layout_constraintStart_toStartOf="@id/layout_rv"
+        app:layout_constraintTop_toBottomOf="@+id/layout_rv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

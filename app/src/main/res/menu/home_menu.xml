@@ -3,10 +3,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_search"
+        android:id="@+id/menu_search_icon"
         android:icon="@drawable/ic_search"
-        android:title="@string/search_pokemon"
+        android:title="@string/menu_search_icon"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/pokemon_elementos"
+        android:icon="@drawable/ic_elementos"
+        android:title="@string/menu_elementos_icon"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu_popup_todos"
+                android:icon="@drawable/pokeball_little_icon"
+                android:title="@string/menu_todos_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_aco"
+                android:icon="@drawable/aco"
+                android:title="@string/menu_aco_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_agua"
+                android:icon="@drawable/agua"
+                android:title="@string/menu_agua_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_dragao"
+                android:icon="@drawable/dragao"
+                android:title="@string/menu_dragao_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_eletrico"
+                android:icon="@drawable/eletrico"
+                android:title="@string/menu_eletrico_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_fada"
+                android:icon="@drawable/fada"
+                android:title="@string/menu_fada_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_fantasma"
+                android:icon="@drawable/fantasma"
+                android:title="@string/menu_fantasma_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_fogo"
+                android:icon="@drawable/fogo"
+                android:title="@string/menu_fogo_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_gelo"
+                android:icon="@drawable/gelo"
+                android:title="@string/menu_gelo_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_inseto"
+                android:icon="@drawable/inseto"
+                android:title="@string/menu_inseto_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_lutador"
+                android:icon="@drawable/lutador"
+                android:title="@string/menu_lutador_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_normal"
+                android:icon="@drawable/normal"
+                android:title="@string/menu_normal_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_pedra"
+                android:icon="@drawable/pedra"
+                android:title="@string/menu_pedra_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_planta"
+                android:icon="@drawable/planta"
+                android:title="@string/menu_planta_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_psiquico"
+                android:icon="@drawable/psiquico"
+                android:title="@string/menu_psiquico_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_sombrio"
+                android:icon="@drawable/sombrio"
+                android:title="@string/menu_sombrio_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_terrestre"
+                android:icon="@drawable/terrestre"
+                android:title="@string/menu_terrestre_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_venenoso"
+                android:icon="@drawable/venenoso"
+                android:title="@string/menu_venenoso_icon" />
+            <item
+                android:id="@+id/menu_popup_elemento_voador"
+                android:icon="@drawable/voador"
+                android:title="@string/menu_voador_icon" />
+        </menu>
+    </item>
 </menu>
