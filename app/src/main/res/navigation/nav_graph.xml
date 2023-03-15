@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mypokedex.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/homeFragment_to_pokemonDetailsFragment"
+            app:destination="@id/pokemonDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailsFragment"
+        android:name="com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsFragment"
+        android:label="fragment_pokemon_details"
+        tools:layout="@layout/fragment_pokemon_details" >
+        <argument
+            android:name="pokemonOrId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -9,6 +9,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.mypokedex.R
 import com.example.mypokedex.core.Constantes.HOME_FRAGMENT_TITLE
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
@@ -76,15 +77,14 @@ class HomeFragment : Fragment() {
                 searchView.queryHint = getString(R.string.search_pokemon)
 
                 searchView.setOnQueryTextListener(object : OnQueryTextListener {
-                    override fun onQueryTextSubmit(p0: String?): Boolean {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
                         searchView.clearFocus()
+                        query?.let { toDetailsFragment(it) }
                         return false
                     }
-
                     override fun onQueryTextChange(p0: String?): Boolean = false
                 })
             }
-
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.menu_popup_todos -> {
@@ -158,7 +158,7 @@ class HomeFragment : Fragment() {
 
     private fun initPokeballButton() {
         binding.pokeballButton.setOnClickListener {
-
+            toDetailsFragment("1")
         }
     }
 
@@ -205,5 +205,10 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun toDetailsFragment(pokemonOrId: String) {
+        val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
+        findNavController().navigate(action)
     }
 }

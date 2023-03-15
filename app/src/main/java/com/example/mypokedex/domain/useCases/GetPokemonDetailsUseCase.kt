@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.flow
 class GetPokemonDetailsUseCase(
     private val repository: PokemonRepository
 ) {
-    operator fun invoke(pokemonId: Int): Flow<Resource<PokemonDetails>> = flow {
+    operator fun invoke(pokemonOrId: String): Flow<Resource<PokemonDetails>> = flow {
         try {
             emit(Resource.Loading)
-            val result = repository.getPokemonDetails(pokemonId)
+            val result = repository.getPokemonDetails(pokemonOrId)
             emit(Resource.Success(data = result))
         } catch (e: Exception) {
             Log.e(USE_CASE, e.stackTraceToString())

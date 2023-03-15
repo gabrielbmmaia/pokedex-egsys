@@ -19,7 +19,7 @@ class PokemonRepositoryImpl(
         return pokemonList.map { it.toPokemon() }
     }
 
-    override suspend fun getPokemonDetails(pokemonId: Int): PokemonDetails =
-        pokemonServices.getPokemonDetail(pokemonId).toPokemonDetails()
+    override suspend fun getPokemonDetails(pokemonOrId: String): PokemonDetails =
+        pokemonServices.getPokemonDetail(pokemonOrId).toPokemonDetails()
 
 }
