@@ -2,6 +2,7 @@ package com.example.mypokedex.data.repository
 
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.domain.model.Pokemon
+import com.example.mypokedex.domain.model.PokemonDetails
 import com.example.mypokedex.domain.repository.PokemonRepository
 
 class PokemonRepositoryImpl(
@@ -17,4 +18,8 @@ class PokemonRepositoryImpl(
 
         return pokemonList.map { it.toPokemon() }
     }
+
+    override suspend fun getPokemonDetails(pokemonId: Int): PokemonDetails =
+        pokemonServices.getPokemonDetail(pokemonId).toPokemonDetails()
+
 }

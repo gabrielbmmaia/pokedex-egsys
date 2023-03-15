@@ -22,6 +22,6 @@ interface PokemonServices {
 
     @GET("pokemon/{pokemonId}")
     suspend fun getPokemonDetail(
-        @Path("pokemonId") pokemonId: String
+        @Path("pokemonId") pokemonId: Int
     ): PokemonDetailsDto
 }
