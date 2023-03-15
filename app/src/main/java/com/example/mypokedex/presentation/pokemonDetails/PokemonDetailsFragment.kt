@@ -24,4 +24,7 @@ class PokemonDetailsFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
+
 }
