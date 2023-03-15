@@ -6,52 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/red_crimson">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/home_toolbar"
-            android:layout_width="match_parent"
-            app:menu="@menu/home_menu"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/red_crimson"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    SearchView  -  Botão Tipos -->
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/layout_top"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:paddingHorizontal="16dp"-->
-<!--        android:paddingVertical="12dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <androidx.appcompat.widget.SearchView-->
-<!--            android:id="@+id/search_view"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@drawable/shape_black_stroke"-->
-<!--            app:iconifiedByDefault="false"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/elementos_button"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:queryBackground="@android:color/transparent"-->
-<!--            app:queryHint="Pokemon ou Número ..." />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/elementos_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:src="@drawable/ic_elementos"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/red_crimson"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/home_menu" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_rv"

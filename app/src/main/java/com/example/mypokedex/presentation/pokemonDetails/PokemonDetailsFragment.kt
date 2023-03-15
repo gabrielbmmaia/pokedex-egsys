@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mypokedex.databinding.FragmentPokemonDetailsBinding
 
-class PokemonDetails : Fragment() {
+class PokemonDetailsFragment : Fragment() {
 
     private var _binding: FragmentPokemonDetailsBinding? = null
     private val binding get() = _binding!!

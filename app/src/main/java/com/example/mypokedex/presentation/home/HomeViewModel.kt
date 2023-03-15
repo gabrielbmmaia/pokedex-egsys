@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.useCases.PokemonUseCases
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val pokemonUseCases: PokemonUseCases
@@ -24,6 +26,7 @@ class HomeViewModel(
         if (pokemonType.isNullOrBlank()) {
             viewModelScope.launch {
                 pokemonUseCases.getPokemonList().collectLatest { result ->
+
                     when (result) {
                         is Resource.Error -> {
                             _pokemonList.value =
