@@ -12,7 +12,7 @@ object Constantes {
 
     // Constantes UseCase
     const val USE_CASE = "use_case"
-    const val POKEMON_LIST_ERROR_MESSAGE = "Error ao carregar a lista de Pokemon"
+    const val POKEMON_ERROR_MESSAGE = "Error ao carregar Pokemon"
 
     // Constantes dos Tipos de Pokemon
     const val POKEMON_TIPO_ACO = "steel"

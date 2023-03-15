@@ -1,5 +1,6 @@
 package com.example.mypokedex.di
 
+import com.example.mypokedex.domain.useCases.GetPokemonDetailsUseCase
 import com.example.mypokedex.domain.useCases.GetPokemonListByTypeUseCase
 import com.example.mypokedex.domain.useCases.GetPokemonListUseCase
 import com.example.mypokedex.domain.useCases.PokemonUseCases
@@ -17,9 +18,16 @@ object DomainModule {
     }
 
     private fun useCaseModule(): Module = module {
-        factory { PokemonUseCases(getPokemonList = get(), getPokemonListByType = get()) }
+        factory {
+            PokemonUseCases(
+                getPokemonList = get(),
+                getPokemonListByType = get(),
+                getPokemonDetails = get()
+            )
+        }
         factory { GetPokemonListUseCase(repository = get()) }
         factory { GetPokemonListByTypeUseCase(repository = get()) }
+        factory { GetPokemonDetailsUseCase(repository = get()) }
     }
 }
 

@@ -2,5 +2,6 @@ package com.example.mypokedex.domain.useCases
 
 data class PokemonUseCases(
     val getPokemonList: GetPokemonListUseCase,
-    val getPokemonListByType: GetPokemonListByTypeUseCase
+    val getPokemonListByType: GetPokemonListByTypeUseCase,
+    val getPokemonDetails: GetPokemonDetailsUseCase
 )
