@@ -2,10 +2,11 @@ package com.example.mypokedex.core
 
 object Constantes {
 
-    const val HOME_FRAGMENT_TITLE = ""
+    const val TOOLBAR_TITLE = ""
 
     // Constantes da api
-    const val POKEMON_LIMIT_LIST = 1010
+    const val POKEMON_FINAL_INDEX_LIST = 1010
+    const val POKEMON_START_INDEX_LIST = 1
     const val BASE_URL = "https://pokeapi.co/api/v2/"
     const val BASE_POKEMON_URL = "https://pokeapi.co/api/v2/pokemon/"
     const val OK_HTTP = "ok_http"
@@ -16,6 +17,8 @@ object Constantes {
 
     // Constantes Pokemon
     const val METODO_DE_APRENDIZAGEM = "level-up"
+    const val POKEMON_NAO_ENCONTRADO = "Pokémon não encontrado"
+
 
     // Constantes dos Tipos de Pokemon
     const val POKEMON_TIPO_ACO = "steel"

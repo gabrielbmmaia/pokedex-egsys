@@ -3,6 +3,7 @@ package com.example.mypokedex.core.extensions
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
 import coil.load
@@ -125,18 +126,30 @@ fun ImageView.loadPokemonSpriteOrGif(
     val animatedSprite = pokemonSprite.versions.generationV.blackWhite.animated
 
     if (!pokemonShiny) {
-        if (animatedSprite.frontDefault != null)
-            load(animatedSprite.frontDefault, imageLoader = imageLoader)
-        else if (pokemonSprite.frontDefault != null)
-            load(pokemonSprite.frontDefault)
-        else visibilityGone()
+        if (animatedSprite.frontDefault != null) {
+            load(animatedSprite.frontDefault, imageLoader = imageLoader) {
+                visibilityVisible()
+            }
+        } else if (pokemonSprite.frontDefault != null) {
+            load(pokemonSprite.frontDefault) {
+                visibilityVisible()
+            }
+        } else visibilityGone()
     } else {
-        if (animatedSprite.frontShiny != null)
-            load(animatedSprite.frontShiny, imageLoader = imageLoader)
-        else if (pokemonSprite.frontShiny != null)
-            load(pokemonSprite.frontShiny)
-        else visibilityGone()
+        if (animatedSprite.frontShiny != null) {
+            load(animatedSprite.frontShiny, imageLoader = imageLoader) {
+                visibilityVisible()
+            }
+        } else if (pokemonSprite.frontShiny != null) {
+            load(pokemonSprite.frontShiny) {
+                visibilityVisible()
+            }
+        } else visibilityGone()
     }
+}
+
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 fun filterToLearnableAttacks(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> =
@@ -150,4 +163,8 @@ fun View.visibilityVisible() {
 
 fun View.visibilityGone() {
     this.visibility = View.GONE
+}
+
+fun View.visibilityInvisible() {
+    this.visibility = View.INVISIBLE
 }

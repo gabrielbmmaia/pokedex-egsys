@@ -2,10 +2,9 @@ package com.example.mypokedex.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mypokedex.core.Constantes.POKEMON_LIMIT_LIST
+import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
 import com.example.mypokedex.core.extensions.loadSpriteFromId
 import com.example.mypokedex.databinding.VhPokemonBinding
@@ -41,7 +40,7 @@ class PokemonAdapter(
     }
 
     fun setData(newPokemonList: List<Pokemon>) {
-        val listaFiltrada = newPokemonList.filter { it.id <= POKEMON_LIMIT_LIST }
+        val listaFiltrada = newPokemonList.filter { it.id <= POKEMON_FINAL_INDEX_LIST }
         val diffResult = DiffUtil.calculateDiff(PokemonDiffCallback(pokemonList, listaFiltrada))
         pokemonList = listaFiltrada
         diffResult.dispatchUpdatesTo(this)

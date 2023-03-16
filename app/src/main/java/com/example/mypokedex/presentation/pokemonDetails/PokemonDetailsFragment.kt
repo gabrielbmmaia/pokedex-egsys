@@ -4,10 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.mypokedex.R
+import com.example.mypokedex.core.Constantes
+import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
+import com.example.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
 import com.example.mypokedex.core.extensions.*
 import com.example.mypokedex.databinding.FragmentPokemonDetailsBinding
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueAdapter
@@ -30,6 +37,7 @@ class PokemonDetailsFragment : Fragment() {
     ): View {
         _binding = FragmentPokemonDetailsBinding.inflate(inflater, container, false)
         initRecyclerView()
+        setToolbar()
         return binding.root
     }
 
@@ -42,6 +50,12 @@ class PokemonDetailsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun setToolbar() {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.detailsToolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun initRecyclerView() {
@@ -63,6 +77,9 @@ class PokemonDetailsFragment : Fragment() {
                 when (result) {
                     is PokemonDetailsState.Data -> {
                         val pokemon = result.data
+                        initPreviousOrNextPokemon(pokemon.id)
+                        binding.progressBar.visibilityGone()
+                        binding.pokemonLayout.visibilityVisible()
                         binding.pokemonName.text = pokemon.name
                         binding.pokemonNumber.text = getFormatedPokemonNumber(pokemon.numero)
                         tipoAdapter.setData(result.data.types)
@@ -81,10 +98,38 @@ class PokemonDetailsFragment : Fragment() {
                         binding.pokemonPeso.text = formatToKg(pokemon.weight)
                         ataqueAdapter.setData(filterToLearnableAttacks(pokemon.moves))
                     }
-                    is PokemonDetailsState.Error -> {}
-                    PokemonDetailsState.Loading -> {}
+                    is PokemonDetailsState.Error -> {
+                        requireActivity().toast(result.message)
+                        binding.progressBar.visibilityGone()
+                        toHomeFragment()
+                    }
+                    PokemonDetailsState.Loading -> {
+                        binding.pokemonLayout.visibilityInvisible()
+                        binding.progressBar.visibilityVisible()
+                    }
                 }
             }
         }
+    }
+
+    private fun toHomeFragment() {
+        findNavController().navigate(R.id.action_pokemonDetailsFragment_to_homeFragment)
+    }
+
+    private fun initPreviousOrNextPokemon(pokemonId: Int) {
+        val arrowRight = binding.arrowRight
+        val arrowLeft = binding.arrowLeft
+        if (pokemonId > POKEMON_START_INDEX_LIST) {
+            arrowLeft.visibilityVisible()
+            arrowLeft.setOnClickListener {
+                viewmodel.getPokemonDetails(pokemonId.minus(1).toString())
+            }
+        } else arrowLeft.visibilityGone()
+        if (pokemonId < POKEMON_FINAL_INDEX_LIST) {
+            arrowRight.visibilityVisible()
+            arrowRight.setOnClickListener {
+                viewmodel.getPokemonDetails(pokemonId.plus(1).toString())
+            }
+        } else arrowRight.visibilityGone()
     }
 }

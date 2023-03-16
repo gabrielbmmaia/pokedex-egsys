@@ -1,6 +1,6 @@
 package com.example.mypokedex.data.networking
 
-import com.example.mypokedex.core.Constantes.POKEMON_LIMIT_LIST
+import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.data.model.PokemonDetailsDto
 import com.example.mypokedex.data.model.requests.PokemonRequest
 import com.example.mypokedex.data.model.requests.TipoRequest
@@ -12,7 +12,7 @@ interface PokemonServices {
 
     @GET("pokemon")
     suspend fun getPokemonList(
-        @Query("limit") limit: Int = POKEMON_LIMIT_LIST
+        @Query("limit") limit: Int = POKEMON_FINAL_INDEX_LIST
     ): PokemonRequest
 
     @GET("type/{tipoPokemon}")

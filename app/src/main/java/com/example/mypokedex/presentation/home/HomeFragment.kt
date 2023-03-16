@@ -10,8 +10,11 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.R
-import com.example.mypokedex.core.Constantes.HOME_FRAGMENT_TITLE
+import com.example.mypokedex.core.Constantes.TOOLBAR_TITLE
+import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_AGUA
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_DRAGAO
@@ -35,6 +38,7 @@ import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
@@ -43,6 +47,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel by viewModel<HomeViewModel>()
     private lateinit var pokemonAdapter: PokemonAdapter
+    private var rvIndexPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +57,18 @@ class HomeFragment : Fragment() {
         setToolbar()
         initRecyclerView()
         return binding.root
+    }
+
+    override fun onResume() {
+        binding.rvHomefragment.scrollToPosition(rvIndexPosition)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        rvIndexPosition =
+            (binding.rvHomefragment.layoutManager as
+                    LinearLayoutManager).findFirstVisibleItemPosition()
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -153,14 +170,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun setToolbar() {
-        val activity = activity as AppCompatActivity
-        activity.setSupportActionBar(binding.homeToolbar)
-        activity.title = HOME_FRAGMENT_TITLE
+//        val activity = activity as AppCompatActivity
+//        activity.setSupportActionBar(binding.homeToolbar)
+        binding.homeToolbar.setupWithNavController(findNavController())
+//        activity.title = TOOLBAR_TITLE
     }
 
     private fun initPokeballButton() {
         binding.pokeballButton.setOnClickListener {
-            toDetailsFragment("25")
+            val maxRandomNumber = Random.nextInt(POKEMON_FINAL_INDEX_LIST.plus(1))
+            toDetailsFragment(maxRandomNumber.toString())
         }
     }
 
