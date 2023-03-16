@@ -34,6 +34,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -67,6 +68,7 @@ dependencies {
 
     // Coil - Carregar imagens
     implementation "io.coil-kt:coil:2.2.2"
+    implementation "io.coil-kt:coil-gif:2.2.2"
 
     //Koin - Injeção de Dependência
     implementation "io.insert-koin:koin-android:3.2.3"

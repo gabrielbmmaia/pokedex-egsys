@@ -8,5 +8,5 @@ data class Pokemon(
     val url: String
 ) {
     val id = url.getPokemonId()
-    val numero = formatToPokemonNumber(id)
+    val numero = formatToPokemonNumber(id.toString())
 }

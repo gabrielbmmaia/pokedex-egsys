@@ -2,11 +2,12 @@ package com.example.mypokedex.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypokedex.core.Constantes.POKEMON_LIMIT_LIST
 import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
-import com.example.mypokedex.core.extensions.loadImageFromUrl
+import com.example.mypokedex.core.extensions.loadSpriteFromId
 import com.example.mypokedex.databinding.VhPokemonBinding
 import com.example.mypokedex.domain.model.Pokemon
 
@@ -32,9 +33,9 @@ class PokemonAdapter(
         fun bindView(pokemon: Pokemon) {
             this.pokemon = pokemon
             with(binding) {
-                pokemonImage.loadImageFromUrl(pokemon.id, fade = true)
+                pokemonImage.loadSpriteFromId(pokemon.id, fade = true)
                 pokemonName.text = pokemon.name
-                pokemonNumber.text = getFormatedPokemonNumber(pokemon)
+                pokemonNumber.text = getFormatedPokemonNumber(pokemon.numero)
             }
         }
     }

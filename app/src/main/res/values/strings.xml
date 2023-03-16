@@ -32,4 +32,10 @@
     <string name="menu_terrestre_icon">Terrestre</string>
     <string name="menu_venenoso_icon">Venenoso</string>
     <string name="menu_voador_icon">Voador</string>
+    <string name="pokemon_shiny">Shiny</string>
+    <string name="pokemon_tipo">Tipo do Pokémon</string>
+    <string name="tag_altura">Altura:</string>
+    <string name="tag_peso">Peso:</string>
+    <string name="tag_ataques">Ataques:</string>
+    <string name="pokemon_move_level">"%s - lvl %d</string>
 </resources>

@@ -10,7 +10,14 @@
     
     <color name="red_crimson">#D81C44</color>
     <color name="yellow_corn_field">#FFFBBE</color>
+    <color name="yellow_sundance">#BEA24E</color>
     <color name="black_rustic_red">#24050B</color>
     <color name="grey_whisper">#E8E4E4</color>
     <color name="grey_whisper_darkened">#777575</color>
+
+    <color name="background_color">#C1C3C7</color>
+    <color name="details_data_color">#424952</color>
+
+    <color name="yellow_light">#FAECAF</color>
+    <color name="yellow_dark">#C2A730</color>
 </resources>

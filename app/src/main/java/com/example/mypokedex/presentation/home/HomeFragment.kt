@@ -82,9 +82,11 @@ class HomeFragment : Fragment() {
                         query?.let { toDetailsFragment(it) }
                         return false
                     }
+
                     override fun onQueryTextChange(p0: String?): Boolean = false
                 })
             }
+
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.menu_popup_todos -> {
@@ -158,14 +160,19 @@ class HomeFragment : Fragment() {
 
     private fun initPokeballButton() {
         binding.pokeballButton.setOnClickListener {
-            toDetailsFragment("1")
+            toDetailsFragment("25")
         }
     }
 
     private fun initRecyclerView() {
         pokemonAdapter = PokemonAdapter()
-        binding.rvHomefragment.adapter = pokemonAdapter
-        binding.rvHomefragment.hasFixedSize()
+        with(binding.rvHomefragment) {
+            adapter = pokemonAdapter
+            hasFixedSize()
+        }
+        pokemonAdapter.onItemClicked = {
+            toDetailsFragment(pokemonOrId = it.id.toString())
+        }
     }
 
     private fun populateRecyclerView() {
@@ -206,6 +213,8 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+
 
     private fun toDetailsFragment(pokemonOrId: String) {
         val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)

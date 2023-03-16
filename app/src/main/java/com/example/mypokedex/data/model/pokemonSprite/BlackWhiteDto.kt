@@ -4,16 +4,8 @@ import com.example.mypokedex.domain.model.pokemonSprite.BlackWhite
 import com.google.gson.annotations.SerializedName
 
 data class BlackWhiteDto(
-    val animated: AnimatedDto,
-    @SerializedName("front_default")
-    val frontDefault: String?,
-    @SerializedName("front_shiny")
-    val frontShiny: String?
+    val animated: AnimatedDto
 ) {
     fun toBlackWhite(): BlackWhite =
-        BlackWhite(
-            animated = animated.toAnimated(),
-            frontDefault = frontDefault,
-            frontShiny = frontShiny
-        )
+        BlackWhite(animated = animated.toAnimated())
 }

@@ -1,14 +1,12 @@
 package com.example.mypokedex.data.model.pokemonMove
 
 import com.example.mypokedex.domain.model.pokemonMove.MoveLearnMethod
+import com.google.gson.annotations.SerializedName
 
 data class MoveLearnMethodDto(
-    val name: String?,
-    val url: String?
+    @SerializedName("name")
+    val method: String?
 ) {
     fun toMoveLearnMethod(): MoveLearnMethod =
-        MoveLearnMethod(
-            name = name,
-            url = url
-        )
+        MoveLearnMethod(method = method)
 }

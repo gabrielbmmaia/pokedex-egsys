@@ -15,8 +15,8 @@ fun String.getPokemonId(): Int {
 /**
  * Utilizado para deixar o numero com 3 casas sendo as iniciais "0"
  * */
-fun formatToPokemonNumber(pokemonId: Int): String =
-    pokemonId.toString().padStart(3, '0')
+fun formatToPokemonNumber(pokemonId: String): String =
+    pokemonId.padStart(3, '0')
 
 
 /**
@@ -27,11 +27,18 @@ fun getPokemonSprite(
 ): String =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
 
-fun getFormatedPokemonNumber(pokemon: Pokemon): String =
-    "No. ${pokemon.numero}"
+fun getFormatedPokemonNumber(pokemonNumber: String): String =
+    "No. $pokemonNumber"
 
+fun getPokemonImage(pokemonId: String): String =
+    "https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokemonId.png"
 
-//    "https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokemonId.png"
-//fun formatPokemonName(pokemon: Pokemon): String {
-//    pokemon.name
-//}
+fun formatToMeters(pokemonAltura: Int): String {
+    val altura = pokemonAltura / 10.0
+    return "$altura m"
+}
+
+fun formatToKg(pokemonPeso: Int): String {
+    val peso = pokemonPeso /10.0
+    return "$peso kg"
+}
