@@ -214,10 +214,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
     private fun toDetailsFragment(pokemonOrId: String) {
         val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
         findNavController().navigate(action)
     }
+
+
 }

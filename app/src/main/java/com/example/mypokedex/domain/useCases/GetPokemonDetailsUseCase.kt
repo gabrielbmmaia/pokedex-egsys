@@ -13,9 +13,18 @@ class GetPokemonDetailsUseCase(
     private val repository: PokemonRepository
 ) {
     operator fun invoke(pokemonOrId: String): Flow<Resource<PokemonDetails>> = flow {
+
+        val pokemon = try {
+            val pokemonId = pokemonOrId.toInt()
+            pokemonId.toString()
+        } catch (e: Exception) {
+            pokemonOrId.lowercase()
+        }
+
         try {
             emit(Resource.Loading)
-            val result = repository.getPokemonDetails(pokemonOrId)
+            Log.e("Teste", pokemon)
+            val result = repository.getPokemonDetails(pokemon)
             emit(Resource.Success(data = result))
         } catch (e: Exception) {
             Log.e(USE_CASE, e.stackTraceToString())
