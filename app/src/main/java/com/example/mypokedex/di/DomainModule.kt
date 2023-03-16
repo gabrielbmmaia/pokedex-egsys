@@ -19,13 +19,15 @@ object DomainModule {
             PokemonUseCases(
                 getPokemonList = get(),
                 getPokemonListByType = get(),
-                getPokemonDetails = get()
+                getPokemonDetails = get(),
+                getPokemonSpecie = get()
             )
         }
         factory { GetPokemonListUseCase(repository = get()) }
         factory { GetPokemonListByTypeUseCase(repository = get()) }
         factory { GetPokemonDetailsUseCase(repository = get(), pokemonValidation = get()) }
         factory { PokemonValidationUseCase() }
+        factory { GetPokemonSpecieUseCase(repository = get()) }
     }
 }
 

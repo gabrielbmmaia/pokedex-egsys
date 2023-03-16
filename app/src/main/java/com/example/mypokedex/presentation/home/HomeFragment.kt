@@ -171,10 +171,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setToolbar() {
-//        val activity = activity as AppCompatActivity
-//        activity.setSupportActionBar(binding.homeToolbar)
-        binding.homeToolbar.setupWithNavController(findNavController())
-//        activity.title = TOOLBAR_TITLE
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(binding.homeToolbar)
+//        binding.homeToolbar.setupWithNavController(findNavController())
+        activity.title = TOOLBAR_TITLE
     }
 
     private fun initPokeballButton() {

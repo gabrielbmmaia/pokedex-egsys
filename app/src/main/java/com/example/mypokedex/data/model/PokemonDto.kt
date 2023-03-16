@@ -7,11 +7,9 @@ data class PokemonDto(
     val name: String,
     val url: String
 ) {
-    val id = url.getPokemonId()
     fun toPokemon(): Pokemon =
         Pokemon(
             name = name.replaceFirstChar { it.uppercaseChar() },
-            url = url,
-            id = id
+            url = url
         )
 }
