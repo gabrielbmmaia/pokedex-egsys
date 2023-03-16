@@ -10,6 +10,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.R
@@ -237,6 +238,4 @@ class HomeFragment : Fragment() {
         val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
         findNavController().navigate(action)
     }
-
-
 }

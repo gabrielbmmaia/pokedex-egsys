@@ -9,6 +9,7 @@ object Constantes {
     const val POKEMON_START_INDEX_LIST = 1
     const val BASE_URL = "https://pokeapi.co/api/v2/"
     const val BASE_POKEMON_URL = "https://pokeapi.co/api/v2/pokemon/"
+    const val BASE_EVOLUTION_CHAIN_URL = "https://pokeapi.co/api/v2/evolution-chain/"
     const val OK_HTTP = "ok_http"
 
     // Constantes UseCase

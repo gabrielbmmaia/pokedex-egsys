@@ -2,6 +2,7 @@ package com.example.mypokedex.data.networking
 
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.data.model.PokemonDetailsDto
+import com.example.mypokedex.data.model.pokemonForms.PokemonSpecieDto
 import com.example.mypokedex.data.model.requests.PokemonRequest
 import com.example.mypokedex.data.model.requests.TipoRequest
 import retrofit2.http.GET
@@ -24,4 +25,9 @@ interface PokemonServices {
     suspend fun getPokemonDetail(
         @Path("pokemonOrId") pokemonOrId: String
     ): PokemonDetailsDto
+
+    @GET("pokemon-species/{pokemonId}")
+    suspend fun getPokemonSpecie(
+        @Path("pokemonId") pokemonId: Int
+    ): PokemonSpecieDto
 }

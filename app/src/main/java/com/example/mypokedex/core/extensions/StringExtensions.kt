@@ -1,7 +1,7 @@
 package com.example.mypokedex.core.extensions
 
+import com.example.mypokedex.core.Constantes.BASE_EVOLUTION_CHAIN_URL
 import com.example.mypokedex.core.Constantes.BASE_POKEMON_URL
-import com.example.mypokedex.domain.model.Pokemon
 
 /**
  * Utilizado para pegar o ID do pokemon a partir do final da URL disponibilizada pela API
@@ -39,6 +39,12 @@ fun formatToMeters(pokemonAltura: Int): String {
 }
 
 fun formatToKg(pokemonPeso: Int): String {
-    val peso = pokemonPeso /10.0
+    val peso = pokemonPeso / 10.0
     return "$peso kg"
+}
+
+fun String.getEvolutionChainId(): Int {
+    return this.replace(BASE_EVOLUTION_CHAIN_URL, "")
+        .replace("/", "")
+        .toInt()
 }

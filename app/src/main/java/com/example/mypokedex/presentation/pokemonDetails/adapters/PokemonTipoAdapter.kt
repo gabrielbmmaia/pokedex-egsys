@@ -7,7 +7,7 @@ import com.example.mypokedex.core.extensions.loadPokemonTypesSprite
 import com.example.mypokedex.databinding.VhPokemonTypeBinding
 import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 
-class PokemonTipoAdapter : RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder>() {
+class PokemonTipoAdapter: RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder>() {
 
     private val tipoList = mutableListOf<PokemonTypes>()
 
