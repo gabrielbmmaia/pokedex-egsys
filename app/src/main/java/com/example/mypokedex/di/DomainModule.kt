@@ -1,6 +1,7 @@
 package com.example.mypokedex.di
 
-import com.example.mypokedex.domain.useCases.*
+import com.example.mypokedex.domain.useCases.PokemonUseCases
+import com.example.mypokedex.domain.useCases.pokemonUseCases.*
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -21,7 +22,8 @@ object DomainModule {
                 getPokemonListByType = get(),
                 getPokemonDetails = get(),
                 getPokemonSpecie = get(),
-                getPokemonFormas = get()
+                getPokemonFormas = get(),
+                getPokemonEvolution = get()
             )
         }
         factory { GetPokemonListUseCase(repository = get()) }
@@ -30,6 +32,7 @@ object DomainModule {
         factory { PokemonValidationUseCase() }
         factory { GetPokemonSpecieUseCase(repository = get()) }
         factory { GetPokemonFormasUseCase() }
+        factory { GetPokemonEvolutionUseCase(repository = get()) }
     }
 }
 

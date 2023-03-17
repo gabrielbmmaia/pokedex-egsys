@@ -1,4 +1,4 @@
-package com.example.mypokedex.domain.useCases
+package com.example.mypokedex.domain.useCases.pokemonUseCases
 
 import com.example.mypokedex.core.Constantes.POKEMON_NAO_ENCONTRADO
 import com.example.mypokedex.core.Resource

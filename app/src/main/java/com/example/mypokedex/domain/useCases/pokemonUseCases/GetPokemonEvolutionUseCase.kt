@@ -1,25 +1,25 @@
-package com.example.mypokedex.domain.useCases
+package com.example.mypokedex.domain.useCases.pokemonUseCases
 
 import android.util.Log
-import com.example.mypokedex.core.Constantes.POKEMON_ERROR_MESSAGE
 import com.example.mypokedex.core.Constantes.USE_CASE
 import com.example.mypokedex.core.Resource
-import com.example.mypokedex.domain.model.Pokemon
+import com.example.mypokedex.domain.model.pokemonEvolution.Chain
 import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetPokemonListByTypeUseCase(
+class GetPokemonEvolutionUseCase(
     private val repository: PokemonRepository
 ) {
-    operator fun invoke(pokemonType: String): Flow<Resource<List<Pokemon>>> = flow {
+    operator fun invoke(evolutionChainId: Int): Flow<Resource<Chain>> = flow {
+
         try {
             emit(Resource.Loading)
-            val pokemonList = repository.getPokemonByType(pokemonType)
-            emit(Resource.Success(pokemonList))
+            val request = repository.getPokemonEvolution(evolutionChainId)
+            emit(Resource.Success(data = request))
         } catch (e: Exception) {
             Log.e(USE_CASE, e.stackTraceToString())
-            emit(Resource.Error(POKEMON_ERROR_MESSAGE))
+            emit(Resource.Error())
         }
     }
 }

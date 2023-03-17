@@ -1,4 +1,4 @@
-package com.example.mypokedex.domain.useCases
+package com.example.mypokedex.domain.useCases.pokemonUseCases
 
 import android.util.Log
 import com.example.mypokedex.core.Constantes.POKEMON_NAO_ENCONTRADO

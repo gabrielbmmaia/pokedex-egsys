@@ -1,4 +1,4 @@
-package com.example.mypokedex.domain.useCases
+package com.example.mypokedex.domain.useCases.pokemonUseCases
 
 class PokemonValidationUseCase {
     operator fun invoke(pokemonOrId: String): String =
