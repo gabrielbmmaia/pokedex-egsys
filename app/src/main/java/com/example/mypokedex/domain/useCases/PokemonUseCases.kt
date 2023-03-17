@@ -11,5 +11,6 @@ data class PokemonUseCases(
     val getPokemonEvolution: GetPokemonEvolutionUseCase,
     val getPokemonFirstEvolution: GetPokemonFirstEvolutionUseCase,
     val getPokemonSecondEvolution: GetPokemonSecondEvolutionUseCase,
-    val getPokemonThirdEvolution: GetPokemonThirdEvolutionUseCase
+    val getPokemonThirdEvolution: GetPokemonThirdEvolutionUseCase,
+    val filterToLeanableAttacks: FilterToLeanableAttacksUseCase
 )

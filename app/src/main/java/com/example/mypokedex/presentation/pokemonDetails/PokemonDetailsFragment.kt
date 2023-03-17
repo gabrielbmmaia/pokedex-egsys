@@ -103,7 +103,7 @@ class PokemonDetailsFragment : Fragment() {
                         )
                         binding.pokemonAltura.text = formatToMeters(pokemon.height)
                         binding.pokemonPeso.text = formatToKg(pokemon.weight)
-                        ataqueAdapter.setData(filterToLearnableAttacks(pokemon.moves))
+                        ataqueAdapter.setData(viewmodel.filterPokemonMoves(pokemon.moves))
                     }
                     is PokemonDetailsState.Error -> {
                         requireActivity().toast(result.message)

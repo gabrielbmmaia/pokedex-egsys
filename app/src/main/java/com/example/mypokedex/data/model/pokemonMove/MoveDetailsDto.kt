@@ -5,13 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 data class MoveDetailsDto(
     @SerializedName("level_learned_at")
-    val levelLearned: Int?,
-    @SerializedName("move_learn_method")
-    val learnMethod: MoveLearnMethodDto
+    val levelLearned: Int?
 ) {
     fun toMoveDetails(): MoveDetails =
-        MoveDetails(
-            levelLearned = levelLearned,
-            learnMethod = learnMethod.toMoveLearnMethod()
-        )
+        MoveDetails(levelLearned = levelLearned ?: 0)
 }

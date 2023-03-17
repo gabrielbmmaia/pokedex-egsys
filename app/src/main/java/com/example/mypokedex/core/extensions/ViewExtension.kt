@@ -8,7 +8,6 @@ import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
 import coil.load
 import com.example.mypokedex.R
-import com.example.mypokedex.core.Constantes.METODO_DE_APRENDIZAGEM
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_AGUA
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_DRAGAO
@@ -154,11 +153,6 @@ fun ImageView.loadPokemonSpriteOrGif(
 fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
-
-fun filterToLearnableAttacks(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> =
-    pokemonMoves.filter { it.moveDetails.last().learnMethod.method == METODO_DE_APRENDIZAGEM }
-        .sortedBy { it.moveDetails.last().levelLearned }
-
 
 fun View.visibilityVisible() {
     this.visibility = View.VISIBLE

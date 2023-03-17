@@ -1,5 +1,6 @@
 package com.example.mypokedex.presentation.pokemonDetails
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
@@ -7,6 +8,7 @@ import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.model.pokemonEvolution.Chain
 import com.example.mypokedex.domain.model.pokemonEvolution.Species
 import com.example.mypokedex.domain.model.pokemonForms.PokemonSpecie
+import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonState
@@ -57,6 +59,12 @@ class PokemonDetailsViewModel(
             }
         }
     }
+
+    fun filterPokemonMoves(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> {
+        return pokemonUseCases.filterToLeanableAttacks(pokemonMoves)
+
+    }
+
 
     private fun getPokemonSpecie(pokemonId: Int) {
         viewModelScope.launch {
