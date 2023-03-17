@@ -20,7 +20,6 @@ object Constantes {
     const val METODO_DE_APRENDIZAGEM = "level-up"
     const val POKEMON_NAO_ENCONTRADO = "Pokémon não encontrado"
 
-
     // Constantes dos Tipos de Pokemon
     const val POKEMON_TIPO_ACO = "steel"
     const val POKEMON_TIPO_AGUA = "water"

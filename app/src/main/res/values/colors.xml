@@ -17,6 +17,7 @@
 
     <color name="background_color">#C1C3C7</color>
     <color name="details_data_color">#424952</color>
+    <color name="mid_color">#FAECAF</color>
 
     <color name="yellow_light">#FAECAF</color>
     <color name="yellow_dark">#C2A730</color>

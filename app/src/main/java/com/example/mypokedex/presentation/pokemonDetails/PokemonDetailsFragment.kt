@@ -85,7 +85,6 @@ class PokemonDetailsFragment : Fragment() {
                     is PokemonDetailsState.Data -> {
                         val pokemon = result.data
                         initPreviousOrNextPokemon(pokemon.id)
-                        populatePokemonSpecie(pokemonId = pokemon.id)
                         binding.progressBar.visibilityGone()
                         binding.pokemonLayout.visibilityVisible()
                         binding.pokemonName.text = pokemon.name
@@ -118,10 +117,6 @@ class PokemonDetailsFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun populatePokemonSpecie(pokemonId: Int) {
-        viewmodel.getPokemonSpecie(pokemonId)
     }
 
     private fun initPokemonFormas() {

@@ -23,7 +23,10 @@ object DomainModule {
                 getPokemonDetails = get(),
                 getPokemonSpecie = get(),
                 getPokemonFormas = get(),
-                getPokemonEvolution = get()
+                getPokemonEvolution = get(),
+                getPokemonFirstEvolution = get(),
+                getPokemonSecondEvolution = get(),
+                getPokemonThirdEvolution = get()
             )
         }
         factory { GetPokemonListUseCase(repository = get()) }
@@ -33,6 +36,8 @@ object DomainModule {
         factory { GetPokemonSpecieUseCase(repository = get()) }
         factory { GetPokemonFormasUseCase() }
         factory { GetPokemonEvolutionUseCase(repository = get()) }
+        factory { GetPokemonFirstEvolutionUseCase() }
+        factory { GetPokemonSecondEvolutionUseCase() }
+        factory { GetPokemonThirdEvolutionUseCase() }
     }
 }
-

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.model.Pokemon
+import com.example.mypokedex.domain.model.pokemonEvolution.Chain
+import com.example.mypokedex.domain.model.pokemonEvolution.Species
 import com.example.mypokedex.domain.model.pokemonForms.PokemonSpecie
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
@@ -24,41 +26,57 @@ class PokemonDetailsViewModel(
     private val _pokemonFormas = MutableStateFlow<PokemonState<Pokemon>>(PokemonState.Loading)
     val pokemonFormas: StateFlow<PokemonState<Pokemon>> get() = _pokemonFormas
 
+    private val _firstEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
+    private val firstEvolution: StateFlow<PokemonState<Species>> get() = _firstEvolution
+
+    private val _secondEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
+    private val secondEvolution: StateFlow<PokemonState<Species>> get() = _secondEvolution
+
+    private val _thirdEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
+    private val thirdEvolution: StateFlow<PokemonState<Species>> get() = _thirdEvolution
+
     fun getPokemonDetails(pokemonOrId: String) {
         viewModelScope.launch {
-            pokemonUseCases.getPokemonDetails(pokemonOrId = pokemonOrId).collectLatest { result ->
+            pokemonUseCases.getPokemonDetails(pokemonOrId).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> {
-                        _pokemonDetails.value =
-                            PokemonDetailsState.Error(message = result.message!!)
+                        result.message?.let { message ->
+                            _pokemonDetails.value = PokemonDetailsState.Error(message)
+                        }
                     }
                     Resource.Loading -> {
-                        _pokemonDetails.value =
-                            PokemonDetailsState.Loading
+                        _pokemonDetails.value = PokemonDetailsState.Loading
                     }
                     is Resource.Success -> {
-                        _pokemonDetails.value =
-                            PokemonDetailsState.Data(result.data!!)
+                        result.data?.let { pokemonDetails ->
+                            _pokemonDetails.value = PokemonDetailsState.Data(pokemonDetails)
+                            getPokemonSpecie(pokemonDetails.id)
+                        }
                     }
                 }
             }
         }
     }
 
-    fun getPokemonSpecie(pokemonId: Int) {
+    private fun getPokemonSpecie(pokemonId: Int) {
         viewModelScope.launch {
             pokemonUseCases.getPokemonSpecie(pokemonId).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> {
-                        _pokemonFormas.value =
-                            PokemonState.Error(result.message!!)
+                        result.message?.let { message ->
+                            _pokemonFormas.value =
+                                PokemonState.Error(message)
+                        }
                     }
                     Resource.Loading -> {
                         _pokemonFormas.value =
                             PokemonState.Loading
                     }
                     is Resource.Success -> {
-                        getPokemonFormas(result.data!!)
+                        result.data?.let { pokemonSpecie ->
+                            getPokemonFormas(pokemonSpecie)
+                            getPokemonEvolutionChain(pokemonSpecie.evolutionChain.id)
+                        }
                     }
                 }
             }
@@ -70,12 +88,80 @@ class PokemonDetailsViewModel(
             pokemonUseCases.getPokemonFormas(pokemonSpecie).collectLatest { result ->
                 when (result) {
                     is Resource.Success -> {
-                        _pokemonFormas.value =
-                            PokemonState.Data(result.data!!)
+                        result.data?.let { pokemonList ->
+                            _pokemonFormas.value = PokemonState.Data(pokemonList)
+                        }
                     }
                     else -> {
-                        _pokemonFormas.value =
-                            PokemonState.Empty
+                        _pokemonFormas.value = PokemonState.Empty
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getPokemonEvolutionChain(evolutionChainId: Int) {
+        viewModelScope.launch {
+            pokemonUseCases.getPokemonEvolution(evolutionChainId).collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { pokemonEvolutionChain ->
+                            getPokemonFirstEvolutions(pokemonEvolutionChain)
+                            getPokemonSecondEvolutions(pokemonEvolutionChain)
+                            getPokemonThirdEvolutions(pokemonEvolutionChain)
+                        }
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun getPokemonFirstEvolutions(chain: Chain) {
+        viewModelScope.launch {
+            pokemonUseCases.getPokemonFirstEvolution(chain).collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { pokemon ->
+                            _firstEvolution.value = PokemonState.Data(pokemon)
+                        }
+                    }
+                    else -> {
+                        _firstEvolution.value = PokemonState.Empty
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getPokemonSecondEvolutions(chain: Chain) {
+        viewModelScope.launch {
+            pokemonUseCases.getPokemonSecondEvolution(chain).collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { pokemon ->
+                            _secondEvolution.value = PokemonState.Data(pokemon)
+                        }
+                    }
+                    else -> {
+                        _secondEvolution.value = PokemonState.Empty
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getPokemonThirdEvolutions(chain: Chain) {
+        viewModelScope.launch {
+            pokemonUseCases.getPokemonThirdEvolution(chain).collectLatest { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { pokemon ->
+                            _thirdEvolution.value = PokemonState.Data(pokemon)
+                        }
+                    }
+                    else -> {
+                        _thirdEvolution.value = PokemonState.Empty
                     }
                 }
             }
