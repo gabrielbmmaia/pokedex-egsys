@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,13 +11,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.mypokedex.R
-import com.example.mypokedex.core.Constantes
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
 import com.example.mypokedex.core.extensions.*
 import com.example.mypokedex.databinding.FragmentPokemonDetailsBinding
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueAdapter
+import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonTipoAdapter
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonState
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,8 +29,10 @@ class PokemonDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private val args by navArgs<PokemonDetailsFragmentArgs>()
     private val viewmodel by viewModel<PokemonDetailsViewModel>()
+
     lateinit var tipoAdapter: PokemonTipoAdapter
     lateinit var ataqueAdapter: PokemonAtaqueAdapter
+    lateinit var formasAdapter: PokemonSpriteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +44,16 @@ class PokemonDetailsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         populatePokemonDetails()
         initPokemonDetails()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        initPokemonFormas()
     }
 
     private fun setToolbar() {
@@ -61,9 +65,12 @@ class PokemonDetailsFragment : Fragment() {
     private fun initRecyclerView() {
         tipoAdapter = PokemonTipoAdapter()
         ataqueAdapter = PokemonAtaqueAdapter(requireContext())
+        formasAdapter = PokemonSpriteAdapter()
+
         with(binding) {
             rvPokemonType.adapter = tipoAdapter
             rvPokemonAttack.adapter = ataqueAdapter
+            rvPokemonFormas.adapter = formasAdapter
         }
     }
 
@@ -78,6 +85,7 @@ class PokemonDetailsFragment : Fragment() {
                     is PokemonDetailsState.Data -> {
                         val pokemon = result.data
                         initPreviousOrNextPokemon(pokemon.id)
+                        populatePokemonSpecie(pokemonId = pokemon.id)
                         binding.progressBar.visibilityGone()
                         binding.pokemonLayout.visibilityVisible()
                         binding.pokemonName.text = pokemon.name
@@ -106,6 +114,26 @@ class PokemonDetailsFragment : Fragment() {
                     PokemonDetailsState.Loading -> {
                         binding.pokemonLayout.visibilityInvisible()
                         binding.progressBar.visibilityVisible()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun populatePokemonSpecie(pokemonId: Int) {
+        viewmodel.getPokemonSpecie(pokemonId)
+    }
+
+    private fun initPokemonFormas() {
+        lifecycleScope.launchWhenStarted {
+            viewmodel.pokemonFormas.collectLatest { result ->
+                when (result) {
+                    is PokemonState.Data -> {
+                        binding.pokemonFormasLayout.visibilityVisible()
+                        formasAdapter.setData(result.data)
+                    }
+                    else -> {
+                        binding.pokemonFormasLayout.visibilityGone()
                     }
                 }
             }

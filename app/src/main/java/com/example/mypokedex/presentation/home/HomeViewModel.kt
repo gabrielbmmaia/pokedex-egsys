@@ -3,6 +3,7 @@ package com.example.mypokedex.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
+import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

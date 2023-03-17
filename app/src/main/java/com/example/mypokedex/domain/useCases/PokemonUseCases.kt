@@ -4,5 +4,6 @@ data class PokemonUseCases(
     val getPokemonList: GetPokemonListUseCase,
     val getPokemonListByType: GetPokemonListByTypeUseCase,
     val getPokemonDetails: GetPokemonDetailsUseCase,
-    val getPokemonSpecie: GetPokemonSpecieUseCase
+    val getPokemonSpecie: GetPokemonSpecieUseCase,
+    val getPokemonFormas: GetPokemonFormasUseCase
 )

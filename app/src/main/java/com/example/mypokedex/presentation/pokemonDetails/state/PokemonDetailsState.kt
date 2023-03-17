@@ -1,4 +1,4 @@
-package com.example.mypokedex.presentation.pokemonDetails
+package com.example.mypokedex.presentation.pokemonDetails.state
 
 import com.example.mypokedex.domain.model.PokemonDetails
 

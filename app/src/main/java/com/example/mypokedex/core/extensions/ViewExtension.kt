@@ -39,11 +39,14 @@ import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 fun ImageView.loadSpriteFromId(pokemonId: Int, fade: Boolean = false) {
     val spriteUrl = getPokemonSprite(pokemonId)
     if (!fade)
-        load(spriteUrl)
+        load(spriteUrl) {
+            error(R.drawable.ic_image_not_load)
+        }
     else {
         load(spriteUrl) {
             crossfade(enable = true)
             crossfade(durationMillis = 500)
+            error(R.drawable.ic_image_not_load)
         }
     }
 }
