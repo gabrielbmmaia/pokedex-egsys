@@ -10,11 +10,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.R
-import com.example.mypokedex.core.Constantes.TOOLBAR_TITLE
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_AGUA
@@ -34,6 +31,7 @@ import com.example.mypokedex.core.Constantes.POKEMON_TIPO_SOMBRIO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_TERRESTRE
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VENENOSO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VOADOR
+import com.example.mypokedex.core.Constantes.TOOLBAR_TITLE
 import com.example.mypokedex.core.extensions.visibilityGone
 import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentHomeBinding
@@ -60,11 +58,20 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Quando o Fragment entrar em OnResume o recyclerview irá
+     * parar a posição de rvIndexPosition
+     * */
     override fun onResume() {
         binding.rvHomefragment.scrollToPosition(rvIndexPosition)
         super.onResume()
     }
 
+    /**
+     * Quando o Fragment entrar em OnPause será salvo o rvIndexPosition
+     * do recyclerview para ao voltar pro OnResume o recyclerview estiver
+     * na mesma posição ao sair do Fragment
+     * */
     override fun onPause() {
         rvIndexPosition =
             (binding.rvHomefragment.layoutManager as
@@ -84,6 +91,11 @@ class HomeFragment : Fragment() {
         setMenu()
     }
 
+    /**
+     * Ao dar submit no SearchView é enviado a informação para
+     * PokemonDetailsFragment e ao selecionar qualquer tipo de Pokemon
+     * a lista é trocada para Pokemons do tipo escolhido
+     * */
     private fun setMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -106,65 +118,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.menu_popup_todos -> {
-                        viewModel.loadPokemon()
-                    }
-                    R.id.menu_popup_elemento_aco -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ACO)
-                    }
-                    R.id.menu_popup_elemento_agua -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_AGUA)
-                    }
-                    R.id.menu_popup_elemento_dragao -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_DRAGAO)
-                    }
-                    R.id.menu_popup_elemento_eletrico -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ELETRICO)
-                    }
-                    R.id.menu_popup_elemento_fada -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FADA)
-                    }
-                    R.id.menu_popup_elemento_fantasma -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FANTASMA)
-                    }
-                    R.id.menu_popup_elemento_fogo -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FOGO)
-                    }
-                    R.id.menu_popup_elemento_gelo -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_GELO)
-                    }
-                    R.id.menu_popup_elemento_inseto -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_INSETO)
-                    }
-                    R.id.menu_popup_elemento_lutador -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_LUTADOR)
-                    }
-                    R.id.menu_popup_elemento_normal -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_NORMAL)
-                    }
-                    R.id.menu_popup_elemento_pedra -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PEDRA)
-                    }
-                    R.id.menu_popup_elemento_planta -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PLANTA)
-                    }
-                    R.id.menu_popup_elemento_psiquico -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PSIQUICO)
-                    }
-                    R.id.menu_popup_elemento_sombrio -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_SOMBRIO)
-                    }
-                    R.id.menu_popup_elemento_terrestre -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_TERRESTRE)
-                    }
-                    R.id.menu_popup_elemento_venenoso -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VENENOSO)
-                    }
-                    R.id.menu_popup_elemento_voador -> {
-                        viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
-                    }
-                }
+                showPokemonListBySelectedType(menuItem)
                 return true
             }
         }, viewLifecycleOwner)
@@ -176,6 +130,10 @@ class HomeFragment : Fragment() {
         activity.title = TOOLBAR_TITLE
     }
 
+    /**
+     * Sorteia um pokemon dentre todos da lista e envia o ID
+     * para PokemonDetailsFragment
+     * */
     private fun initPokeballButton() {
         binding.pokeballButton.setOnClickListener {
             val maxRandomNumber = Random.nextInt(POKEMON_FINAL_INDEX_LIST.plus(1))
@@ -183,6 +141,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Inicia o recyclerview e ao clicar em algum item é
+     * enviado para PokemonDetailsFragment com o ID do
+     * Pokemon clicado
+     * */
     private fun initRecyclerView() {
         pokemonAdapter = PokemonAdapter()
         with(binding.rvHomefragment) {
@@ -194,6 +157,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Coleta os dados da ViewModel
+     * Em caso de sucesso: é colocado em display a lista de Pokemon e o
+     * recyclervyew é scrollado para posição 0 em casos de listas diferentes
+     * serem coletadas, como as listas de Pokemon por Tipo.
+     * Em caso de Loading: é colocado em display uma progressbar e escodido o resto
+     * do conteúdo.
+     * Em caso de Erro: é mostrado mensagem de erro e um botão para tentar novamente
+     * a requisição de dados
+     * */
     private fun populateRecyclerView() {
         lifecycleScope.launchWhenStarted {
             viewModel.pokemonList.collectLatest { result ->
@@ -236,5 +209,71 @@ class HomeFragment : Fragment() {
     private fun toDetailsFragment(pokemonOrId: String) {
         val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
         findNavController().navigate(action)
+    }
+
+    /**
+     * A partir do ID do menu selecionado é enviado uma resposta diferente
+     * para a ViewModel
+     * */
+    private fun showPokemonListBySelectedType(menuItem: MenuItem) {
+        when (menuItem.itemId) {
+            R.id.menu_popup_todos -> {
+                viewModel.loadPokemon()
+            }
+            R.id.menu_popup_elemento_aco -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ACO)
+            }
+            R.id.menu_popup_elemento_agua -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_AGUA)
+            }
+            R.id.menu_popup_elemento_dragao -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_DRAGAO)
+            }
+            R.id.menu_popup_elemento_eletrico -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ELETRICO)
+            }
+            R.id.menu_popup_elemento_fada -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FADA)
+            }
+            R.id.menu_popup_elemento_fantasma -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FANTASMA)
+            }
+            R.id.menu_popup_elemento_fogo -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FOGO)
+            }
+            R.id.menu_popup_elemento_gelo -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_GELO)
+            }
+            R.id.menu_popup_elemento_inseto -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_INSETO)
+            }
+            R.id.menu_popup_elemento_lutador -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_LUTADOR)
+            }
+            R.id.menu_popup_elemento_normal -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_NORMAL)
+            }
+            R.id.menu_popup_elemento_pedra -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PEDRA)
+            }
+            R.id.menu_popup_elemento_planta -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PLANTA)
+            }
+            R.id.menu_popup_elemento_psiquico -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PSIQUICO)
+            }
+            R.id.menu_popup_elemento_sombrio -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_SOMBRIO)
+            }
+            R.id.menu_popup_elemento_terrestre -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_TERRESTRE)
+            }
+            R.id.menu_popup_elemento_venenoso -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VENENOSO)
+            }
+            R.id.menu_popup_elemento_voador -> {
+                viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
+            }
+        }
     }
 }

@@ -21,6 +21,12 @@ class HomeViewModel(
         loadPokemon()
     }
 
+    /**
+     * Carrega lista de Pokemon. Em caso de PokemonType não
+     * ser informado sera carregado a lista com todos Pokemon
+     * e caso contrário será carregado a lista com os Pokemon do
+     * tipo enviado
+     * */
     fun loadPokemon(pokemonType: String? = null) {
         if (pokemonType.isNullOrBlank()) {
             viewModelScope.launch {
