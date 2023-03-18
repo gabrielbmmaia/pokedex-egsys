@@ -32,7 +32,7 @@ import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 
 
 /**
- * Função para carregar imagem por url
+ * Função para carregar imagem a partir do Id do Pokemon.
  * Possível adicionar fade colocando fade = true
  * */
 fun ImageView.loadSpriteFromId(pokemonId: Int, fade: Boolean = false) {
@@ -50,10 +50,9 @@ fun ImageView.loadSpriteFromId(pokemonId: Int, fade: Boolean = false) {
     }
 }
 
-//fun ImageView.loadImageFromId(pokemonId: String) =
-//    load(getPokemonImage(pokemonId))
-
-
+/**
+ * Da display do imagem do tipo do Pokemon a partir do seu PokemonType
+ * */
 fun ImageView.loadPokemonTypesSprite(pokemonTypes: PokemonTypes) {
     if (pokemonTypes.type.name != null) {
         when (pokemonTypes.type.name) {
@@ -115,6 +114,12 @@ fun ImageView.loadPokemonTypesSprite(pokemonTypes: PokemonTypes) {
     }
 }
 
+/**
+ * Carrega Sprite ou Gif do Pokemon apartir de PokemonDetails.
+ * Primeiramente é checado se a url do Gif não é nula. Caso não seja,
+ * é carregado o Gif do Pokemon, caso seja, é carregado o Sprite.
+ * É possível carregar a versão shiny do pokemon colocando pokemonShiny = true
+ * */
 fun ImageView.loadPokemonSpriteOrGif(
     pokemon: PokemonDetails,
     context: Context,
@@ -150,18 +155,30 @@ fun ImageView.loadPokemonSpriteOrGif(
     }
 }
 
+/**
+ * Mostra um Toast com a mensagem enviada por parâmetro
+ * */
 fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
+/**
+ * Seta visibilidade de uma View para Visible
+ * */
 fun View.visibilityVisible() {
     this.visibility = View.VISIBLE
 }
 
+/**
+ * Seta visibilidade de uma view para Gone
+ * */
 fun View.visibilityGone() {
     this.visibility = View.GONE
 }
 
+/**
+ * Seta visibilidade de uma View para Invisible
+ * */
 fun View.visibilityInvisible() {
     this.visibility = View.INVISIBLE
 }
