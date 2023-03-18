@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="6dp"
+        android:background="@color/data_color"
+        app:layout_constraintBottom_toTopOf="@+id/pokemon_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/arrow_left"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="@id/pokemon_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pokemon_number" />
+
+    <TextView
+        android:id="@+id/pokemon_number"
+        style="@style/PokemonNumberDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="No. 006" />
+
+    <View
+        android:id="@+id/arrow_right"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@id/pokemon_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pokemon_number" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/data_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_number" />
+</androidx.constraintlayout.widget.ConstraintLayout>

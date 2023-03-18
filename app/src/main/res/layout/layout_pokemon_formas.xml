@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/data_color" />
+
+    <TextView
+        android:id="@+id/tag_formas"
+        style="@style/PokemonNumberDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tag_formas" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/recyclerview_stroke"
+        android:backgroundTint="@color/background_color_light"
+        android:paddingHorizontal="1dp"
+        android:paddingVertical="8dp"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/data_color"
+        app:strokeWidth="1dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pokemon_formas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/vh_pokemon_sprite" />
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

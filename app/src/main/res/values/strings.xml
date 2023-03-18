@@ -40,4 +40,6 @@
     <string name="pokemon_move_level">"%s - lvl %d</string>
     <string name="tag_formas">Formas:</string>
     <string name="tag_linha_evolutiva">Linha Evolutiva:</string>
+    <string name="pokemon_default_pokemon">Sprite padrao do Pokemon</string>
+    <string name="sprite_shiny_pokemon">Sprite Shiny do Pokemon</string>
 </resources>

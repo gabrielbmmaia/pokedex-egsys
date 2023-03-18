@@ -84,8 +84,8 @@ class PokemonDetailsFragment : Fragment() {
         thirdEvolutionAdapter = PokemonSpriteAdapter()
         with(binding) {
             rvPokemonType.adapter = tipoAdapter
-            rvPokemonAttack.adapter = ataqueAdapter
-            rvPokemonFormas.adapter = formasAdapter
+            layoutPokemonAttack.rvPokemonAttack.adapter = ataqueAdapter
+            layoutPokemonFormas.rvPokemonFormas.adapter = formasAdapter
             rvFirstEvolution.evolutionList.adapter = firstEvolutionAdapter
             rvSecondEvolution.evolutionList.adapter = secondEvolutionAdapter
             rvThirdEvolution.evolutionList.adapter = thirdEvolutionAdapter
@@ -128,21 +128,23 @@ class PokemonDetailsFragment : Fragment() {
                         binding.progressBar.visibilityGone()
                         binding.pokemonLayout.visibilityVisible()
                         binding.pokemonName.text = pokemon.name
-                        binding.pokemonNumber.text = getFormatedPokemonNumber(pokemon.numero)
+                        binding.layoutPokemonNumber.pokemonNumber.text =
+                            getFormatedPokemonNumber(pokemon.numero)
                         tipoAdapter.setData(result.data.types)
                         viewPagerConfiguration(result.data.sprites.otherArt.officialArtwork)
-                        binding.pokemonSpriteDefault.loadPokemonSpriteOrGif(
+                        binding.layoutPokemonInfo.pokemonSpriteDefault.loadPokemonSpriteOrGif(
                             pokemon,
                             requireContext(),
                             pokemonShiny = false
                         )
-                        binding.pokemonSpriteShiny.loadPokemonSpriteOrGif(
+                        binding.layoutPokemonInfo.pokemonSpriteShiny.loadPokemonSpriteOrGif(
                             pokemon,
                             requireContext(),
                             pokemonShiny = true
                         )
-                        binding.pokemonAltura.text = formatToMeters(pokemon.height)
-                        binding.pokemonPeso.text = formatToKg(pokemon.weight)
+                        binding.layoutPokemonInfo.pokemonAltura.text =
+                            formatToMeters(pokemon.height)
+                        binding.layoutPokemonInfo.pokemonPeso.text = formatToKg(pokemon.weight)
                         ataqueAdapter.setData(viewmodel.filterPokemonMoves(pokemon.moves))
                     }
                     is PokemonDetailsState.Error -> {
@@ -164,11 +166,11 @@ class PokemonDetailsFragment : Fragment() {
             viewmodel.pokemonFormas.collectLatest { result ->
                 when (result) {
                     is PokemonState.Data -> {
-                        binding.pokemonFormasLayout.visibilityVisible()
+                        binding.containerPokemonFormas.visibilityVisible()
                         formasAdapter.setData(result.data)
                     }
                     else -> {
-                        binding.pokemonFormasLayout.visibilityGone()
+                        binding.containerPokemonFormas.visibilityGone()
                     }
                 }
             }
@@ -180,8 +182,8 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun initPreviousOrNextPokemon(pokemonId: Int) {
-        val arrowRight = binding.arrowRight
-        val arrowLeft = binding.arrowLeft
+        val arrowRight = binding.layoutPokemonNumber.arrowRight
+        val arrowLeft = binding.layoutPokemonNumber.arrowLeft
         if (pokemonId > POKEMON_START_INDEX_LIST) {
             arrowLeft.visibilityVisible()
             arrowLeft.setOnClickListener {
@@ -264,7 +266,7 @@ class PokemonDetailsFragment : Fragment() {
             viewmodel.getPokemonDetails(pokemonId.toString())
         }
         formasAdapter.onItemClicked = { pokemonid ->
-            binding.scrollView.scrollTo (0, 0)
+            binding.scrollView.scrollTo(0, 0)
             if (pokemonid > POKEMON_FINAL_INDEX_LIST) {
                 binding.pokemonEvolutionLayout.visibilityGone()
             }
