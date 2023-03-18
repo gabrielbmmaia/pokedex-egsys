@@ -9,5 +9,4 @@ data class EvolutionChainDto(
         EvolutionChain(
             url = url
         )
-
 }

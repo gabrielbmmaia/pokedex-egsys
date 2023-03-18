@@ -3,7 +3,7 @@ package com.example.mypokedex.data.networking
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.data.model.PokemonDetailsDto
 import com.example.mypokedex.data.model.pokemonForms.PokemonSpecieDto
-import com.example.mypokedex.data.model.requests.EvolutionRequestDto
+import com.example.mypokedex.data.model.requests.EvolutionRequest
 import com.example.mypokedex.data.model.requests.PokemonRequest
 import com.example.mypokedex.data.model.requests.TipoRequest
 import retrofit2.http.GET
@@ -35,5 +35,5 @@ interface PokemonServices {
     @GET("evolution-chain/{evolutionChainId}")
     suspend fun getPokemonEvolution(
         @Path("evolutionChainId") evolutionChainId: Int
-    ): EvolutionRequestDto
+    ): EvolutionRequest
 }
