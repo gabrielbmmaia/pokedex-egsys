@@ -274,12 +274,13 @@ class PokemonDetailsFragment : Fragment() {
             viewmodel.getPokemonDetails(pokemonId.toString())
         }
         formasAdapter.onItemClicked = { pokemonId ->
-            viewmodel.getPokemonDetails(pokemonId.toString())
             with(binding) {
                 containerPokemonEvolution.visibilityGone()
+                containerPokemonFormas.visibilityGone()
                 containerPokemonNumber.visibilityGone()
                 scrollView.scrollTo(0, 0)
             }
+            viewmodel.getPokemonDetails(pokemonId.toString())
         }
     }
 }
