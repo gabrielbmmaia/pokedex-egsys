@@ -16,7 +16,6 @@ class MyApp : Application() {
         startKoin {
             androidContext(this@MyApp)
         }
-
         DataModule.load()
         DomainModule.load()
         PresentationModule.load()

@@ -41,5 +41,4 @@ class PokemonAtaqueAdapter(val context: Context) :
     }
 
     override fun getItemCount(): Int = ataqueList.size
-
 }

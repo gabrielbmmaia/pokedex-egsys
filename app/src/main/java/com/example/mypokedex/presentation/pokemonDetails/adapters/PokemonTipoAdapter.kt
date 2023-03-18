@@ -36,5 +36,4 @@ class PokemonTipoAdapter: RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder
         holder.bindView(tipoList[position])
 
     override fun getItemCount(): Int = tipoList.size
-
 }

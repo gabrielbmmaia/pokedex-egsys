@@ -53,5 +53,4 @@ class PokemonSpriteAdapter(
         holder.bindView(spriteList[position])
 
     override fun getItemCount(): Int = spriteList.size
-
 }

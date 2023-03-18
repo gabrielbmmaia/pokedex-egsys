@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 class PokemonDetailsViewModel(
     private val pokemonUseCases: PokemonUseCases
 ) : ViewModel() {
@@ -58,11 +57,8 @@ class PokemonDetailsViewModel(
         }
     }
 
-    fun filterPokemonMoves(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> {
-        return pokemonUseCases.filterToLearnableAttacks(pokemonMoves)
-
-    }
-
+    fun filterPokemonMoves(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> =
+        pokemonUseCases.filterToLearnableAttacks(pokemonMoves)
 
     private fun getPokemonSpecie(pokemonId: Int) {
         viewModelScope.launch {
@@ -126,7 +122,6 @@ class PokemonDetailsViewModel(
     private fun getPokemonFirstEvolutions(chain: Chain) {
         viewModelScope.launch {
             pokemonUseCases.getPokemonFirstEvolution(chain).collectLatest { result ->
-
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { pokemon ->

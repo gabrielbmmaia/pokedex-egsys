@@ -35,7 +35,5 @@ class ViewPageAdapter : RecyclerView.Adapter<ViewPageAdapter.ViewPageViewHolder>
     override fun onBindViewHolder(holder: ViewPageViewHolder, position: Int) =
         holder.bind(artWork[position])
 
-
     override fun getItemCount(): Int = artWork.size
-
 }

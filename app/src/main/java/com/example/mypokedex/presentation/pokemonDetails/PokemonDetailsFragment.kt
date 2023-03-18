@@ -32,16 +32,17 @@ class PokemonDetailsFragment : Fragment() {
 
     private var _binding: FragmentPokemonDetailsBinding? = null
     private val binding get() = _binding!!
+
     private val args by navArgs<PokemonDetailsFragmentArgs>()
     private val viewmodel by viewModel<PokemonDetailsViewModel>()
 
-    lateinit var tipoAdapter: PokemonTipoAdapter
-    lateinit var ataqueAdapter: PokemonAtaqueAdapter
-    lateinit var formasAdapter: PokemonSpriteAdapter
-    lateinit var viewpagerAdapter: ViewPageAdapter
-    lateinit var firstEvolutionAdapter: PokemonSpriteAdapter
-    lateinit var secondEvolutionAdapter: PokemonSpriteAdapter
-    lateinit var thirdEvolutionAdapter: PokemonSpriteAdapter
+    private lateinit var tipoAdapter: PokemonTipoAdapter
+    private lateinit var ataqueAdapter: PokemonAtaqueAdapter
+    private lateinit var formasAdapter: PokemonSpriteAdapter
+    private lateinit var viewpagerAdapter: ViewPageAdapter
+    private lateinit var firstEvolutionAdapter: PokemonSpriteAdapter
+    private lateinit var secondEvolutionAdapter: PokemonSpriteAdapter
+    private lateinit var thirdEvolutionAdapter: PokemonSpriteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +76,9 @@ class PokemonDetailsFragment : Fragment() {
         binding.detailsToolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
+    /**
+     * Inicia todos recyclerviews
+     * */
     private fun initRecyclerView() {
         tipoAdapter = PokemonTipoAdapter()
         ataqueAdapter = PokemonAtaqueAdapter(requireContext())
@@ -93,9 +97,13 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Configura o ViewPager das imagens do Pokemon
+     * */
     private fun viewPagerConfiguration(artWork: ArtWork) {
+        val viewpagerLayout = binding.viewpagerLayout
         val artworkList = listOf(artWork.frontDefault, artWork.frontShiny)
-        binding.viewpagerLayout.viewpager.apply {
+        viewpagerLayout.viewpager.apply {
             adapter = viewpagerAdapter
             offscreenPageLimit = artworkList.size
             (adapter as ViewPageAdapter).setData(artworkList)
@@ -103,15 +111,15 @@ class PokemonDetailsFragment : Fragment() {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    binding.viewpagerLayout.tabIndicator.apply {
+                    viewpagerLayout.tabIndicator.apply {
                         selectTab(this.getTabAt(position))
                     }
                 }
             })
         }
         TabLayoutMediator(
-            binding.viewpagerLayout.tabIndicator,
-            binding.viewpagerLayout.viewpager
+            viewpagerLayout.tabIndicator,
+            viewpagerLayout.viewpager
         ) { _, _ -> }.attach()
     }
 
@@ -119,6 +127,14 @@ class PokemonDetailsFragment : Fragment() {
         viewmodel.getPokemonDetails(args.pokemonOrId)
     }
 
+    /**
+     * Coleta os dados de PokemonDetails.
+     * Em caso de Sucesso: é adicionado todas detalhes do Pokemon
+     * Em caso de Loading: é escondido o display dos detalhes e e colocado
+     * em display apenas a progressbar
+     * Em caso de Erro: é redirecionado para o HomeFragment com um
+     * toast dizendo que não possível encontrar o Pokemon
+     * */
     private fun initPokemonDetails() {
         lifecycleScope.launchWhenStarted {
             viewmodel.pokemonDetails.collectLatest { result ->
@@ -126,26 +142,30 @@ class PokemonDetailsFragment : Fragment() {
                     is PokemonDetailsState.Data -> {
                         val pokemon = result.data
                         initPreviousOrNextPokemon(pokemon.id)
-                        binding.progressBar.visibilityGone()
-                        binding.pokemonLayout.visibilityVisible()
-                        binding.pokemonName.text = pokemon.name
-                        binding.layoutPokemonNumber.pokemonNumber.text =
-                            getFormatedPokemonNumber(pokemon.numero)
-                        tipoAdapter.setData(result.data.types)
-                        viewPagerConfiguration(result.data.sprites.otherArt.officialArtwork)
-                        binding.layoutPokemonInfo.pokemonSpriteDefault.loadPokemonSpriteOrGif(
-                            pokemon,
-                            requireContext(),
-                            pokemonShiny = false
-                        )
-                        binding.layoutPokemonInfo.pokemonSpriteShiny.loadPokemonSpriteOrGif(
-                            pokemon,
-                            requireContext(),
-                            pokemonShiny = true
-                        )
-                        binding.layoutPokemonInfo.pokemonAltura.text =
-                            formatToMeters(pokemon.height)
-                        binding.layoutPokemonInfo.pokemonPeso.text = formatToKg(pokemon.weight)
+                        with(binding) {
+                            progressBar.visibilityGone()
+                            pokemonLayout.visibilityVisible()
+                            pokemonName.text = pokemon.name
+                            layoutPokemonNumber.pokemonNumber.text =
+                                getFormatedPokemonNumber(pokemon.numero)
+
+                            with(layoutPokemonInfo) {
+                                pokemonSpriteDefault.loadPokemonSpriteOrGif(
+                                    pokemon,
+                                    requireContext(),
+                                    pokemonShiny = false
+                                )
+                                pokemonSpriteShiny.loadPokemonSpriteOrGif(
+                                    pokemon,
+                                    requireContext(),
+                                    pokemonShiny = true
+                                )
+                                pokemonAltura.text = formatToMeters(pokemon.height)
+                                pokemonPeso.text = formatToKg(pokemon.weight)
+                            }
+                        }
+                        tipoAdapter.setData(pokemon.types)
+                        viewPagerConfiguration(pokemon.sprites.otherArt.officialArtwork)
                         populateRvPokemonAttacks(viewmodel.filterPokemonMoves(pokemon.moves))
                     }
                     is PokemonDetailsState.Error -> {
@@ -162,6 +182,10 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Popula o recyclewview de Ataques e em caso de não existir nenhum,
+     * é removido o display do container_pokemon_attack
+     * */
     private fun populateRvPokemonAttacks(pokemonAttacks: List<PokemonMoves>) {
         if (pokemonAttacks.isNotEmpty()) {
             binding.containerPokemonAttack.visibilityVisible()
@@ -169,6 +193,10 @@ class PokemonDetailsFragment : Fragment() {
         } else binding.containerPokemonAttack.visibilityGone()
     }
 
+    /**
+     * Popula o recyclerview de Formas e em caso de não existir nenhum,
+     * é removido o display do container_pokemon_formas
+     * */
     private fun initPokemonFormas() {
         lifecycleScope.launchWhenStarted {
             viewmodel.pokemonFormas.collectLatest { result ->
@@ -189,6 +217,12 @@ class PokemonDetailsFragment : Fragment() {
         findNavController().navigate(R.id.action_pokemonDetailsFragment_to_homeFragment)
     }
 
+    /**
+     * Altera o PokemonDetails em display para o Pokemon Anterior ou Posterior
+     * dependendo de qual seta for clicada e em caso de ser o primeiro Pokemon(1)
+     * é removido o display da seta para esquerda e em caso de ser o último
+     * Pokemon(1010) é removido o display da seta para direita
+     * */
     private fun initPreviousOrNextPokemon(pokemonId: Int) {
         val arrowRight = binding.layoutPokemonNumber.arrowRight
         val arrowLeft = binding.layoutPokemonNumber.arrowLeft
@@ -206,6 +240,11 @@ class PokemonDetailsFragment : Fragment() {
         } else arrowRight.visibilityGone()
     }
 
+    /**
+     * Coleta os dados da viewmodel para popular o recyclerview
+     * de primeiras evoluções e quando não obtver sucesso será
+     * removido o display de container_pokemon_evolution
+     * */
     private fun initPokemonFirstEvolution() {
         lifecycleScope.launchWhenStarted {
             viewmodel.firstEvolution.collectLatest { result ->
@@ -222,6 +261,10 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Coleta os dados da viewmodel para popular o recyclerview
+     * de segundas evoluções caso obtiver sucesso
+     * */
     private fun initPokemonSecondEvolution() {
         lifecycleScope.launchWhenStarted {
             viewmodel.secondEvolution.collectLatest { result ->
@@ -237,6 +280,12 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Coleta os dados da viewmodel e popular o recyclerview
+     * de terceiras evoluções e quando não obtiver sucesso
+     * será removido o display de pokemon_thrid_evolution e
+     * arrow_down do pokemon_second_evolution
+     * */
     private fun initPokemonThirdEvolution() {
         lifecycleScope.launchWhenStarted {
             viewmodel.thirdEvolution.collectLatest { result ->
@@ -260,6 +309,13 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * Inicia todas funcionalidades de cliques dos
+     * recyclerviews enviando o ID do pokemon clicado
+     * para a viewmodel e em caso de ser uma Forma do pokemon
+     * será removido o display de container_pokemon_number,
+     * container_pokemon_formas e container_pokemon_evolution
+     * */
     private fun initAdaptersOnItemClicked() {
         firstEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
