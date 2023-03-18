@@ -8,6 +8,10 @@ import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * É requisitado ao repository as evoluções do Pokemon
+ * a partir do seu evolutionChanID inserido no parâmetro.
+ * */
 class GetPokemonEvolutionUseCase(
     private val repository: PokemonRepository
 ) {
@@ -16,7 +20,6 @@ class GetPokemonEvolutionUseCase(
         try {
             emit(Resource.Loading)
             val result = repository.getPokemonEvolution(evolutionChainId)
-            Log.e("teste", result.toString())
             emit(Resource.Success(data = result))
         } catch (e: Exception) {
             Log.e(USE_CASE, e.stackTraceToString())

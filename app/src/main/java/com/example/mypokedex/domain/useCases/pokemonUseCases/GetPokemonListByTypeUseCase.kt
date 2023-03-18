@@ -9,6 +9,10 @@ import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * É requisitado ao repository a lista de Pokemon do
+ * tipo inserido no parâmetro
+ * */
 class GetPokemonListByTypeUseCase(
     private val repository: PokemonRepository
 ) {

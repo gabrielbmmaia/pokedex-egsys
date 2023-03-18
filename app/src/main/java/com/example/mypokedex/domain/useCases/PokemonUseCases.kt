@@ -2,6 +2,9 @@ package com.example.mypokedex.domain.useCases
 
 import com.example.mypokedex.domain.useCases.pokemonUseCases.*
 
+/**
+ * Class para englobar todos UseCases de Pokemon em apenas um lugar
+ * */
 data class PokemonUseCases(
     val getPokemonList: GetPokemonListUseCase,
     val getPokemonListByType: GetPokemonListByTypeUseCase,
@@ -12,5 +15,5 @@ data class PokemonUseCases(
     val getPokemonFirstEvolution: GetPokemonFirstEvolutionUseCase,
     val getPokemonSecondEvolution: GetPokemonSecondEvolutionUseCase,
     val getPokemonThirdEvolution: GetPokemonThirdEvolutionUseCase,
-    val filterToLeanableAttacks: FilterToLeanableAttacksUseCase
+    val filterToLearnableAttacks: FilterToLearnableAttacksUseCase
 )

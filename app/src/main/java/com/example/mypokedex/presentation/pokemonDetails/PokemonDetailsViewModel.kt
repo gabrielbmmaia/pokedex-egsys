@@ -1,6 +1,5 @@
 package com.example.mypokedex.presentation.pokemonDetails
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
@@ -60,7 +59,7 @@ class PokemonDetailsViewModel(
     }
 
     fun filterPokemonMoves(pokemonMoves: List<PokemonMoves>): List<PokemonMoves> {
-        return pokemonUseCases.filterToLeanableAttacks(pokemonMoves)
+        return pokemonUseCases.filterToLearnableAttacks(pokemonMoves)
 
     }
 

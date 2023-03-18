@@ -27,7 +27,7 @@ object DomainModule {
                 getPokemonFirstEvolution = get(),
                 getPokemonSecondEvolution = get(),
                 getPokemonThirdEvolution = get(),
-                filterToLeanableAttacks = get()
+                filterToLearnableAttacks = get()
             )
         }
         factory { GetPokemonListUseCase(repository = get()) }
@@ -40,6 +40,6 @@ object DomainModule {
         factory { GetPokemonFirstEvolutionUseCase() }
         factory { GetPokemonSecondEvolutionUseCase() }
         factory { GetPokemonThirdEvolutionUseCase() }
-        factory { FilterToLeanableAttacksUseCase() }
+        factory { FilterToLearnableAttacksUseCase() }
     }
 }

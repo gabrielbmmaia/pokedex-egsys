@@ -7,6 +7,10 @@ import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * É requisitado ao repository o PokemonSpecie do Pokemon
+ * com o ID inserido no parâmetro
+ * */
 class GetPokemonSpecieUseCase(
     private val repository: PokemonRepository
 ) {

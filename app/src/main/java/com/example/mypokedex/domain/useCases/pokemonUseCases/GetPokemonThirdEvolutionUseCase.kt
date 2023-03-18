@@ -6,6 +6,11 @@ import com.example.mypokedex.domain.model.pokemonEvolution.Chain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * É checado na Chain inserida no parâmetro se o Pokemon
+ * possui alguma terceira evolução a partir de todas suas
+ * segundas evoluções. Em caso se obter é enviado a lista
+ * */
 class GetPokemonThirdEvolutionUseCase {
     operator fun invoke(chain: Chain): Flow<Resource<List<Pokemon>>> = flow {
         val secondEvolutionList = chain.evolvesTo

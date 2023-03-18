@@ -24,7 +24,6 @@ object DataModule {
     }
 
     private fun networkModule(): Module = module {
-
         single<PokemonServices> { createService(client = get()) }
         single {
             val interceptor = HttpLoggingInterceptor {
