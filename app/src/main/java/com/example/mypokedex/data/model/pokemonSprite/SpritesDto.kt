@@ -8,12 +8,15 @@ data class SpritesDto(
     @SerializedName("front_default")
     val frontDefault: String?,
     @SerializedName("front_shiny")
-    val frontShiny: String?
+    val frontShiny: String?,
+    @SerializedName("other")
+    val otherArt: OtherArtDto
 ) {
     fun toSprites(): Sprites =
         Sprites(
             versions = versions.toVersions(),
             frontDefault = frontDefault,
-            frontShiny = frontShiny
+            frontShiny = frontShiny,
+            otherArt = otherArt.toOtherArt()
         )
 }

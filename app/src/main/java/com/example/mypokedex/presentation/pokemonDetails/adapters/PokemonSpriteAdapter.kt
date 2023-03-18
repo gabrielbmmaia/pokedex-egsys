@@ -9,7 +9,7 @@ import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter.SpriteViewHolder
 
 class PokemonSpriteAdapter(
-    val onItemClicked: (pokemonId: Int) -> Unit = {}
+    var onItemClicked: (pokemonId: Int) -> Unit = {}
 ) : RecyclerView.Adapter<SpriteViewHolder>() {
 
     private var spriteList = mutableListOf<Pokemon>()
@@ -28,6 +28,7 @@ class PokemonSpriteAdapter(
         }
 
         fun bindView(pokemon: Pokemon) {
+            this.pokemon = pokemon
             with(binding) {
                 pokemonImage.loadSpriteFromId(pokemonId = pokemon.id, fade = true)
                 pokemonName.text = pokemon.name

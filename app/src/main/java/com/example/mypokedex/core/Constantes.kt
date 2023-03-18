@@ -10,6 +10,7 @@ object Constantes {
     const val BASE_URL = "https://pokeapi.co/api/v2/"
     const val BASE_POKEMON_URL = "https://pokeapi.co/api/v2/pokemon/"
     const val BASE_EVOLUTION_CHAIN_URL = "https://pokeapi.co/api/v2/evolution-chain/"
+    const val BASE_POKEMON_SPECIE_URL = "https://pokeapi.co/api/v2/pokemon-species/"
     const val OK_HTTP = "ok_http"
 
     // Constantes UseCase
@@ -17,7 +18,6 @@ object Constantes {
     const val POKEMON_ERROR_MESSAGE = "Erro ao carregar Pokemon"
 
     // Constantes Pokemon
-    const val METODO_DE_APRENDIZAGEM = "level-up"
     const val POKEMON_NAO_ENCONTRADO = "Pokémon não encontrado"
 
     // Constantes dos Tipos de Pokemon

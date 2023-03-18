@@ -1,6 +1,5 @@
 package com.example.mypokedex.data.model
 
-import com.example.mypokedex.core.extensions.getPokemonId
 import com.example.mypokedex.domain.model.Pokemon
 
 data class PokemonDto(

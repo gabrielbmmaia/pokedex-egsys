@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.model.pokemonEvolution.Chain
-import com.example.mypokedex.domain.model.pokemonEvolution.Species
 import com.example.mypokedex.domain.model.pokemonForms.PokemonSpecie
 import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
 import com.example.mypokedex.domain.useCases.PokemonUseCases
@@ -28,14 +27,14 @@ class PokemonDetailsViewModel(
     private val _pokemonFormas = MutableStateFlow<PokemonState<Pokemon>>(PokemonState.Loading)
     val pokemonFormas: StateFlow<PokemonState<Pokemon>> get() = _pokemonFormas
 
-    private val _firstEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
-    private val firstEvolution: StateFlow<PokemonState<Species>> get() = _firstEvolution
+    private val _firstEvolution = MutableStateFlow<PokemonState<Pokemon>>(PokemonState.Empty)
+    val firstEvolution: StateFlow<PokemonState<Pokemon>> get() = _firstEvolution
 
-    private val _secondEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
-    private val secondEvolution: StateFlow<PokemonState<Species>> get() = _secondEvolution
+    private val _secondEvolution = MutableStateFlow<PokemonState<Pokemon>>(PokemonState.Empty)
+    val secondEvolution: StateFlow<PokemonState<Pokemon>> get() = _secondEvolution
 
-    private val _thirdEvolution = MutableStateFlow<PokemonState<Species>>(PokemonState.Empty)
-    private val thirdEvolution: StateFlow<PokemonState<Species>> get() = _thirdEvolution
+    private val _thirdEvolution = MutableStateFlow<PokemonState<Pokemon>>(PokemonState.Empty)
+    val thirdEvolution: StateFlow<PokemonState<Pokemon>> get() = _thirdEvolution
 
     fun getPokemonDetails(pokemonOrId: String) {
         viewModelScope.launch {
@@ -128,6 +127,7 @@ class PokemonDetailsViewModel(
     private fun getPokemonFirstEvolutions(chain: Chain) {
         viewModelScope.launch {
             pokemonUseCases.getPokemonFirstEvolution(chain).collectLatest { result ->
+
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { pokemon ->
@@ -135,7 +135,7 @@ class PokemonDetailsViewModel(
                         }
                     }
                     else -> {
-                        _firstEvolution.value = PokemonState.Empty
+                        _firstEvolution.value = PokemonState.Error()
                     }
                 }
             }
@@ -152,7 +152,7 @@ class PokemonDetailsViewModel(
                         }
                     }
                     else -> {
-                        _secondEvolution.value = PokemonState.Empty
+                        _secondEvolution.value = PokemonState.Error()
                     }
                 }
             }
@@ -169,7 +169,7 @@ class PokemonDetailsViewModel(
                         }
                     }
                     else -> {
-                        _thirdEvolution.value = PokemonState.Empty
+                        _thirdEvolution.value = PokemonState.Error()
                     }
                 }
             }

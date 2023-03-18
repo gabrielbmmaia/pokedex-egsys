@@ -1,15 +1,20 @@
 package com.example.mypokedex.core.extensions
 
 import com.example.mypokedex.core.Constantes.BASE_EVOLUTION_CHAIN_URL
+import com.example.mypokedex.core.Constantes.BASE_POKEMON_SPECIE_URL
 import com.example.mypokedex.core.Constantes.BASE_POKEMON_URL
 
 /**
  * Utilizado para pegar o ID do pokemon a partir do final da URL disponibilizada pela API
  * */
 fun String.getPokemonId(): Int {
-    return this.replace(BASE_POKEMON_URL, "")
-        .replace("/", "")
-        .toInt()
+    val urlToParse =
+        if (this.contains(BASE_POKEMON_URL))
+            this.replace(BASE_POKEMON_URL, "")
+        else if (this.contains(BASE_EVOLUTION_CHAIN_URL))
+            this.replace(BASE_EVOLUTION_CHAIN_URL, "")
+        else this.replace(BASE_POKEMON_SPECIE_URL, "")
+    return urlToParse.replace("/", "").toInt()
 }
 
 /**

@@ -15,8 +15,9 @@ class GetPokemonEvolutionUseCase(
 
         try {
             emit(Resource.Loading)
-            val request = repository.getPokemonEvolution(evolutionChainId)
-            emit(Resource.Success(data = request))
+            val result = repository.getPokemonEvolution(evolutionChainId)
+            Log.e("teste", result.toString())
+            emit(Resource.Success(data = result.chain))
         } catch (e: Exception) {
             Log.e(USE_CASE, e.stackTraceToString())
             emit(Resource.Error())

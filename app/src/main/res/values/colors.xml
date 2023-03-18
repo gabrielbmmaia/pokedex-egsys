@@ -15,8 +15,8 @@
     <color name="grey_whisper">#E8E4E4</color>
     <color name="grey_whisper_darkened">#777575</color>
 
-    <color name="background_color">#C1C3C7</color>
-    <color name="details_data_color">#424952</color>
+    <color name="background_color">#F2EFDC</color>
+    <color name="details_data_color">#605045</color>
     <color name="mid_color">#FAECAF</color>
 
     <color name="yellow_light">#FAECAF</color>
