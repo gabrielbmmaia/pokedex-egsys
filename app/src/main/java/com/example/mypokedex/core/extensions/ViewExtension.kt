@@ -50,8 +50,8 @@ fun ImageView.loadSpriteFromId(pokemonId: Int, fade: Boolean = false) {
     }
 }
 
-fun ImageView.loadImageFromId(pokemonId: String) =
-    load(getPokemonImage(pokemonId))
+//fun ImageView.loadImageFromId(pokemonId: String) =
+//    load(getPokemonImage(pokemonId))
 
 
 fun ImageView.loadPokemonTypesSprite(pokemonTypes: PokemonTypes) {

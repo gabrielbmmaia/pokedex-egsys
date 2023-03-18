@@ -14,5 +14,5 @@ data class PokemonDetails(
     val height: Int,
     val weight: Int
 ) {
-    val numero = formatToPokemonNumber(id.toString())
+    val numero = id.formatToPokemonNumber()
 }
