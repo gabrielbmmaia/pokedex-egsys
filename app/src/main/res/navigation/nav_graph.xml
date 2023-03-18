@@ -13,6 +13,10 @@
         <action
             android:id="@+id/homeFragment_to_pokemonDetailsFragment"
             app:destination="@id/pokemonDetailsFragment" />
+        <argument
+            android:name="pokemonType"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailsFragment"

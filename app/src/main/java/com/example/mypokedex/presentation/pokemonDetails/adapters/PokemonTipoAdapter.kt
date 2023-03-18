@@ -7,14 +7,27 @@ import com.example.mypokedex.core.extensions.loadPokemonTypesSprite
 import com.example.mypokedex.databinding.VhPokemonTypeBinding
 import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 
-class PokemonTipoAdapter: RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder>() {
+class PokemonTipoAdapter(
+    var onItemClicked: (pokemonType: String?) -> Unit = {}
+) : RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder>() {
 
     private val tipoList = mutableListOf<PokemonTypes>()
 
     inner class TipoViewHolder(val binding: VhPokemonTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private lateinit var pokemonType: PokemonTypes
+
+        init {
+            itemView.setOnClickListener {
+                if (::pokemonType.isInitialized) {
+                    onItemClicked(pokemonType.type.name)
+                }
+            }
+        }
+
         fun bindView(pokemonTypes: PokemonTypes) {
+            this.pokemonType = pokemonTypes
             binding.pokemonTipo.loadPokemonTypesSprite(pokemonTypes)
         }
     }

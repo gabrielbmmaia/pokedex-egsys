@@ -19,13 +19,17 @@
         <item name="android:textColor">@color/data_color</item>
     </style>
 
-    <style name="PokemonNumberDetails">
+    <style name="TagPokemonDetails" parent="ContentPokemonDetails">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentPokemonDetails">
         <item name="fontFamily">@font/oxanium_medium</item>
         <item name="android:textColor">@color/data_color</item>
         <item name="android:textSize">28sp</item>
     </style>
 
-    <style name="PokemonNomeDetails" parent="PokemonNumberDetails">
+    <style name="PokemonNomeDetails" parent="TagPokemonDetails">
         <item name="android:textSize">36sp</item>
     </style>
 </resources>

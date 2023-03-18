@@ -338,5 +338,12 @@ class PokemonDetailsFragment : Fragment() {
             }
             viewmodel.getPokemonDetails(pokemonId.toString())
         }
+        tipoAdapter.onItemClicked = {
+            it?.let { pokemonType ->
+                val action = PokemonDetailsFragmentDirections
+                    .actionPokemonDetailsFragmentToHomeFragment(pokemonType)
+                findNavController().navigate(action)
+            }
+        }
     }
 }

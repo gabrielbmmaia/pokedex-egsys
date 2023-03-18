@@ -59,7 +59,7 @@
 
     <TextView
         android:id="@+id/tag_altura"
-        style="@style/PokemonNumberDetails"
+        style="@style/TagPokemonDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -70,7 +70,7 @@
 
     <TextView
         android:id="@+id/pokemon_altura"
-        style="@style/PokemonNumberDetails"
+        style="@style/ContentPokemonDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
 
     <TextView
         android:id="@+id/tag_peso"
-        style="@style/PokemonNumberDetails"
+        style="@style/TagPokemonDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -102,7 +102,7 @@
 
     <TextView
         android:id="@+id/pokemon_peso"
-        style="@style/PokemonNumberDetails"
+        style="@style/ContentPokemonDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

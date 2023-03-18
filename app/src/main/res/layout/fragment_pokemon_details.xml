@@ -180,7 +180,7 @@
                         android:background="@color/data_color" />
 
                     <TextView
-                        style="@style/PokemonNumberDetails"
+                        style="@style/TagPokemonDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
