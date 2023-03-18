@@ -211,11 +211,11 @@ class PokemonDetailsFragment : Fragment() {
             viewmodel.firstEvolution.collectLatest { result ->
                 when (result) {
                     is PokemonState.Data -> {
-                        binding.pokemonEvolutionLayout.visibilityVisible()
+                        binding.containerPokemonEvolution.visibilityVisible()
                         firstEvolutionAdapter.setData(result.data)
                     }
                     else -> {
-                        binding.pokemonEvolutionLayout.visibilityGone()
+                        binding.containerPokemonEvolution.visibilityGone()
                     }
                 }
             }
@@ -273,12 +273,13 @@ class PokemonDetailsFragment : Fragment() {
             binding.scrollView.scrollTo(0, 0)
             viewmodel.getPokemonDetails(pokemonId.toString())
         }
-        formasAdapter.onItemClicked = { pokemonid ->
-            binding.scrollView.scrollTo(0, 0)
-            if (pokemonid > POKEMON_FINAL_INDEX_LIST) {
-                binding.pokemonEvolutionLayout.visibilityGone()
+        formasAdapter.onItemClicked = { pokemonId ->
+            viewmodel.getPokemonDetails(pokemonId.toString())
+            with(binding) {
+                containerPokemonEvolution.visibilityGone()
+                containerPokemonNumber.visibilityGone()
+                scrollView.scrollTo(0, 0)
             }
-            viewmodel.getPokemonDetails(pokemonid.toString())
         }
     }
 }
