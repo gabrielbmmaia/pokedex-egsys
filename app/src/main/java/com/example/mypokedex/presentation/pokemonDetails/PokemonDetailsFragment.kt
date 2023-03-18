@@ -16,6 +16,7 @@ import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
 import com.example.mypokedex.core.extensions.*
 import com.example.mypokedex.databinding.FragmentPokemonDetailsBinding
+import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
 import com.example.mypokedex.domain.model.pokemonSprite.ArtWork
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter
@@ -145,7 +146,7 @@ class PokemonDetailsFragment : Fragment() {
                         binding.layoutPokemonInfo.pokemonAltura.text =
                             formatToMeters(pokemon.height)
                         binding.layoutPokemonInfo.pokemonPeso.text = formatToKg(pokemon.weight)
-                        ataqueAdapter.setData(viewmodel.filterPokemonMoves(pokemon.moves))
+                        populateRvPokemonAttacks(viewmodel.filterPokemonMoves(pokemon.moves))
                     }
                     is PokemonDetailsState.Error -> {
                         requireActivity().toast(result.message)
@@ -159,6 +160,13 @@ class PokemonDetailsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun populateRvPokemonAttacks(pokemonAttacks: List<PokemonMoves>) {
+        if (pokemonAttacks.isNotEmpty()) {
+            binding.containerPokemonAttack.visibilityVisible()
+            ataqueAdapter.setData(pokemonAttacks)
+        } else binding.containerPokemonAttack.visibilityGone()
     }
 
     private fun initPokemonFormas() {
