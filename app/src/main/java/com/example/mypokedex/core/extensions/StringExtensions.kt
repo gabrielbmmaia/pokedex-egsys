@@ -3,6 +3,7 @@ package com.example.mypokedex.core.extensions
 import com.example.mypokedex.core.Constantes.BASE_EVOLUTION_CHAIN_URL
 import com.example.mypokedex.core.Constantes.BASE_POKEMON_SPECIE_URL
 import com.example.mypokedex.core.Constantes.BASE_POKEMON_URL
+import kotlinx.coroutines.channels.ticker
 
 /**
  * Utilizado para pegar o ID do pokemon a partir do final da URL disponibilizada pela API
@@ -31,6 +32,12 @@ fun getPokemonSprite(
     pokemonId: Int
 ): String =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$pokemonId.png"
+
+fun String.formattPokemonName(): String {
+    return this.split("-")
+        .filter { it.toIntOrNull() == null }
+        .joinToString(" ") { it.replaceFirstChar { it.uppercase() } }
+}
 
 fun getFormatedPokemonNumber(pokemonNumber: String): String =
     "No. $pokemonNumber"

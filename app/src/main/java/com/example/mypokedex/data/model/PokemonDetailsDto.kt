@@ -1,5 +1,6 @@
 package com.example.mypokedex.data.model
 
+import com.example.mypokedex.core.extensions.formattPokemonName
 import com.example.mypokedex.data.model.pokemonMove.PokemonMovesDto
 import com.example.mypokedex.data.model.pokemonSprite.SpritesDto
 import com.example.mypokedex.data.model.pokemonType.PokemonTypesDto
@@ -18,7 +19,7 @@ data class PokemonDetailsDto(
         PokemonDetails(
             id = id,
             moves = moves.map { it.toPokemonMoves() },
-            name = name.replaceFirstChar { it.uppercaseChar() },
+            name = name.formattPokemonName(),
             sprites = sprites.toSprites(),
             types = types.map { it.toPokemonTypes() },
             height = height,
