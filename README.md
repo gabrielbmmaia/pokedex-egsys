@@ -6,6 +6,8 @@
 `Listar todos Pokémon` <br>
 `Listar todos Pokémon de um determinado tipo` <br>
 `Consultar detalhes de um determinado Pokémon` <br>
+`Pesquisar por um Pokémon a partir do seu nome` <br>
+`Pesquisar por um Pokémon a partir do seu número` <br>
 
 ## ✔️ Técnicas e tecnologias utilizadas
 `Kotlin`: linguagem utilizada no projeto. <br>
