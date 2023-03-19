@@ -27,7 +27,7 @@
 ## 🛠️ Abrir e rodar o projeto
 
 ### Pela APK: <br>
-
+Para baixar a APK do aplicativo é só você clicar em MyPokedex dentro de Releases localizado na direita da página ou caso estaja no celular ficará localizado logo abaixo do Readme do projeto. Clicando em MyPokedex três arquivos aparecerão e clique em "app-debug-apk" e depois em Baixar. Caso mão esteja permitido o celular baixar aplicativos por outras fontes sem ser a PlayStore será necessário permitir em configurações. Após isso é só abrir e se divertir.
 
 ### Pelo Android Studio: <br>
 Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
