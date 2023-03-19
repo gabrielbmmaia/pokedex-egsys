@@ -16,6 +16,10 @@ class HomeViewModel(
     private val _pokemonList = MutableStateFlow<PokemonListState>(PokemonListState.Loading)
     val pokemonList: StateFlow<PokemonListState> get() = _pokemonList
 
+    init {
+        loadPokemon()
+    }
+
     /**
      * Carrega lista de Pokemon. Em caso de PokemonType não
      * ser informado sera carregado a lista com todos Pokemon

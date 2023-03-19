@@ -1,7 +1,6 @@
 package com.example.mypokedex.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
@@ -11,8 +10,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.R
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_ACO
@@ -37,6 +34,7 @@ import com.example.mypokedex.core.Constantes.TOOLBAR_TITLE
 import com.example.mypokedex.core.extensions.visibilityGone
 import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentHomeBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.random.Random
@@ -47,11 +45,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<HomeViewModel>()
-    private val args by navArgs<HomeFragmentArgs>()
-
 
     private lateinit var pokemonAdapter: PokemonAdapter
-    private var rvIndexPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,18 +56,6 @@ class HomeFragment : Fragment() {
         setToolbar()
         initRecyclerView()
         return binding.root
-    }
-
-    /**
-     * Quando o Fragment entrar em OnPause será salvo o rvIndexPosition
-     * do recyclerview para ao voltar o recyclerview estiver
-     * na mesma posição ao sair do Fragment
-     * */
-    override fun onPause() {
-        rvIndexPosition =
-            (binding.rvHomefragment.layoutManager as
-                    LinearLayoutManager).findFirstVisibleItemPosition()
-        super.onPause()
     }
 
     override fun onDestroy() {
@@ -85,7 +68,6 @@ class HomeFragment : Fragment() {
         populateRecyclerView()
         initPokeballButton()
         setMenu()
-        changePokemonTypeByArgs()
     }
 
     /**
@@ -175,7 +157,6 @@ class HomeFragment : Fragment() {
                             retryButton.visibilityGone()
                         }
                         pokemonAdapter.setData(result.pokemonList)
-                        binding.rvHomefragment.scrollToPosition(rvIndexPosition)
                     }
                     is PokemonListState.Error -> {
                         with(binding.internetProblems) {
@@ -206,18 +187,6 @@ class HomeFragment : Fragment() {
     private fun toDetailsFragment(pokemonOrId: String) {
         val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
         findNavController().navigate(action)
-    }
-
-    /**
-     * Popula o recyclerview para o tipo enviado via argumentos.
-     * Caso seja nulo será populado com todos os Pokemon
-     * */
-    private fun changePokemonTypeByArgs() {
-        if (args.pokemonType.isNullOrBlank()) {
-            viewModel.loadPokemon()
-        } else {
-            viewModel.loadPokemon(pokemonType = args.pokemonType)
-        }
     }
 
     /**
@@ -283,6 +252,10 @@ class HomeFragment : Fragment() {
             R.id.menu_popup_elemento_voador -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
             }
+        }
+        lifecycleScope.launchWhenStarted {
+            delay(500)
+            binding.rvHomefragment.scrollToPosition(0)
         }
     }
 }

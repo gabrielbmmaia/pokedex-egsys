@@ -1,5 +1,6 @@
 package com.example.mypokedex.data.repository
 
+import com.example.mypokedex.data.local.PokemonDao
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.model.PokemonDetails
@@ -8,7 +9,8 @@ import com.example.mypokedex.domain.model.pokemonForms.PokemonSpecie
 import com.example.mypokedex.domain.repository.PokemonRepository
 
 class PokemonRepositoryImpl(
-    private val pokemonServices: PokemonServices
+    private val pokemonServices: PokemonServices,
+    private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
     /**
@@ -16,8 +18,12 @@ class PokemonRepositoryImpl(
      * Apartira do ID 10000 a api considera como uma Forma
      * ALTERNATIVA do pokemon
      * */
-    override suspend fun getPokemonList(): List<Pokemon> =
-        pokemonServices.getPokemonList().results.map { it.toPokemon() }
+    override suspend fun getPokemonList(): List<Pokemon> {
+        val request = pokemonServices.getPokemonList().results
+        pokemonDao.addPokemonList(request)
+
+        return pokemonDao.getPokemonList().map { it.toPokemon() }
+    }
 
     /**
      * Pega lista de Pokemon a partir de um determinado tipo

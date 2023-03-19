@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.example.mypokedex.R
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
 import com.example.mypokedex.core.extensions.*
@@ -214,7 +213,9 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun toHomeFragment() {
-        findNavController().navigate(R.id.action_pokemonDetailsFragment_to_homeFragment)
+        val action = PokemonDetailsFragmentDirections
+            .actionPokemonDetailsFragmentToHomeFragment()
+        findNavController().navigate(action)
     }
 
     /**
@@ -337,13 +338,6 @@ class PokemonDetailsFragment : Fragment() {
                 scrollView.scrollTo(0, 0)
             }
             viewmodel.getPokemonDetails(pokemonId.toString())
-        }
-        tipoAdapter.onItemClicked = {
-            it?.let { pokemonType ->
-                val action = PokemonDetailsFragmentDirections
-                    .actionPokemonDetailsFragmentToHomeFragment(pokemonType)
-                findNavController().navigate(action)
-            }
         }
     }
 }

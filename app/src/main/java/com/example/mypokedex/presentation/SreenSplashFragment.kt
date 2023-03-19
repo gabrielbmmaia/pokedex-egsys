@@ -24,8 +24,7 @@ class SreenSplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenStarted {
             delay(3000)
-//            findNavController().navigate(R.id.action_sreenSplashFragment_to_homeFragment)
-            val action = SreenSplashFragmentDirections.actionSreenSplashFragmentToHomeFragment(null)
+            val action = SreenSplashFragmentDirections.actionSreenSplashFragmentToHomeFragment()
             findNavController().navigate(action)
         }
     }

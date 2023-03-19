@@ -3,11 +3,13 @@ package com.example.mypokedex.di
 import android.util.Log
 import com.example.mypokedex.core.Constantes.BASE_URL
 import com.example.mypokedex.core.Constantes.OK_HTTP
+import com.example.mypokedex.data.local.PokemonDatabase
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.data.repository.PokemonRepositoryImpl
 import com.example.mypokedex.domain.repository.PokemonRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -20,7 +22,7 @@ object DataModule {
      * Load dos Módulos da camada de Data
      * */
     fun load() {
-        loadKoinModules(networkModule() + repositoryModule())
+        loadKoinModules(networkModule() + repositoryModule() + localModule())
     }
 
     private fun networkModule(): Module = module {
@@ -36,8 +38,12 @@ object DataModule {
         }
     }
 
+    private fun localModule(): Module = module {
+        single { PokemonDatabase.getInstance(androidContext()).dao }
+    }
+
     private fun repositoryModule(): Module = module {
-        single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get()) }
+        single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get(), get()) }
     }
 
     private fun createService(

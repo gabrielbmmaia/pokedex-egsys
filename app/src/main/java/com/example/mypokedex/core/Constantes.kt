@@ -4,6 +4,11 @@ object Constantes {
 
     const val TOOLBAR_TITLE = ""
 
+    const val POKEMON_TYPE_BUNDLE_KEY = "data"
+
+    // Constantes Room
+    const val POKEMON_DATABASE = "pokemondto_db"
+
     // Constantes da api
     const val POKEMON_FINAL_INDEX_LIST = 1010
     const val POKEMON_START_INDEX_LIST = 1
