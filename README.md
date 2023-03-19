@@ -5,6 +5,9 @@
 ## 📱 Layout do Projeto
 ![mypokedex-layout](https://user-images.githubusercontent.com/109977155/226195759-528e07e2-94aa-4958-a96b-28cba1528405.png)
 
+## ✏️ Organização das Pastas
+![mypokedex-pastas](https://user-images.githubusercontent.com/109977155/226197353-e86a344a-0e5e-411d-aae3-d5897236333b.png)
+
 
 ## 🔨 Funcionalidades do projeto
 `Listar todos Pokémon` <br>
