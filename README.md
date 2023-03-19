@@ -3,7 +3,7 @@
 #### O aplicativo MyPokedex foi criado para atender o desafio proposto pela EGSYS. Ele consiste na criação de uma Pokédex onde o usuário consegue pesquisar, ver e conhecer até os mais recentes Pokémon com seus detalhes.
 
 ## 📱 Layout do Projeto
-![mypokedex-layout](https://user-images.githubusercontent.com/109977155/226195759-528e07e2-94aa-4958-a96b-28cba1528405.png)
+![mypokedex-layout](https://user-images.githubusercontent.com/109977155/226204930-8bc90129-239e-49a3-a55f-dae5b7188025.png)
 
 ## ✏️ Organização das Pastas
 ![mypokedex-pastas](https://user-images.githubusercontent.com/109977155/226197353-e86a344a-0e5e-411d-aae3-d5897236333b.png)
@@ -17,7 +17,7 @@
 `Consultar detalhes de um determinado Pokémon` <br>
 `Pesquisar por um Pokémon a partir do seu nome` <br>
 `Pesquisar por um Pokémon a partir do seu número` <br>
-`Botão surpreenda-me te mostrando os detalhes de um Pokémon aleatório` <br>
+`Botão (surpreenda-me) que te mostra os detalhes de um Pokémon aleatório` <br>
 
 ## ✔️ Técnicas e tecnologias utilizadas
 `Kotlin`: linguagem utilizada no projeto. <br>
