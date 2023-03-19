@@ -1,4 +1,4 @@
-# MyPokédex
+# MyPokedex
 
 #### O aplicativo MyPokedex foi criado para atender o desafio proposto pela EGSYS. Ele consiste na criação de uma Pokédex onde o usuário consegue ver até os mais recentes Pokémon com seus detalhes.
 
