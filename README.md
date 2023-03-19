@@ -6,10 +6,10 @@
 ![mypokedex-layout](https://user-images.githubusercontent.com/109977155/226204930-8bc90129-239e-49a3-a55f-dae5b7188025.png)
 
 ## ✏️ Organização das Pastas
-![mypokedex-pastas](https://user-images.githubusercontent.com/109977155/226197353-e86a344a-0e5e-411d-aae3-d5897236333b.png)
+![mypokedex-pastas](https://user-images.githubusercontent.com/109977155/226205199-0c2e6b2e-8e36-4345-b5af-4254189dbc78.png)
 
-## 🗺️ Explicação Funcionalidades
-![funcionalidades-mypokedex-branco](https://user-images.githubusercontent.com/109977155/226204792-f3074fe9-8bd7-4e21-a22c-c2e3295c96a6.png)
+## 🗺️ Explicação das Funcionalidades
+![mypokedex-funcionalidades](https://user-images.githubusercontent.com/109977155/226206308-e14d1b2c-8ecf-434b-8e77-e360bb7c0749.png)
 
 ## 🔨 Funcionalidades do projeto
 `Listar todos Pokémon` <br>
