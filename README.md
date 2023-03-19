@@ -8,6 +8,8 @@
 ## ✏️ Organização das Pastas
 ![mypokedex-pastas](https://user-images.githubusercontent.com/109977155/226197353-e86a344a-0e5e-411d-aae3-d5897236333b.png)
 
+## 🗺️ Explicação Funcionalidades
+![funcionalidades-mypokedex-branco](https://user-images.githubusercontent.com/109977155/226204792-f3074fe9-8bd7-4e21-a22c-c2e3295c96a6.png)
 
 ## 🔨 Funcionalidades do projeto
 `Listar todos Pokémon` <br>
@@ -15,6 +17,7 @@
 `Consultar detalhes de um determinado Pokémon` <br>
 `Pesquisar por um Pokémon a partir do seu nome` <br>
 `Pesquisar por um Pokémon a partir do seu número` <br>
+`Botão surpreenda-me te mostrando os detalhes de um Pokémon aleatório` <br>
 
 ## ✔️ Técnicas e tecnologias utilizadas
 `Kotlin`: linguagem utilizada no projeto. <br>
