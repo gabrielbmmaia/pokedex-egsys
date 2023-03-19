@@ -2,6 +2,10 @@
 
 #### O aplicativo MyPokedex foi criado para atender o desafio proposto pela EGSYS. Ele consiste na criação de uma Pokédex onde o usuário consegue pesquisar, ver e conhecer até os mais recentes Pokémon com seus detalhes.
 
+## 📱 Layout do Projeto
+![mypokedex-layout](https://user-images.githubusercontent.com/109977155/226195759-528e07e2-94aa-4958-a96b-28cba1528405.png)
+
+
 ## 🔨 Funcionalidades do projeto
 `Listar todos Pokémon` <br>
 `Listar todos Pokémon de um determinado tipo` <br>
