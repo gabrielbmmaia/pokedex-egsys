@@ -22,7 +22,10 @@
 `Arquitetura Clean + MvvM`: projeto foi feito totalmente nas duas arquiteturas. <br>
 `Fragments`: Esse aplicativo é um SAP (Single Activity App)  <br>
 `Navigation Component`: Utilizado para navegação entre fragments. <br>
-`Coil`: Biblioteca para carregar as imagens e GIFs
+`Coil`: Biblioteca para carregar as imagens e GIFs.
+
+## 🌎 Api utilizada 10/03/2023
+https://pokeapi.co
 
 ## 🛠️ Abrir e rodar o projeto
 
