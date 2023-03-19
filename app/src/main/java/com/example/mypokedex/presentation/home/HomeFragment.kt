@@ -276,8 +276,8 @@ class HomeFragment : Fragment() {
 
     private fun resetRecyclerviewPosition(){
         lifecycleScope.launchWhenStarted {
-            delay(500)
-            binding.rvHomefragment.scrollToPosition(0)
+            delay(800)
+            binding.rvHomefragment. scrollToPosition(0)
         }
     }
 }
