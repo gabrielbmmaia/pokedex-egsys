@@ -3,6 +3,7 @@ package com.example.mypokedex.core.extensions
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
@@ -27,7 +28,6 @@ import com.example.mypokedex.core.Constantes.POKEMON_TIPO_TERRESTRE
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VENENOSO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VOADOR
 import com.example.mypokedex.domain.model.PokemonDetails
-import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
 import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 
 

@@ -3,7 +3,6 @@ package com.example.mypokedex.presentation.home
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -85,7 +84,8 @@ class HomeFragment : Fragment() {
                 val searchView = searchItem.actionView as SearchView
                 searchView.queryHint = getString(R.string.search_pokemon)
 
-                searchView.setOnQueryTextListener(object : OnQueryTextListener {
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         searchView.clearFocus()
                         query?.let { toDetailsFragment(it) }
@@ -197,62 +197,84 @@ class HomeFragment : Fragment() {
         when (menuItem.itemId) {
             R.id.menu_popup_todos -> {
                 viewModel.loadPokemon()
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_aco -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ACO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_agua -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_AGUA)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_dragao -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_DRAGAO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_eletrico -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ELETRICO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_fada -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FADA)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_fantasma -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FANTASMA)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_fogo -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FOGO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_gelo -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_GELO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_inseto -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_INSETO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_lutador -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_LUTADOR)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_normal -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_NORMAL)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_pedra -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PEDRA)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_planta -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PLANTA)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_psiquico -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PSIQUICO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_sombrio -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_SOMBRIO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_terrestre -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_TERRESTRE)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_venenoso -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VENENOSO)
+                resetRecyclerviewPosition()
             }
             R.id.menu_popup_elemento_voador -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
+                resetRecyclerviewPosition()
             }
         }
+    }
+
+    private fun resetRecyclerviewPosition(){
         lifecycleScope.launchWhenStarted {
             delay(500)
             binding.rvHomefragment.scrollToPosition(0)
