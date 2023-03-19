@@ -12,7 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/red_crimson</item>
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/background_color</item>
     </style>
 </resources>
