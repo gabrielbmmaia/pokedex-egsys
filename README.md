@@ -49,4 +49,6 @@ antes de procurá-lo) Por fim clique em OK, O Android Studio deve executar algum
 tasks, você pode executar o App.
 
 ## 🎥 Showcase do aplicativo
-https://user-images.githubusercontent.com/109977155/226189962-82db3f8a-22bc-403d-b0d5-b5021c3e466e.mp4
+<div align="center">
+ <video src= https://user-images.githubusercontent.com/109977155/226206953-36783912-744f-4fea-8040-e353be522380.mp4 width=800/>
+<div/>
