@@ -1,6 +1,5 @@
 package com.example.mypokedex.data.model.pokemonSprite
 
-import com.example.mypokedex.domain.model.pokemonSprite.Sprites
 import com.google.gson.annotations.SerializedName
 
 data class SpritesDto(
@@ -11,12 +10,4 @@ data class SpritesDto(
     val frontShiny: String?,
     @SerializedName("other")
     val otherArt: OtherArtDto
-) {
-    fun toSprites(): Sprites =
-        Sprites(
-            versions = versions.toVersions(),
-            frontDefault = frontDefault,
-            frontShiny = frontShiny,
-            otherArt = otherArt.toOtherArt()
-        )
-}
+)

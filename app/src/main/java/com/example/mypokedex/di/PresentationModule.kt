@@ -17,6 +17,6 @@ object PresentationModule {
 
     private fun viewModelModule(): Module = module {
         factory { HomeViewModel(pokemonUseCases = get()) }
-        factory { PokemonDetailsViewModel(pokemonUseCases = get()) }
+        factory { PokemonDetailsViewModel(pokemonUseCases = get(), pokemonRepository = get()) }
     }
 }

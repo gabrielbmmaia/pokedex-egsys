@@ -34,7 +34,7 @@ class PokemonAdapter(
             with(binding) {
                 pokemonImage.loadSpriteFromId(pokemon.id, fade = true)
                 pokemonName.text = pokemon.name
-                pokemonNumber.text = getFormatedPokemonNumber(pokemon.numero)
+                pokemonNumber.text = getFormatedPokemonNumber(pokemon.number)
             }
         }
     }

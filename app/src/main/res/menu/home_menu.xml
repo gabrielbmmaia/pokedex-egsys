@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/pokemon_elementos"
-        android:icon="@drawable/ic_elementos"
+        android:icon="@drawable/ic_sort"
         android:title="@string/menu_elementos_icon"
         app:showAsAction="always">
         <menu>

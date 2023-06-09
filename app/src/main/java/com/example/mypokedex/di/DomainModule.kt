@@ -21,25 +21,13 @@ object DomainModule {
                 getPokemonList = get(),
                 getPokemonListByType = get(),
                 getPokemonDetails = get(),
-                getPokemonSpecie = get(),
-                getPokemonFormas = get(),
-                getPokemonEvolution = get(),
-                getPokemonFirstEvolution = get(),
-                getPokemonSecondEvolution = get(),
-                getPokemonThirdEvolution = get(),
-                filterToLearnableAttacks = get()
+                filterPokemonForms = get()
             )
         }
         factory { GetPokemonListUseCase(repository = get()) }
         factory { GetPokemonListByTypeUseCase(repository = get()) }
         factory { GetPokemonDetailsUseCase(repository = get(), pokemonValidation = get()) }
         factory { PokemonValidationUseCase() }
-        factory { GetPokemonSpecieUseCase(repository = get()) }
-        factory { GetPokemonFormasUseCase() }
-        factory { GetPokemonEvolutionUseCase(repository = get()) }
-        factory { GetPokemonFirstEvolutionUseCase() }
-        factory { GetPokemonSecondEvolutionUseCase() }
-        factory { GetPokemonThirdEvolutionUseCase() }
-        factory { FilterToLearnableAttacksUseCase() }
+        factory { FilterPokemonFormsUseCase() }
     }
 }

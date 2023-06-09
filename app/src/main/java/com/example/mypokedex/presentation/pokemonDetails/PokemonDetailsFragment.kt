@@ -13,16 +13,24 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
-import com.example.mypokedex.core.extensions.*
+import com.example.mypokedex.core.extensions.formatToKg
+import com.example.mypokedex.core.extensions.formatToMeters
+import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
+import com.example.mypokedex.core.extensions.loadPokemonSpriteOrGif
+import com.example.mypokedex.core.extensions.toast
+import com.example.mypokedex.core.extensions.visibilityGone
+import com.example.mypokedex.core.extensions.visibilityInvisible
+import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentPokemonDetailsBinding
-import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
-import com.example.mypokedex.domain.model.pokemonSprite.ArtWork
+import com.example.mypokedex.domain.model.PokemonMoves
+import com.example.mypokedex.domain.model.Sprites
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonTipoAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.ViewPageAdapter
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
-import com.example.mypokedex.presentation.pokemonDetails.state.PokemonState
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonFormsState
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +41,7 @@ class PokemonDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args by navArgs<PokemonDetailsFragmentArgs>()
-    private val viewmodel by viewModel<PokemonDetailsViewModel>()
+    private val viewModel by viewModel<PokemonDetailsViewModel>()
 
     private lateinit var tipoAdapter: PokemonTipoAdapter
     private lateinit var ataqueAdapter: PokemonAtaqueAdapter
@@ -62,10 +70,8 @@ class PokemonDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         populatePokemonDetails()
         initPokemonDetails()
-        initPokemonFormas()
-        initPokemonFirstEvolution()
-        initPokemonSecondEvolution()
-        initPokemonThirdEvolution()
+        initPokemonEvolutionsList()
+        initPokemonFormsList()
         initAdaptersOnItemClicked()
     }
 
@@ -99,9 +105,9 @@ class PokemonDetailsFragment : Fragment() {
     /**
      * Configura o ViewPager das imagens do Pokemon
      * */
-    private fun viewPagerConfiguration(artWork: ArtWork) {
+    private fun viewPagerConfiguration(sprite: Sprites) {
         val viewpagerLayout = binding.viewpagerLayout
-        val artworkList = listOf(artWork.frontDefault, artWork.frontShiny)
+        val artworkList = listOf(sprite.artWorkDefault, sprite.artWorkShiny)
         viewpagerLayout.viewpager.apply {
             adapter = viewpagerAdapter
             offscreenPageLimit = artworkList.size
@@ -123,39 +129,97 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun populatePokemonDetails() {
-        viewmodel.getPokemonDetails(args.pokemonOrId)
+        viewModel.getPokemonDetails(args.pokemonOrId)
     }
 
     /**
-     * Coleta os dados de PokemonDetails.
-     * Em caso de Sucesso: é adicionado todas detalhes do Pokemon
-     * Em caso de Loading: é escondido o display dos detalhes e e colocado
-     * em display apenas a progressbar
-     * Em caso de Erro: é redirecionado para o HomeFragment com um
-     * toast dizendo que não possível encontrar o Pokemon
+     * Em caso do pokémon não ter evoluções não sera mostrado
+     * as listas de evoluções.
+     *
+     * Primeiro é negado a visibilidade da lista de TERCEIRAS
+     * evoluções e só ficará visivel caso a lista não seja vazia.
      * */
+    private fun initPokemonEvolutionsList() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.evolutionState.collectLatest { state ->
+                when (state) {
+
+                    PokemonEvolutionsState.Empty -> {
+                        with(binding) {
+                            containerPokemonEvolution.visibilityGone()
+                            rvThirdEvolution.evolutionList.visibilityGone()
+                            rvThirdEvolution.arrowDown.visibilityGone()
+                        }
+                    }
+
+                    is PokemonEvolutionsState.Success -> {
+                        val evolutions = state.data
+                        if (!evolutions.thirdEvolutions.isNullOrEmpty()) {
+                            with(binding) {
+                                containerPokemonEvolution.visibilityVisible()
+                                rvThirdEvolution.evolutionList.visibilityVisible()
+                            }
+
+                            firstEvolutionAdapter.setData(listOf(evolutions.firstEvolution))
+                            secondEvolutionAdapter.setData(evolutions.secondEvolutions)
+                            thirdEvolutionAdapter.setData(evolutions.thirdEvolutions)
+                        } else if (evolutions.secondEvolutions.isNotEmpty()) {
+                            with(binding) {
+                                containerPokemonEvolution.visibilityVisible()
+                                rvSecondEvolution.arrowDown.visibilityGone()
+                            }
+
+                            firstEvolutionAdapter.setData(listOf(evolutions.firstEvolution))
+                            secondEvolutionAdapter.setData(evolutions.secondEvolutions)
+                        } else if (!evolutions.thirdEvolutions.isNullOrEmpty()) {
+                            binding.rvThirdEvolution.evolutionList.visibilityVisible()
+                            thirdEvolutionAdapter.setData(evolutions.thirdEvolutions)
+                        } else {
+                            binding.containerPokemonEvolution.visibilityGone()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun initPokemonDetails() {
         lifecycleScope.launchWhenStarted {
-            viewmodel.pokemonDetails.collectLatest { result ->
-                when (result) {
-                    is PokemonDetailsState.Data -> {
-                        val pokemon = result.data
+            viewModel.detailsState.collectLatest { state ->
+                when (state) {
+
+                    is PokemonDetailsState.Error -> {
+                        requireActivity().toast(state.message)
+                        binding.progressBar.visibilityGone()
+                        toHomeFragment()
+                    }
+
+                    PokemonDetailsState.Loading -> {
+                        with(binding) {
+                            progressBar.visibilityVisible()
+                            pokemonLayout.visibilityInvisible()
+                        }
+                    }
+
+                    is PokemonDetailsState.Success -> {
+                        val pokemon = state.data
+
                         initPreviousOrNextPokemon(pokemon.id)
+
                         with(binding) {
                             progressBar.visibilityGone()
                             pokemonLayout.visibilityVisible()
                             pokemonName.text = pokemon.name
                             layoutPokemonNumber.pokemonNumber.text =
-                                getFormatedPokemonNumber(pokemon.numero)
-
+                                getFormatedPokemonNumber(pokemon.number)
                             with(layoutPokemonInfo) {
                                 pokemonSpriteDefault.loadPokemonSpriteOrGif(
-                                    pokemon,
+                                    pokemon.sprites,
                                     requireContext(),
                                     pokemonShiny = false
                                 )
                                 pokemonSpriteShiny.loadPokemonSpriteOrGif(
-                                    pokemon,
+                                    pokemon.sprites,
                                     requireContext(),
                                     pokemonShiny = true
                                 )
@@ -164,17 +228,30 @@ class PokemonDetailsFragment : Fragment() {
                             }
                         }
                         tipoAdapter.setData(pokemon.types)
-                        viewPagerConfiguration(pokemon.sprites.otherArt.officialArtwork)
-                        populateRvPokemonAttacks(viewmodel.filterPokemonMoves(pokemon.moves))
+                        viewPagerConfiguration(pokemon.sprites)
+                        populateRvPokemonAttacks(pokemon.moves)
                     }
-                    is PokemonDetailsState.Error -> {
-                        requireActivity().toast(result.message)
-                        binding.progressBar.visibilityGone()
-                        toHomeFragment()
+                }
+            }
+        }
+    }
+
+    private fun initPokemonFormsList() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.formsState.collectLatest { state ->
+                when (state) {
+                    PokemonFormsState.Empty -> {
+                        binding.containerPokemonFormas.visibilityGone()
                     }
-                    PokemonDetailsState.Loading -> {
-                        binding.pokemonLayout.visibilityInvisible()
-                        binding.progressBar.visibilityVisible()
+
+                    is PokemonFormsState.Success -> {
+                        if (state.data.isNotEmpty()) {
+                            with(binding) {
+                                containerPokemonFormas.visibilityVisible()
+                                layoutPokemonFormas.rvPokemonFormas.visibilityVisible()
+                            }
+                            formasAdapter.setData(state.data)
+                        } else binding.containerPokemonFormas.visibilityGone()
                     }
                 }
             }
@@ -190,26 +267,6 @@ class PokemonDetailsFragment : Fragment() {
             binding.containerPokemonAttack.visibilityVisible()
             ataqueAdapter.setData(pokemonAttacks)
         } else binding.containerPokemonAttack.visibilityGone()
-    }
-
-    /**
-     * Popula o recyclerview de Formas e em caso de não existir nenhum,
-     * é removido o display do container_pokemon_formas
-     * */
-    private fun initPokemonFormas() {
-        lifecycleScope.launchWhenStarted {
-            viewmodel.pokemonFormas.collectLatest { result ->
-                when (result) {
-                    is PokemonState.Data -> {
-                        binding.containerPokemonFormas.visibilityVisible()
-                        formasAdapter.setData(result.data)
-                    }
-                    else -> {
-                        binding.containerPokemonFormas.visibilityGone()
-                    }
-                }
-            }
-        }
     }
 
     private fun toHomeFragment() {
@@ -230,84 +287,15 @@ class PokemonDetailsFragment : Fragment() {
         if (pokemonId > POKEMON_START_INDEX_LIST) {
             arrowLeft.visibilityVisible()
             arrowLeft.setOnClickListener {
-                viewmodel.getPokemonDetails(pokemonId.minus(1).toString())
+                viewModel.getPokemonDetails(pokemonId.minus(1).toString())
             }
         } else arrowLeft.visibilityGone()
         if (pokemonId < POKEMON_FINAL_INDEX_LIST) {
             arrowRight.visibilityVisible()
             arrowRight.setOnClickListener {
-                viewmodel.getPokemonDetails(pokemonId.plus(1).toString())
+                viewModel.getPokemonDetails(pokemonId.plus(1).toString())
             }
         } else arrowRight.visibilityGone()
-    }
-
-    /**
-     * Coleta os dados da viewmodel para popular o recyclerview
-     * de primeiras evoluções e quando não obtver sucesso será
-     * removido o display de container_pokemon_evolution
-     * */
-    private fun initPokemonFirstEvolution() {
-        lifecycleScope.launchWhenStarted {
-            viewmodel.firstEvolution.collectLatest { result ->
-                when (result) {
-                    is PokemonState.Data -> {
-                        binding.containerPokemonEvolution.visibilityVisible()
-                        firstEvolutionAdapter.setData(result.data)
-                    }
-                    else -> {
-                        binding.containerPokemonEvolution.visibilityGone()
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Coleta os dados da viewmodel para popular o recyclerview
-     * de segundas evoluções caso obtiver sucesso
-     * */
-    private fun initPokemonSecondEvolution() {
-        lifecycleScope.launchWhenStarted {
-            viewmodel.secondEvolution.collectLatest { result ->
-                when (result) {
-                    is PokemonState.Data -> {
-                        binding.rvSecondEvolution.evolutionList.visibilityVisible()
-                        binding.rvSecondEvolution.arrowDown.visibilityVisible()
-                        secondEvolutionAdapter.setData(result.data)
-                    }
-                    else -> {}
-                }
-            }
-        }
-    }
-
-    /**
-     * Coleta os dados da viewmodel e popular o recyclerview
-     * de terceiras evoluções e quando não obtiver sucesso
-     * será removido o display de pokemon_thrid_evolution e
-     * arrow_down do pokemon_second_evolution
-     * */
-    private fun initPokemonThirdEvolution() {
-        lifecycleScope.launchWhenStarted {
-            viewmodel.thirdEvolution.collectLatest { result ->
-                when (result) {
-                    is PokemonState.Data -> {
-                        with(binding.rvThirdEvolution) {
-                            arrowDown.visibilityGone()
-                            evolutionList.visibilityVisible()
-                        }
-                        thirdEvolutionAdapter.setData(result.data)
-                    }
-                    else -> {
-                        with(binding) {
-                            rvThirdEvolution.arrowDown.visibilityGone()
-                            rvThirdEvolution.evolutionList.visibilityGone()
-                            rvSecondEvolution.arrowDown.visibilityGone()
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -320,15 +308,15 @@ class PokemonDetailsFragment : Fragment() {
     private fun initAdaptersOnItemClicked() {
         firstEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewmodel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId.toString())
         }
         secondEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewmodel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId.toString())
         }
         thirdEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewmodel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId.toString())
         }
         formasAdapter.onItemClicked = { pokemonId ->
             with(binding) {
@@ -337,7 +325,7 @@ class PokemonDetailsFragment : Fragment() {
                 containerPokemonNumber.visibilityGone()
                 scrollView.scrollTo(0, 0)
             }
-            viewmodel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId.toString())
         }
     }
 }

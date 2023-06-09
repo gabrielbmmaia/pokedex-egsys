@@ -1,6 +1,5 @@
 package com.example.mypokedex.data.model.pokemonSprite
 
-import com.example.mypokedex.domain.model.pokemonSprite.Animated
 import com.google.gson.annotations.SerializedName
 
 data class AnimatedDto(
@@ -8,10 +7,4 @@ data class AnimatedDto(
     val frontDefault: String?,
     @SerializedName("front_shiny")
     val frontShiny: String?
-) {
-    fun toAnimated(): Animated =
-        Animated(
-            frontDefault = frontDefault,
-            frontShiny = frontShiny
-        )
-}
+)

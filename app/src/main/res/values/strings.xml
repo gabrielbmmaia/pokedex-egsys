@@ -9,6 +9,7 @@
     <string name="image_not_found">Image Not Found</string>
     <string name="search_pokemon">Pokémon ou Número</string>
     <string name="pokeball_icon">Pokeball</string>
+    <string name="pokemon_details_error">Erro ao carregar Pokémon</string>
 
     <!--    menus-->
     <string name="menu_search_icon">Search</string>

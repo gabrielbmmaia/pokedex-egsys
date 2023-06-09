@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypokedex.R
 import com.example.mypokedex.databinding.VhPokemonAtaquesBinding
-import com.example.mypokedex.domain.model.pokemonMove.PokemonMoves
+import com.example.mypokedex.domain.model.PokemonMoves
 
 class PokemonAtaqueAdapter(val context: Context) :
     RecyclerView.Adapter<PokemonAtaqueAdapter.AtaqueViewHolder>() {
@@ -23,8 +23,8 @@ class PokemonAtaqueAdapter(val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(pokemonMoves: PokemonMoves) {
-            val ataqueLevel = pokemonMoves.moveDetails.last().levelLearned
-            val ataqueName = pokemonMoves.move.name
+            val ataqueLevel = pokemonMoves.levelLearned
+            val ataqueName = pokemonMoves.name
             binding.pokemonAtaque.text =
                 context.getString(R.string.pokemon_move_level, ataqueName, ataqueLevel)
         }

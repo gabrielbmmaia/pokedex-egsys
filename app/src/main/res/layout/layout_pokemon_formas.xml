@@ -46,6 +46,5 @@
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/vh_pokemon_sprite" />
-
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

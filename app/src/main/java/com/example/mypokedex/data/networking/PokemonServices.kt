@@ -2,7 +2,7 @@ package com.example.mypokedex.data.networking
 
 import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.data.model.PokemonDetailsDto
-import com.example.mypokedex.data.model.pokemonForms.PokemonSpecieDto
+import com.example.mypokedex.data.model.pokemonForms.PokemonFormsDto
 import com.example.mypokedex.data.model.requests.EvolutionRequest
 import com.example.mypokedex.data.model.requests.PokemonRequest
 import com.example.mypokedex.data.model.requests.TipoRequest
@@ -30,7 +30,7 @@ interface PokemonServices {
     @GET("pokemon-species/{pokemonId}")
     suspend fun getPokemonSpecie(
         @Path("pokemonId") pokemonId: Int
-    ): PokemonSpecieDto
+    ): PokemonFormsDto
 
     @GET("evolution-chain/{evolutionChainId}")
     suspend fun getPokemonEvolution(

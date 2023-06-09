@@ -2,7 +2,7 @@ package com.example.mypokedex.domain.useCases.pokemonUseCases
 
 import android.util.Log
 import com.example.mypokedex.core.Constantes.POKEMON_ERROR_MESSAGE
-import com.example.mypokedex.core.Constantes.USE_CASE
+import com.example.mypokedex.core.Constantes.USE_CASE_ERROR_TAG
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.repository.PokemonRepository
@@ -21,7 +21,7 @@ class GetPokemonListUseCase(
             val pokemonList = repository.getPokemonList()
             emit(Resource.Success(pokemonList))
         } catch (e: Exception) {
-            Log.e(USE_CASE, e.stackTraceToString())
+            Log.e(USE_CASE_ERROR_TAG, e.stackTraceToString())
             emit(Resource.Error(POKEMON_ERROR_MESSAGE))
         }
     }

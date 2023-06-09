@@ -18,12 +18,13 @@ object Constantes {
     const val BASE_POKEMON_SPECIE_URL = "https://pokeapi.co/api/v2/pokemon-species/"
     const val OK_HTTP = "ok_http"
 
-    // Constantes UseCase
-    const val USE_CASE = "use_case"
+    // Constantes Erro
+    const val REPOSITORY_ERROR_TAG = "repository"
+    const val USE_CASE_ERROR_TAG = "use_case"
     const val POKEMON_ERROR_MESSAGE = "Erro ao carregar Pokemon"
 
     // Constantes Pokemon
-    const val POKEMON_NAO_ENCONTRADO = "Pokémon não encontrado"
+    const val POKEMON_NAO_ENCONTRADO = "Erro ao carregar Pokémon"
 
     // Constantes dos Tipos de Pokemon
     const val POKEMON_TIPO_ACO = "steel"

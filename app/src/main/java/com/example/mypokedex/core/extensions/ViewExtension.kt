@@ -3,7 +3,6 @@ package com.example.mypokedex.core.extensions
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.Toast
 import coil.ImageLoader
 import coil.decode.ImageDecoderDecoder
@@ -27,8 +26,7 @@ import com.example.mypokedex.core.Constantes.POKEMON_TIPO_SOMBRIO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_TERRESTRE
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VENENOSO
 import com.example.mypokedex.core.Constantes.POKEMON_TIPO_VOADOR
-import com.example.mypokedex.domain.model.PokemonDetails
-import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
+import com.example.mypokedex.domain.model.Sprites
 
 
 /**
@@ -53,60 +51,77 @@ fun ImageView.loadSpriteFromId(pokemonId: Int, fade: Boolean = false) {
 /**
  * Da display do imagem do tipo do Pokemon a partir do seu PokemonType
  * */
-fun ImageView.loadPokemonTypesSprite(pokemonTypes: PokemonTypes) {
-    if (pokemonTypes.type.name != null) {
-        when (pokemonTypes.type.name) {
+fun ImageView.loadPokemonTypesSprite(pokemonTypes: String?) {
+    if (pokemonTypes != null) {
+        when (pokemonTypes) {
             POKEMON_TIPO_ACO -> {
                 load(R.drawable.tag_aco)
             }
+
             POKEMON_TIPO_AGUA -> {
                 load(R.drawable.tag_agua)
             }
+
             POKEMON_TIPO_DRAGAO -> {
                 load(R.drawable.tag_dragao)
             }
+
             POKEMON_TIPO_ELETRICO -> {
                 load(R.drawable.tag_eletrico)
             }
+
             POKEMON_TIPO_FADA -> {
                 load(R.drawable.tag_fada)
             }
+
             POKEMON_TIPO_FANTASMA -> {
                 load(R.drawable.tag_fantasma)
             }
+
             POKEMON_TIPO_FOGO -> {
                 load(R.drawable.tag_fogo)
             }
+
             POKEMON_TIPO_GELO -> {
                 load(R.drawable.tag_gelo)
             }
+
             POKEMON_TIPO_INSETO -> {
                 load(R.drawable.tag_inseto)
             }
+
             POKEMON_TIPO_LUTADOR -> {
                 load(R.drawable.tag_lutador)
             }
+
             POKEMON_TIPO_NORMAL -> {
                 load(R.drawable.tag_normal)
             }
+
             POKEMON_TIPO_PEDRA -> {
                 load(R.drawable.tag_pedra)
             }
+
             POKEMON_TIPO_PLANTA -> {
                 load(R.drawable.tag_planta)
             }
+
             POKEMON_TIPO_PSIQUICO -> {
                 load(R.drawable.tag_psiquico)
             }
+
             POKEMON_TIPO_SOMBRIO -> {
                 load(R.drawable.tag_sombrio)
             }
+
             POKEMON_TIPO_TERRESTRE -> {
                 load(R.drawable.tag_terrestre)
             }
+
             POKEMON_TIPO_VENENOSO -> {
                 load(R.drawable.tag_venenoso)
             }
+
             POKEMON_TIPO_VOADOR -> {
                 load(R.drawable.tag_voador)
             }
@@ -121,7 +136,7 @@ fun ImageView.loadPokemonTypesSprite(pokemonTypes: PokemonTypes) {
  * É possível carregar a versão shiny do pokemon colocando pokemonShiny = true
  * */
 fun ImageView.loadPokemonSpriteOrGif(
-    pokemon: PokemonDetails,
+    sprites: Sprites,
     context: Context,
     pokemonShiny: Boolean
 ) {
@@ -129,26 +144,24 @@ fun ImageView.loadPokemonSpriteOrGif(
         .components {
             add(ImageDecoderDecoder.Factory())
         }.build()
-    val pokemonSprite = pokemon.sprites
-    val animatedSprite = pokemonSprite.versions.generationV.blackWhite.animated
 
     if (!pokemonShiny) {
-        if (animatedSprite.frontDefault != null) {
-            load(animatedSprite.frontDefault, imageLoader = imageLoader) {
+        if (sprites.animatedDefault != null) {
+            load(sprites.animatedDefault, imageLoader = imageLoader) {
                 visibilityVisible()
             }
-        } else if (pokemonSprite.frontDefault != null) {
-            load(pokemonSprite.frontDefault) {
+        } else if (sprites.spriteDefault != null) {
+            load(sprites.spriteDefault) {
                 visibilityVisible()
             }
         } else visibilityGone()
     } else {
-        if (animatedSprite.frontShiny != null) {
-            load(animatedSprite.frontShiny, imageLoader = imageLoader) {
+        if (sprites.animatedShiny != null) {
+            load(sprites.animatedShiny, imageLoader = imageLoader) {
                 visibilityVisible()
             }
-        } else if (pokemonSprite.frontShiny != null) {
-            load(pokemonSprite.frontShiny) {
+        } else if (sprites.spriteShiny != null) {
+            load(sprites.spriteShiny) {
                 visibilityVisible()
             }
         } else visibilityGone()

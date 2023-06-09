@@ -5,21 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypokedex.core.extensions.loadPokemonTypesSprite
 import com.example.mypokedex.databinding.VhPokemonTypeBinding
-import com.example.mypokedex.domain.model.pokemonType.PokemonTypes
 
 class PokemonTipoAdapter : RecyclerView.Adapter<PokemonTipoAdapter.TipoViewHolder>() {
 
-    private val tipoList = mutableListOf<PokemonTypes>()
+    private val tipoList = mutableListOf<String?>()
 
     inner class TipoViewHolder(val binding: VhPokemonTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(pokemonTypes: PokemonTypes) {
-            binding.pokemonTipo.loadPokemonTypesSprite(pokemonTypes)
+        fun bindView(pokemonType: String?) {
+            binding.pokemonTipo.loadPokemonTypesSprite(pokemonType)
         }
     }
 
-    fun setData(pokemonTypes: List<PokemonTypes>) {
+    fun setData(pokemonTypes: List<String?>) {
         notifyItemRangeRemoved(0, this.tipoList.size)
         this.tipoList.clear()
         this.tipoList.addAll(pokemonTypes)

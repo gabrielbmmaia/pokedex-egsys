@@ -8,10 +8,4 @@ data class VarietyDto(
     @SerializedName("is_default")
     val isDefault: Boolean,
     val pokemon: PokemonDto
-) {
-    fun toVariety(): Variety =
-        Variety(
-            isDefault = isDefault,
-            pokemon = pokemon.toPokemon()
-        )
-}
+)

@@ -1,6 +1,6 @@
 package com.example.mypokedex.domain.model.pokemonForms
 
-data class PokemonSpecie(
-    val evolutionChain: EvolutionChain,
+data class PokemonForms(
+    val evolutionChainId: Int,
     val varieties: List<Variety>
 )
