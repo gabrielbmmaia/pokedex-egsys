@@ -1,10 +1,7 @@
 package com.example.mypokedex.domain.useCases.pokemonUseCases
 
-import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.model.pokemonForms.PokemonForms
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 /**
  *  A partir do PokemonForms inserido no parâmetro é

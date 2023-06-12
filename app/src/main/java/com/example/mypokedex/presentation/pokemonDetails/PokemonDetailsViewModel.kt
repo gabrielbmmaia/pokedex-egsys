@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.repository.PokemonRepository
 import com.example.mypokedex.domain.useCases.PokemonUseCases
-import com.example.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonFormsState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

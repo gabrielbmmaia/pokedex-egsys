@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mypokedex.R
-import com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsFragmentDirections
 import kotlinx.coroutines.delay
 
 class SreenSplashFragment : Fragment() {

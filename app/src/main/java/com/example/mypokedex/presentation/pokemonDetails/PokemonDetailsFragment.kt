@@ -28,8 +28,8 @@ import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueA
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonTipoAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.ViewPageAdapter
-import com.example.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
+import com.example.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.example.mypokedex.presentation.pokemonDetails.state.PokemonFormsState
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.collectLatest
@@ -43,6 +43,8 @@ class PokemonDetailsFragment : Fragment() {
     private val args by navArgs<PokemonDetailsFragmentArgs>()
     private val viewModel by viewModel<PokemonDetailsViewModel>()
 
+    private var pokemonId: String = ""
+
     private lateinit var tipoAdapter: PokemonTipoAdapter
     private lateinit var ataqueAdapter: PokemonAtaqueAdapter
     private lateinit var formasAdapter: PokemonSpriteAdapter
@@ -50,6 +52,11 @@ class PokemonDetailsFragment : Fragment() {
     private lateinit var firstEvolutionAdapter: PokemonSpriteAdapter
     private lateinit var secondEvolutionAdapter: PokemonSpriteAdapter
     private lateinit var thirdEvolutionAdapter: PokemonSpriteAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pokemonId = args.pokemonOrId
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +136,7 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun populatePokemonDetails() {
-        viewModel.getPokemonDetails(args.pokemonOrId)
+        viewModel.getPokemonDetails(pokemonId)
     }
 
     /**
@@ -203,7 +210,7 @@ class PokemonDetailsFragment : Fragment() {
 
                     is PokemonDetailsState.Success -> {
                         val pokemon = state.data
-
+                        pokemonId = pokemon.id.toString()
                         initPreviousOrNextPokemon(pokemon.id)
 
                         with(binding) {
@@ -275,6 +282,12 @@ class PokemonDetailsFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    private fun toFormFragment(pokemonId: String) {
+        val action = PokemonDetailsFragmentDirections
+            .actionPokemonDetailsFragmentToPokemonFormFragment(pokemonId)
+        findNavController().navigate(action)
+    }
+
     /**
      * Altera o PokemonDetails em display para o Pokemon Anterior ou Posterior
      * dependendo de qual seta for clicada e em caso de ser o primeiro Pokemon(1)
@@ -319,13 +332,7 @@ class PokemonDetailsFragment : Fragment() {
             viewModel.getPokemonDetails(pokemonId.toString())
         }
         formasAdapter.onItemClicked = { pokemonId ->
-            with(binding) {
-                containerPokemonEvolution.visibilityGone()
-                containerPokemonFormas.visibilityGone()
-                containerPokemonNumber.visibilityGone()
-                scrollView.scrollTo(0, 0)
-            }
-            viewModel.getPokemonDetails(pokemonId.toString())
+            toFormFragment(pokemonId.toString())
         }
     }
 }
