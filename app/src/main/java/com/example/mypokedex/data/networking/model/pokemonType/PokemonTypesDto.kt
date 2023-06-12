@@ -1,5 +1,5 @@
 package com.example.mypokedex.data.networking.model.pokemonType
 
 data class PokemonTypesDto(
-    val type: com.example.mypokedex.data.networking.model.pokemonType.TypeDto
+    val type: TypeDto
 )

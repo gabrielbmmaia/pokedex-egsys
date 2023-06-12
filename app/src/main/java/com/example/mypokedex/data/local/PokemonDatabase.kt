@@ -11,7 +11,7 @@ import com.example.mypokedex.data.local.model.PokemonEntity
     version = 1,
     exportSchema = false
 )
-abstract class PokemonDatabase: RoomDatabase() {
+abstract class PokemonDatabase : RoomDatabase() {
 
     abstract val dao: PokemonDao
 

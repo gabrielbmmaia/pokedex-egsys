@@ -43,7 +43,7 @@ class PokemonDetailsFragment : Fragment() {
     private val args by navArgs<PokemonDetailsFragmentArgs>()
     private val viewModel by viewModel<PokemonDetailsViewModel>()
 
-    private var pokemonId: String = ""
+    private var pokemonId: Int? = null
 
     private lateinit var tipoAdapter: PokemonTipoAdapter
     private lateinit var ataqueAdapter: PokemonAtaqueAdapter
@@ -55,7 +55,7 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pokemonId = args.pokemonOrId
+        pokemonId = args.pokemonId
     }
 
     override fun onCreateView(
@@ -136,7 +136,7 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun populatePokemonDetails() {
-        viewModel.getPokemonDetails(pokemonId)
+        pokemonId?.let { viewModel.getPokemonDetails(it) }
     }
 
     /**
@@ -210,7 +210,7 @@ class PokemonDetailsFragment : Fragment() {
 
                     is PokemonDetailsState.Success -> {
                         val pokemon = state.data
-                        pokemonId = pokemon.id.toString()
+                        pokemonId = pokemon.id
                         initPreviousOrNextPokemon(pokemon.id)
 
                         with(binding) {
@@ -277,13 +277,10 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun toHomeFragment() {
-//        val action = PokemonDetailsFragmentDirections
-//            .actionPokemonDetailsFragmentToHomeFragment()
-//        findNavController().navigate(action)
         findNavController().popBackStack()
     }
 
-    private fun toFormFragment(pokemonId: String) {
+    private fun toFormFragment(pokemonId: Int) {
         val action = PokemonDetailsFragmentDirections
             .actionPokemonDetailsFragmentToPokemonFormFragment(pokemonId)
         findNavController().navigate(action)
@@ -301,13 +298,13 @@ class PokemonDetailsFragment : Fragment() {
         if (pokemonId > POKEMON_START_INDEX_LIST) {
             arrowLeft.visibilityVisible()
             arrowLeft.setOnClickListener {
-                viewModel.getPokemonDetails(pokemonId.minus(1).toString())
+                viewModel.getPokemonDetails(pokemonId.minus(1))
             }
         } else arrowLeft.visibilityGone()
         if (pokemonId < POKEMON_FINAL_INDEX_LIST) {
             arrowRight.visibilityVisible()
             arrowRight.setOnClickListener {
-                viewModel.getPokemonDetails(pokemonId.plus(1).toString())
+                viewModel.getPokemonDetails(pokemonId.plus(1))
             }
         } else arrowRight.visibilityGone()
     }
@@ -322,18 +319,18 @@ class PokemonDetailsFragment : Fragment() {
     private fun initAdaptersOnItemClicked() {
         firstEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewModel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId)
         }
         secondEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewModel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId)
         }
         thirdEvolutionAdapter.onItemClicked = { pokemonId ->
             binding.scrollView.scrollTo(0, 0)
-            viewModel.getPokemonDetails(pokemonId.toString())
+            viewModel.getPokemonDetails(pokemonId)
         }
         formasAdapter.onItemClicked = { pokemonId ->
-            toFormFragment(pokemonId.toString())
+            toFormFragment(pokemonId)
         }
     }
 }

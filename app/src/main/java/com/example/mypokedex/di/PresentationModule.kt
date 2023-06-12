@@ -21,6 +21,6 @@ object PresentationModule {
         factory { HomeViewModel(pokemonUseCases = get(), pokemonRepository = get()) }
         factory { SplashScreenViewModel(pokemonRepository = get()) }
         factory { PokemonDetailsViewModel(pokemonUseCases = get(), pokemonRepository = get()) }
-        factory { PokemonFormViewModel(pokemonUseCases = get()) }
+        factory { PokemonFormViewModel(repository = get()) }
     }
 }

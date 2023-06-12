@@ -43,7 +43,12 @@ object DataModule {
     }
 
     private fun repositoryModule(): Module = module {
-        single<PokemonRepository> { PokemonRepositoryImpl(pokemonServices = get(), pokemonDatabase = get())}
+        single<PokemonRepository> {
+            PokemonRepositoryImpl(
+                pokemonServices = get(),
+                pokemonDatabase = get()
+            )
+        }
     }
 
     private fun createService(

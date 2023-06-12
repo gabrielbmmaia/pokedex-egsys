@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class SplashScreenViewModel(
     private val pokemonRepository: PokemonRepository
-): ViewModel() {
+) : ViewModel() {
 
     fun synchronizePokemonList() {
         viewModelScope.launch {

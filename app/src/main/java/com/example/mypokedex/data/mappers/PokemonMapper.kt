@@ -36,8 +36,8 @@ fun PokemonDto.toPokemonEntity(): PokemonEntity {
 fun PokemonEntity.toPokemon(): Pokemon {
     return Pokemon(
         name = name.formattPokemonName(),
-        id = url.getPokemonId(),
-        number = url.getPokemonId().formatToPokemonNumber()
+        id = id,
+        number = id.formatToPokemonNumber()
     )
 }
 

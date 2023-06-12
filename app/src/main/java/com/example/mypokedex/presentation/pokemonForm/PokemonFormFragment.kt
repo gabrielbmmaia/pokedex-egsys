@@ -1,10 +1,10 @@
 package com.example.mypokedex.presentation.pokemonForm
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mypokedex.core.extensions.formatToKg
 import com.example.mypokedex.core.extensions.formatToMeters
-import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
 import com.example.mypokedex.core.extensions.loadPokemonSpriteOrGif
 import com.example.mypokedex.core.extensions.toast
 import com.example.mypokedex.core.extensions.visibilityGone
@@ -21,14 +20,8 @@ import com.example.mypokedex.core.extensions.visibilityInvisible
 import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentPokemonFormBinding
 import com.example.mypokedex.domain.model.Sprites
-import com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsFragmentArgs
-import com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsFragmentDirections
-import com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsViewModel
-import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonAtaqueAdapter
-import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonSpriteAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.PokemonTipoAdapter
 import com.example.mypokedex.presentation.pokemonDetails.adapters.ViewPageAdapter
-import com.example.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -101,7 +94,7 @@ class PokemonFormFragment : Fragment() {
         ) { _, _ -> }.attach()
     }
 
-    private fun populatePokemonFormDetails(){
+    private fun populatePokemonFormDetails() {
         viewModel.getPokemonDetails(args.pokemonId)
     }
 

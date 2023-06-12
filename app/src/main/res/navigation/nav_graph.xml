@@ -20,8 +20,8 @@
         android:label=""
         tools:layout="@layout/fragment_pokemon_details" >
         <argument
-            android:name="pokemonOrId"
-            app:argType="string" />
+            android:name="pokemonId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_pokemonDetailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -47,6 +47,6 @@
         tools:layout="@layout/fragment_pokemon_form" >
         <argument
             android:name="pokemonId"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>

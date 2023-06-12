@@ -30,9 +30,9 @@ class PokemonDetailsViewModel(
         MutableStateFlow(PokemonFormsState.Empty)
     val formsState = _formsState.asStateFlow()
 
-    fun getPokemonDetails(pokemonOrId: String) {
+    fun getPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
-            pokemonUseCases.getPokemonDetails(pokemonOrId).collectLatest { result ->
+            pokemonRepository.getPokemonDetails(pokemonId).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> {
                         result.message?.let {
@@ -96,7 +96,8 @@ class PokemonDetailsViewModel(
 
                     is Resource.Success -> {
                         result.data?.let { evolutionChain ->
-                            _evolutionState.value = PokemonEvolutionsState.Success(data = evolutionChain)
+                            _evolutionState.value =
+                                PokemonEvolutionsState.Success(data = evolutionChain)
                         }
                     }
                 }

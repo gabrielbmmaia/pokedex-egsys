@@ -11,13 +11,15 @@ import kotlinx.coroutines.flow.Flow
 interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addPokemonList (pokemonList: List<PokemonEntity>)
+    suspend fun addPokemonList(pokemonList: List<PokemonEntity>)
 
     @Query("SELECT * FROM pokemonentity")
-     fun getPokemonList(): Flow<List<PokemonEntity>>
+    fun getPokemonList(): Flow<List<PokemonEntity>>
 
-    @Query("SELECT * FROM pokemonentity " +
-            "WHERE name LIKE :pokemonOrId || '%' " +
-            "OR id LIKE :pokemonOrId || '%'")
-     fun searchPokemonList(pokemonOrId: String): Flow<List<PokemonEntity>>
+    @Query(
+        "SELECT * FROM pokemonentity " +
+                "WHERE name LIKE :pokemonOrId || '%' " +
+                "OR id LIKE :pokemonOrId || '%'"
+    )
+    fun searchPokemonList(pokemonOrId: String): Flow<List<PokemonEntity>>
 }

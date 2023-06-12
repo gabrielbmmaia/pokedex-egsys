@@ -6,14 +6,11 @@ import com.example.mypokedex.core.Resource
 import com.example.mypokedex.domain.repository.PokemonRepository
 import com.example.mypokedex.domain.useCases.PokemonUseCases
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-@OptIn(FlowPreview::class)
 class HomeViewModel(
     private val pokemonUseCases: PokemonUseCases,
     private val pokemonRepository: PokemonRepository

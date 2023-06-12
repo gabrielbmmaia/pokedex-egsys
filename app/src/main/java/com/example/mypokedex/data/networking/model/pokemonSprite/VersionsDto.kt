@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class VersionsDto(
     @SerializedName("generation-v")
-    val generationV: com.example.mypokedex.data.networking.model.pokemonSprite.GenerationVDto
+    val generationV: GenerationVDto
 )

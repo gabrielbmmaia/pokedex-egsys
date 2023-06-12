@@ -3,22 +3,23 @@ package com.example.mypokedex.presentation.pokemonForm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.core.Resource
-import com.example.mypokedex.domain.useCases.PokemonUseCases
+import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class PokemonFormViewModel(
-    private val pokemonUseCases: PokemonUseCases
-): ViewModel() {
+    private val repository: PokemonRepository
+) : ViewModel() {
 
-    private val _detailsState: MutableStateFlow<FormDetailsState> = MutableStateFlow(FormDetailsState.Loading)
+    private val _detailsState: MutableStateFlow<FormDetailsState> =
+        MutableStateFlow(FormDetailsState.Loading)
     val detailsState = _detailsState.asStateFlow()
 
-    fun getPokemonDetails(pokemonId: String) {
+    fun getPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
-            pokemonUseCases.getPokemonDetails(pokemonId).collectLatest { result ->
+            repository.getPokemonDetails(pokemonId).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> {
                         result.message?.let {

@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class EvolutionThirdDto(
     @SerializedName("species")
-    val evolutionThird: com.example.mypokedex.data.networking.model.PokemonDto
+    val evolutionThird: PokemonDto
 )

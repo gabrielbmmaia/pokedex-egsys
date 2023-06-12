@@ -1,7 +1,10 @@
 package com.example.mypokedex.di
 
 import com.example.mypokedex.domain.useCases.PokemonUseCases
-import com.example.mypokedex.domain.useCases.pokemonUseCases.*
+import com.example.mypokedex.domain.useCases.pokemonUseCases.FilterPokemonFormsUseCase
+import com.example.mypokedex.domain.useCases.pokemonUseCases.GetPokemonListByTypeUseCase
+import com.example.mypokedex.domain.useCases.pokemonUseCases.PokemonValidationUseCase
+import com.example.mypokedex.domain.useCases.pokemonUseCases.SearchPokemonListUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -18,16 +21,13 @@ object DomainModule {
     private fun useCaseModule(): Module = module {
         factory {
             PokemonUseCases(
-                getPokemonList = get(),
                 searchPokemonList = get(),
                 getPokemonListByType = get(),
-                getPokemonDetails = get(),
-                filterPokemonForms = get()
+                filterPokemonForms = get(),
+                pokemonValidation = get()
             )
         }
-        factory { GetPokemonListUseCase(repository = get()) }
         factory { GetPokemonListByTypeUseCase(repository = get()) }
-        factory { GetPokemonDetailsUseCase(repository = get(), pokemonValidation = get()) }
         factory { PokemonValidationUseCase() }
         factory { FilterPokemonFormsUseCase() }
         factory { SearchPokemonListUseCase(repository = get(), validation = get()) }

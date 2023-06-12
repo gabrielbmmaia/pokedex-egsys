@@ -26,9 +26,7 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     /**
-     * Pega lista dos Pokemon com IDs entre 1 à 1010.
-     * Apartira do ID 10000 a api considera como uma Forma
-     * ALTERNATIVA do pokemon
+     * Pega a lista de pokemon salva no banco de dados
      * */
     override suspend fun getPokemonList(): Flow<List<Pokemon>> {
         return pokemonDatabase.dao.getPokemonList().map { pokemonList ->
@@ -36,6 +34,11 @@ class PokemonRepositoryImpl(
         }
     }
 
+    /**
+     * Pega lista dos Pokemon com IDs entre 1 à 1010.
+     * Apartira do ID 10000 a api considera como uma Forma
+     * ALTERNATIVA do pokemon
+     * */
     override suspend fun synchronizePokemonList() {
         try {
             val pokemonList = pokemonServices.getPokemonList().results
@@ -66,11 +69,11 @@ class PokemonRepositoryImpl(
      * Pega os detalhes do Pokemon a partir de ID
      * */
     override suspend fun getPokemonDetails(
-        pokemonOrId: String
+        pokemonId: Int
     ): Flow<Resource<PokemonDetails>> = flow {
         try {
             emit(Resource.Loading)
-            val pokemonDetail = pokemonServices.getPokemonDetail(pokemonOrId)
+            val pokemonDetail = pokemonServices.getPokemonDetail(pokemonId)
             emit(Resource.Success(pokemonDetail.toPokemonDetails()))
         } catch (e: Exception) {
             Log.e(REPOSITORY_ERROR_TAG, "getPokemonDetails: ${e.stackTrace}")
@@ -110,6 +113,4 @@ class PokemonRepositoryImpl(
             emit(Resource.Error())
         }
     }
-
-
 }

@@ -1,7 +1,12 @@
 package com.example.mypokedex.presentation.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
@@ -94,9 +99,8 @@ class HomeFragment : Fragment() {
                             query?.let {
                                 viewModel.searchPokemon(it)
                             }
-                            delay(500)
-                            binding.rvHomefragment.scrollTo(0, 0)
                         }
+                        resetRecyclerviewPosition()
                         return true
                     }
                 })
@@ -122,7 +126,7 @@ class HomeFragment : Fragment() {
     private fun initPokeballButton() {
         binding.pokeballButton.setOnClickListener {
             val maxRandomNumber = Random.nextInt(POKEMON_FINAL_INDEX_LIST.plus(1))
-            toDetailsFragment(maxRandomNumber.toString())
+            toDetailsFragment(maxRandomNumber)
         }
     }
 
@@ -138,7 +142,7 @@ class HomeFragment : Fragment() {
             hasFixedSize()
         }
         pokemonAdapter.onItemClicked = {
-            toDetailsFragment(pokemonOrId = it.id.toString())
+            toDetailsFragment(pokemonId = it.id)
         }
     }
 
@@ -199,8 +203,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun toDetailsFragment(pokemonOrId: String) {
-        val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonOrId)
+    private fun toDetailsFragment(pokemonId: Int) {
+        val action = HomeFragmentDirections.homeFragmentToPokemonDetailsFragment(pokemonId)
         findNavController().navigate(action)
     }
 

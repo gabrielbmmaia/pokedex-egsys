@@ -22,9 +22,9 @@ interface PokemonServices {
         @Path("tipoPokemon") tipoPokemon: String
     ): TipoRequest
 
-    @GET("pokemon/{pokemonOrId}")
+    @GET("pokemon/{pokemonId}")
     suspend fun getPokemonDetail(
-        @Path("pokemonOrId") pokemonOrId: String
+        @Path("pokemonId") pokemonId: Int
     ): PokemonDetailsDto
 
     @GET("pokemon-species/{pokemonId}")
