@@ -4,9 +4,11 @@ import android.util.Log
 import com.example.mypokedex.core.Constantes.POKEMON_NAO_ENCONTRADO
 import com.example.mypokedex.core.Constantes.REPOSITORY_ERROR_TAG
 import com.example.mypokedex.core.Resource
+import com.example.mypokedex.data.local.PokemonDatabase
 import com.example.mypokedex.data.mappers.toChain
 import com.example.mypokedex.data.mappers.toPokemon
 import com.example.mypokedex.data.mappers.toPokemonDetails
+import com.example.mypokedex.data.mappers.toPokemonEntity
 import com.example.mypokedex.data.mappers.toPokemonForms
 import com.example.mypokedex.data.networking.PokemonServices
 import com.example.mypokedex.domain.model.Chain
@@ -16,9 +18,11 @@ import com.example.mypokedex.domain.model.pokemonForms.PokemonForms
 import com.example.mypokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class PokemonRepositoryImpl(
-    private val pokemonServices: PokemonServices
+    private val pokemonServices: PokemonServices,
+    private val pokemonDatabase: PokemonDatabase
 ) : PokemonRepository {
 
     /**
@@ -26,8 +30,26 @@ class PokemonRepositoryImpl(
      * Apartira do ID 10000 a api considera como uma Forma
      * ALTERNATIVA do pokemon
      * */
-    override suspend fun getPokemonList(): List<Pokemon> =
-        pokemonServices.getPokemonList().results.map { it.toPokemon() }
+    override suspend fun getPokemonList(): Flow<List<Pokemon>> {
+        return pokemonDatabase.dao.getPokemonList().map { pokemonList ->
+            pokemonList.map { it.toPokemon() }
+        }
+    }
+
+    override suspend fun synchronizePokemonList() {
+        try {
+            val pokemonList = pokemonServices.getPokemonList().results
+            pokemonDatabase.dao.addPokemonList(pokemonList = pokemonList.map { it.toPokemonEntity() })
+        } catch (e: Exception) {
+            Log.e("TAG", "synchronizePokemonList: ${e.stackTrace}")
+        }
+    }
+
+    override suspend fun searchPokemonList(name: String): Flow<List<Pokemon>> {
+        return pokemonDatabase.dao.searchPokemonList(name).map { pokemonList ->
+            pokemonList.map { it.toPokemon() }
+        }
+    }
 
     /**
      * Pega lista de Pokemon a partir de um determinado tipo
@@ -88,4 +110,6 @@ class PokemonRepositoryImpl(
             emit(Resource.Error())
         }
     }
+
+
 }

@@ -76,4 +76,12 @@ dependencies {
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "me.relex:circleindicator:2.1.6"
+
+    // Room - Database
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+}
+
+kapt {
+    correctErrorTypes true
 }

@@ -16,13 +16,13 @@ class GetPokemonListUseCase(
     private val repository: PokemonRepository
 ) {
     operator fun invoke(): Flow<Resource<List<Pokemon>>> = flow {
-        try {
-            emit(Resource.Loading)
-            val pokemonList = repository.getPokemonList()
-            emit(Resource.Success(pokemonList))
-        } catch (e: Exception) {
-            Log.e(USE_CASE_ERROR_TAG, e.stackTraceToString())
-            emit(Resource.Error(POKEMON_ERROR_MESSAGE))
-        }
+//        try {
+//            emit(Resource.Loading)
+//            val pokemonList = repository.getPokemonList()
+//            emit(Resource.Success(pokemonList))
+//        } catch (e: Exception) {
+//            Log.e(USE_CASE_ERROR_TAG, e.stackTraceToString())
+//            emit(Resource.Error(POKEMON_ERROR_MESSAGE))
+//        }
     }
 }

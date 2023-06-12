@@ -7,6 +7,7 @@ import com.example.mypokedex.domain.useCases.pokemonUseCases.*
  * */
 data class PokemonUseCases(
     val getPokemonList: GetPokemonListUseCase,
+    val searchPokemonList: SearchPokemonListUseCase,
     val getPokemonListByType: GetPokemonListByTypeUseCase,
     val getPokemonDetails: GetPokemonDetailsUseCase,
     val filterPokemonForms: FilterPokemonFormsUseCase,

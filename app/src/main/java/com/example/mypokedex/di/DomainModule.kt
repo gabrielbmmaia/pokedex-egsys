@@ -19,6 +19,7 @@ object DomainModule {
         factory {
             PokemonUseCases(
                 getPokemonList = get(),
+                searchPokemonList = get(),
                 getPokemonListByType = get(),
                 getPokemonDetails = get(),
                 filterPokemonForms = get()
@@ -29,5 +30,6 @@ object DomainModule {
         factory { GetPokemonDetailsUseCase(repository = get(), pokemonValidation = get()) }
         factory { PokemonValidationUseCase() }
         factory { FilterPokemonFormsUseCase() }
+        factory { SearchPokemonListUseCase(repository = get(), validation = get()) }
     }
 }

@@ -277,9 +277,10 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun toHomeFragment() {
-        val action = PokemonDetailsFragmentDirections
-            .actionPokemonDetailsFragmentToHomeFragment()
-        findNavController().navigate(action)
+//        val action = PokemonDetailsFragmentDirections
+//            .actionPokemonDetailsFragmentToHomeFragment()
+//        findNavController().navigate(action)
+        findNavController().popBackStack()
     }
 
     private fun toFormFragment(pokemonId: String) {

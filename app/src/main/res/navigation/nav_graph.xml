@@ -27,12 +27,11 @@
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_pokemonDetailsFragment_to_pokemonFormFragment"
-            app:destination="@id/pokemonFormFragment"
-            app:popUpTo="@id/pokemonDetailsFragment" />
+            app:destination="@id/pokemonFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/sreenSplashFragment"
-        android:name="com.example.mypokedex.presentation.SreenSplashFragment"
+        android:name="com.example.mypokedex.presentation.splashScreen.ScreenSplashFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action

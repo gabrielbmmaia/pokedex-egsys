@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/home_layout"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red_crimson">
@@ -33,10 +33,10 @@
             android:id="@+id/rv_homefragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fadingEdge=""
             android:orientation="vertical"
             android:padding="1dp"
             android:saveEnabled="true"
-            android:fadingEdge=""
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,20 @@
         <include
             android:id="@+id/internet_problems"
             layout="@layout/internet_error"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/empty_pokemon_text"
+            style="@style/ViewHolderPokemonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pokémon não encontrado"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/grey_whisper_darkened"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

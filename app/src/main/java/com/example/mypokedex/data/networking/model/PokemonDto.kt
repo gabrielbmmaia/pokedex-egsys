@@ -1,10 +1,9 @@
-package com.example.mypokedex.domain.model
+package com.example.mypokedex.data.networking.model
 
 import com.example.mypokedex.core.extensions.formatToPokemonNumber
 import com.example.mypokedex.core.extensions.getPokemonId
 
-data class Pokemon(
+data class PokemonDto(
     val name: String,
-    val id: Int,
-    val number: String
+    val url: String
 )

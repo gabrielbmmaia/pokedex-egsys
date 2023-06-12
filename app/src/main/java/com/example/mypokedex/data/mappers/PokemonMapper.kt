@@ -1,23 +1,43 @@
 package com.example.mypokedex.data.mappers
 
+import com.example.mypokedex.core.extensions.formatToPokemonNumber
 import com.example.mypokedex.core.extensions.formattPokemonName
 import com.example.mypokedex.core.extensions.getEvolutionChainId
-import com.example.mypokedex.data.model.PokemonDetailsDto
-import com.example.mypokedex.data.model.PokemonDto
-import com.example.mypokedex.data.model.pokemonEvolution.ChainDto
-import com.example.mypokedex.data.model.pokemonForms.PokemonFormsDto
+import com.example.mypokedex.core.extensions.getPokemonId
+import com.example.mypokedex.data.local.model.PokemonEntity
+import com.example.mypokedex.data.networking.model.PokemonDetailsDto
+import com.example.mypokedex.data.networking.model.PokemonDto
+import com.example.mypokedex.data.networking.model.pokemonEvolution.ChainDto
+import com.example.mypokedex.data.networking.model.pokemonForms.PokemonFormsDto
+import com.example.mypokedex.domain.model.Chain
 import com.example.mypokedex.domain.model.Pokemon
 import com.example.mypokedex.domain.model.PokemonDetails
-import com.example.mypokedex.domain.model.Chain
-import com.example.mypokedex.domain.model.pokemonForms.PokemonForms
-import com.example.mypokedex.domain.model.pokemonForms.Variety
 import com.example.mypokedex.domain.model.PokemonMoves
 import com.example.mypokedex.domain.model.Sprites
+import com.example.mypokedex.domain.model.pokemonForms.PokemonForms
+import com.example.mypokedex.domain.model.pokemonForms.Variety
 
 fun PokemonDto.toPokemon(): Pokemon {
     return Pokemon(
         name = name.formattPokemonName(),
+        id = url.getPokemonId(),
+        number = url.getPokemonId().formatToPokemonNumber()
+    )
+}
+
+fun PokemonDto.toPokemonEntity(): PokemonEntity {
+    return PokemonEntity(
+        id = url.getPokemonId(),
+        name = name,
         url = url
+    )
+}
+
+fun PokemonEntity.toPokemon(): Pokemon {
+    return Pokemon(
+        name = name.formattPokemonName(),
+        id = url.getPokemonId(),
+        number = url.getPokemonId().formatToPokemonNumber()
     )
 }
 
@@ -55,24 +75,15 @@ fun ChainDto.toChain(): Chain {
     evolvesTo.forEach { secondEvolutions ->
         secondEvolutions.evolvesTo.map {
             thirdEvolutions.add(
-                Pokemon(
-                    name = it.evolutionThird.name.formattPokemonName(),
-                    url = it.evolutionThird.url
-                )
+                it.evolutionThird.toPokemon()
             )
         }
     }
 
     return Chain(
-        firstEvolution = Pokemon(
-            name = evolutionFirst.name.formattPokemonName(),
-            url = evolutionFirst.url
-        ),
+        firstEvolution = evolutionFirst.toPokemon(),
         secondEvolutions = evolvesTo.map {
-            Pokemon(
-                name = it.evolutionSecond.name.formattPokemonName(),
-                url = it.evolutionSecond.url
-            )
+            it.evolutionSecond.toPokemon()
         },
         thirdEvolutions = thirdEvolutions
     )
@@ -84,10 +95,7 @@ fun PokemonFormsDto.toPokemonForms(): PokemonForms {
         varieties = varieties.map {
             Variety(
                 isDefault = it.isDefault,
-                pokemon = Pokemon(
-                    name = it.pokemon.name.formattPokemonName(),
-                    url = it.pokemon.url
-                )
+                pokemon = it.pokemon.toPokemon()
             )
         }
     )

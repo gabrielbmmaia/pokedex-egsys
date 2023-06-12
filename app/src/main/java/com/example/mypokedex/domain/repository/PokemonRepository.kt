@@ -9,9 +9,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface PokemonRepository {
 
-    suspend fun getPokemonList(): List<Pokemon>
+    suspend fun getPokemonList(): Flow<List<Pokemon>>
     suspend fun getPokemonByType(pokemonType: String): List<Pokemon>
     suspend fun getPokemonDetails(pokemonOrId: String): Flow<Resource<PokemonDetails>>
     suspend fun getPokemonForms(pokemonId: Int): Flow<Resource<PokemonForms>>
     suspend fun getPokemonEvolution(evolutionChainId: Int): Flow<Resource<Chain>>
+    suspend fun synchronizePokemonList()
+    suspend fun searchPokemonList(name: String): Flow<List<Pokemon>>
 }
