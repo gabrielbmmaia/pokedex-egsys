@@ -50,7 +50,9 @@ fun PokemonDetailsDto.toPokemonDetails(): PokemonDetails {
             )
         }
     }
-    filteredMovesList.sortedBy { it.levelLearned }
+
+    val orderedMoveList = filteredMovesList.sortedBy { it.levelLearned }
+
 
     return PokemonDetails(
         id = id,
@@ -65,7 +67,7 @@ fun PokemonDetailsDto.toPokemonDetails(): PokemonDetails {
             artWorkDefault = sprites.otherArt.officialArtwork.frontDefault,
             artWorkShiny = sprites.otherArt.officialArtwork.frontShiny
         ),
-        moves = filteredMovesList,
+        moves = orderedMoveList,
         types = types.map { it.type.name }
     )
 }

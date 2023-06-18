@@ -1,6 +1,6 @@
 <resources >
     <!-- Base application theme. -->
-    <style name="Theme.MyPokedex" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyPokedex" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/red_crimson</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

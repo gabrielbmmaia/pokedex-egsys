@@ -38,6 +38,7 @@ import com.example.mypokedex.core.Constantes.TOOLBAR_TITLE
 import com.example.mypokedex.core.extensions.visibilityGone
 import com.example.mypokedex.core.extensions.visibilityVisible
 import com.example.mypokedex.databinding.FragmentHomeBinding
+import com.example.mypokedex.domain.model.Pokemon
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -75,6 +76,11 @@ class HomeFragment : Fragment() {
         setMenu()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.loadPokemon()
+    }
+
     /**
      * Ao dar submit no SearchView é enviado a informação para
      * PokemonDetailsFragment e ao selecionar qualquer tipo de Pokemon
@@ -100,7 +106,6 @@ class HomeFragment : Fragment() {
                                 viewModel.searchPokemon(it)
                             }
                         }
-                        resetRecyclerviewPosition()
                         return true
                     }
                 })
@@ -135,8 +140,8 @@ class HomeFragment : Fragment() {
      * enviado para PokemonDetailsFragment com o ID do
      * Pokemon clicado
      * */
-    private fun initRecyclerView() {
-        pokemonAdapter = PokemonAdapter()
+    private fun initRecyclerView(pokemonList: List<Pokemon> = emptyList()) {
+        pokemonAdapter = PokemonAdapter(pokemonList)
         with(binding.rvHomefragment) {
             adapter = pokemonAdapter
             hasFixedSize()
@@ -170,7 +175,7 @@ class HomeFragment : Fragment() {
                             binding.rvHomefragment.visibilityGone()
                             binding.emptyPokemonText.visibilityVisible()
                         } else {
-                            pokemonAdapter.setData(result.pokemonList)
+                            initRecyclerView(result.pokemonList)
                             binding.emptyPokemonText.visibilityGone()
                             binding.rvHomefragment.visibilityVisible()
                         }
@@ -216,105 +221,79 @@ class HomeFragment : Fragment() {
         when (menuItem.itemId) {
             R.id.menu_popup_todos -> {
                 viewModel.loadPokemon()
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_aco -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ACO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_agua -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_AGUA)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_dragao -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_DRAGAO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_eletrico -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_ELETRICO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_fada -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FADA)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_fantasma -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FANTASMA)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_fogo -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_FOGO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_gelo -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_GELO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_inseto -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_INSETO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_lutador -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_LUTADOR)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_normal -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_NORMAL)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_pedra -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PEDRA)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_planta -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PLANTA)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_psiquico -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_PSIQUICO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_sombrio -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_SOMBRIO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_terrestre -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_TERRESTRE)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_venenoso -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VENENOSO)
-                resetRecyclerviewPosition()
             }
 
             R.id.menu_popup_elemento_voador -> {
                 viewModel.loadPokemon(pokemonType = POKEMON_TIPO_VOADOR)
-                resetRecyclerviewPosition()
             }
-        }
-    }
-
-    private fun resetRecyclerviewPosition() {
-        lifecycleScope.launchWhenStarted {
-            delay(800)
-            binding.rvHomefragment.scrollToPosition(0)
         }
     }
 }

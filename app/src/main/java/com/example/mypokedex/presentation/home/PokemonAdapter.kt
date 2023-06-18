@@ -2,19 +2,16 @@ package com.example.mypokedex.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.example.mypokedex.core.extensions.getFormatedPokemonNumber
 import com.example.mypokedex.core.extensions.loadSpriteFromId
 import com.example.mypokedex.databinding.VhPokemonBinding
 import com.example.mypokedex.domain.model.Pokemon
 
 class PokemonAdapter(
+    private var pokemonList: List<Pokemon>,
     var onItemClicked: (pokemon: Pokemon) -> Unit = {}
 ) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
-
-    private var pokemonList = emptyList<Pokemon>()
 
     inner class PokemonViewHolder(val binding: VhPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,13 +36,6 @@ class PokemonAdapter(
         }
     }
 
-    fun setData(newPokemonList: List<Pokemon>) {
-        val listaFiltrada = newPokemonList.filter { it.id <= POKEMON_FINAL_INDEX_LIST }
-        val diffResult = DiffUtil.calculateDiff(PokemonDiffCallback(pokemonList, listaFiltrada))
-        pokemonList = listaFiltrada
-        diffResult.dispatchUpdatesTo(this)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = VhPokemonBinding.inflate(inflater, parent, false)
@@ -57,17 +47,4 @@ class PokemonAdapter(
 
     override fun getItemCount(): Int = pokemonList.size
 
-    class PokemonDiffCallback(
-        private val oldPokemonList: List<Pokemon>,
-        private val newPokemonList: List<Pokemon>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize() = oldPokemonList.size
-        override fun getNewListSize() = newPokemonList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldPokemonList[oldItemPosition].id == newPokemonList[newItemPosition].id
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldPokemonList[oldItemPosition] == newPokemonList[newItemPosition]
-    }
 }
