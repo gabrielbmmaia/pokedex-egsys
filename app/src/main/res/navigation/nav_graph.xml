@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.mypokedex.presentation.home.HomeFragment"
+        android:name="com.pokemon.mypokedex.presentation.home.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailsFragment"
-        android:name="com.example.mypokedex.presentation.pokemonDetails.PokemonDetailsFragment"
+        android:name="com.pokemon.mypokedex.presentation.pokemonDetails.PokemonDetailsFragment"
         android:label=""
         tools:layout="@layout/fragment_pokemon_details" >
         <argument
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/sreenSplashFragment"
-        android:name="com.example.mypokedex.presentation.splashScreen.ScreenSplashFragment"
+        android:name="com.pokemon.mypokedex.presentation.splashScreen.ScreenSplashFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/pokemonFormFragment"
-        android:name="com.example.mypokedex.presentation.pokemonForm.PokemonFormFragment"
+        android:name="com.pokemon.mypokedex.presentation.pokemonForm.PokemonFormFragment"
         android:label=""
         tools:layout="@layout/fragment_pokemon_form" >
         <argument

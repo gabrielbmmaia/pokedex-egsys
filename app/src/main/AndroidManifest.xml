@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.pokemon.mypokedex">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -16,7 +17,7 @@
         android:theme="@style/Theme.MyPokedex"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name="com.pokemon.mypokedex.presentation.MainActivity"
             android:exported="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
