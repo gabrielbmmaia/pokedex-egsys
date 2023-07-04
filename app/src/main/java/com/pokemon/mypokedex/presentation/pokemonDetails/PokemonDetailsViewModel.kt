@@ -1,7 +1,9 @@
 package com.pokemon.mypokedex.presentation.pokemonDetails
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pokemon.mypokedex.core.Constantes
 import com.pokemon.mypokedex.core.Resource
 import com.pokemon.mypokedex.domain.repository.PokemonRepository
 import com.pokemon.mypokedex.domain.useCases.PokemonUseCases
@@ -15,7 +17,8 @@ import kotlinx.coroutines.launch
 
 class PokemonDetailsViewModel(
     private val pokemonRepository: PokemonRepository,
-    private val pokemonUseCases: PokemonUseCases
+    private val pokemonUseCases: PokemonUseCases,
+    private val preferences: SharedPreferences
 ) : ViewModel() {
 
     private val _detailsState: MutableStateFlow<PokemonDetailsState> =
@@ -29,6 +32,14 @@ class PokemonDetailsViewModel(
     private val _formsState: MutableStateFlow<PokemonFormsState> =
         MutableStateFlow(PokemonFormsState.Empty)
     val formsState = _formsState.asStateFlow()
+
+    private val _lastPokemonId: MutableStateFlow<Int> =
+        MutableStateFlow(Constantes.DEFAULT_LAST_POKEMON)
+    val lastPokemonId = _lastPokemonId.asStateFlow()
+
+    init{
+        loadLastPokemonId()
+    }
 
     fun getPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
@@ -55,6 +66,12 @@ class PokemonDetailsViewModel(
                 }
             }
         }
+    }
+
+    private fun loadLastPokemonId() {
+        val lastPokemonId = preferences
+            .getInt(Constantes.KEY_LAST_POKEMON_NUMBER, Constantes.DEFAULT_LAST_POKEMON)
+        _lastPokemonId.value = lastPokemonId
     }
 
     private fun getPokemonForms(pokemonId: Int) {

@@ -1,5 +1,6 @@
 package com.pokemon.mypokedex.presentation.pokemonDetails
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.pokemon.mypokedex.core.Constantes
+import com.pokemon.mypokedex.core.Constantes.DEFAULT_LAST_POKEMON
+import com.pokemon.mypokedex.core.Constantes.KEY_LAST_POKEMON_NUMBER
 import com.pokemon.mypokedex.core.Constantes.POKEMON_FINAL_INDEX_LIST
 import com.pokemon.mypokedex.core.Constantes.POKEMON_START_INDEX_LIST
 import com.pokemon.mypokedex.core.extensions.formatToKg
@@ -32,8 +36,11 @@ import com.pokemon.mypokedex.presentation.pokemonDetails.adapters.ViewPageAdapte
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonFormsState
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class PokemonDetailsFragment : Fragment() {
 
@@ -293,20 +300,24 @@ class PokemonDetailsFragment : Fragment() {
      * Pokemon(1010) é removido o display da seta para direita
      * */
     private fun initPreviousOrNextPokemon(pokemonId: Int) {
-        val arrowRight = binding.layoutPokemonNumber.arrowRight
-        val arrowLeft = binding.layoutPokemonNumber.arrowLeft
-        if (pokemonId > POKEMON_START_INDEX_LIST) {
-            arrowLeft.visibilityVisible()
-            arrowLeft.setOnClickListener {
-                viewModel.getPokemonDetails(pokemonId.minus(1))
+        lifecycleScope.launchWhenStarted {
+            val arrowRight = binding.layoutPokemonNumber.arrowRight
+            val arrowLeft = binding.layoutPokemonNumber.arrowLeft
+            viewModel.lastPokemonId.collectLatest { lastPokemonId ->
+                if (pokemonId > POKEMON_START_INDEX_LIST) {
+                    arrowLeft.visibilityVisible()
+                    arrowLeft.setOnClickListener {
+                        viewModel.getPokemonDetails(pokemonId.minus(1))
+                    }
+                } else arrowLeft.visibilityGone()
+                if (pokemonId < lastPokemonId) {
+                    arrowRight.visibilityVisible()
+                    arrowRight.setOnClickListener {
+                        viewModel.getPokemonDetails(pokemonId.plus(1))
+                    }
+                } else arrowRight.visibilityGone()
             }
-        } else arrowLeft.visibilityGone()
-        if (pokemonId < POKEMON_FINAL_INDEX_LIST) {
-            arrowRight.visibilityVisible()
-            arrowRight.setOnClickListener {
-                viewModel.getPokemonDetails(pokemonId.plus(1))
-            }
-        } else arrowRight.visibilityGone()
+        }
     }
 
     /**

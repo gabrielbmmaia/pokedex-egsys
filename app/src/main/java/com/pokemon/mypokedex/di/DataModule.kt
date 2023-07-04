@@ -1,7 +1,11 @@
 package com.pokemon.mypokedex.di
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.pokemon.mypokedex.core.Constantes.BASE_URL
+import com.pokemon.mypokedex.core.Constantes.KEY_PREFERENCE
 import com.pokemon.mypokedex.core.Constantes.OK_HTTP
 import com.pokemon.mypokedex.data.local.PokemonDatabase
 import com.pokemon.mypokedex.data.networking.PokemonServices
@@ -9,6 +13,7 @@ import com.pokemon.mypokedex.data.repository.PokemonRepositoryImpl
 import com.pokemon.mypokedex.domain.repository.PokemonRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
@@ -22,7 +27,7 @@ object DataModule {
      * Load dos Módulos da camada de Data
      * */
     fun load() {
-        loadKoinModules(networkModule() + repositoryModule() + localModule())
+        loadKoinModules(networkModule() + repositoryModule() + localModule() + preferenceModule())
     }
 
     private fun networkModule(): Module = module {
@@ -49,6 +54,16 @@ object DataModule {
                 pokemonDatabase = get()
             )
         }
+    }
+
+    private fun preferenceModule(): Module = module {
+        single{
+            provideSettingsPreferences(androidApplication())
+        }
+    }
+
+    private fun provideSettingsPreferences (app: Application): SharedPreferences{
+        return app.getSharedPreferences(KEY_PREFERENCE, Context.MODE_PRIVATE)
     }
 
     private fun createService(

@@ -5,6 +5,7 @@ import com.pokemon.mypokedex.domain.useCases.pokemonUseCases.FilterPokemonFormsU
 import com.pokemon.mypokedex.domain.useCases.pokemonUseCases.GetPokemonListByTypeUseCase
 import com.pokemon.mypokedex.domain.useCases.pokemonUseCases.PokemonValidationUseCase
 import com.pokemon.mypokedex.domain.useCases.pokemonUseCases.SearchPokemonListUseCase
+import com.pokemon.mypokedex.domain.useCases.pokemonUseCases.SynchronizePokemonListUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -24,12 +25,14 @@ object DomainModule {
                 searchPokemonList = get(),
                 getPokemonListByType = get(),
                 filterPokemonForms = get(),
-                pokemonValidation = get()
+                pokemonValidation = get(),
+                synchronizePokemonList = get()
             )
         }
         factory { GetPokemonListByTypeUseCase(repository = get()) }
         factory { PokemonValidationUseCase() }
         factory { FilterPokemonFormsUseCase() }
         factory { SearchPokemonListUseCase(repository = get(), validation = get()) }
+        factory { SynchronizePokemonListUseCase(repository = get(), preferences = get()) }
     }
 }

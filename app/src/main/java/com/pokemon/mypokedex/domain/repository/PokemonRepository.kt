@@ -1,6 +1,7 @@
 package com.pokemon.mypokedex.domain.repository
 
 import com.pokemon.mypokedex.core.Resource
+import com.pokemon.mypokedex.data.local.model.PokemonEntity
 import com.pokemon.mypokedex.domain.model.Chain
 import com.pokemon.mypokedex.domain.model.Pokemon
 import com.pokemon.mypokedex.domain.model.PokemonDetails
@@ -14,6 +15,7 @@ interface PokemonRepository {
     suspend fun getPokemonDetails(pokemonId: Int): Flow<Resource<PokemonDetails>>
     suspend fun getPokemonForms(pokemonId: Int): Flow<Resource<PokemonForms>>
     suspend fun getPokemonEvolution(evolutionChainId: Int): Flow<Resource<Chain>>
-    suspend fun synchronizePokemonList()
     suspend fun searchPokemonList(name: String): Flow<List<Pokemon>>
+    suspend fun getFilteredPokemonList(): List<Pokemon>
+    suspend fun addPokemonList(pokemonList: List<Pokemon>)
 }

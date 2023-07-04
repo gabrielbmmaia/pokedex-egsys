@@ -34,17 +34,18 @@ class PokemonRepositoryImpl(
         }
     }
 
-    /**
-     * Pega lista dos Pokemon com IDs entre 1 à 1010.
-     * Apartira do ID 10000 a api considera como uma Forma
-     * ALTERNATIVA do pokemon
-     * */
-    override suspend fun synchronizePokemonList() {
-        try {
-            val pokemonList = pokemonServices.getPokemonList().results
-            pokemonDatabase.dao.addPokemonList(pokemonList = pokemonList.map { it.toPokemonEntity() })
+    override suspend fun addPokemonList(pokemonList: List<Pokemon>) {
+        pokemonDatabase.dao.addPokemonList(pokemonList.map { it.toPokemonEntity() })
+    }
+
+    override suspend fun getFilteredPokemonList(): List<Pokemon> {
+        return try {
+            val pokemonList = pokemonServices.getPokemonList().results.map { it.toPokemon() }
+            pokemonList.filter { it.id < 10000 }
+
         } catch (e: Exception) {
             Log.e("TAG", "synchronizePokemonList: ${e.stackTrace}")
+            emptyList()
         }
     }
 

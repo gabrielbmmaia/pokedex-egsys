@@ -29,7 +29,7 @@ fun PokemonDto.toPokemonEntity(): PokemonEntity {
     return PokemonEntity(
         id = url.getPokemonId(),
         name = name,
-        url = url
+        number = url.getPokemonId().formatToPokemonNumber()
     )
 }
 
@@ -37,7 +37,15 @@ fun PokemonEntity.toPokemon(): Pokemon {
     return Pokemon(
         name = name.formattPokemonName(),
         id = id,
-        number = id.formatToPokemonNumber()
+        number = number
+    )
+}
+
+fun Pokemon.toPokemonEntity(): PokemonEntity{
+    return PokemonEntity(
+        id = id,
+        name = name,
+        number = number
     )
 }
 
