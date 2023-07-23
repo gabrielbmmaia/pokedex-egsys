@@ -10,6 +10,9 @@
     <string name="search_pokemon">Pokémon ou Número</string>
     <string name="pokeball_icon">Pokeball</string>
     <string name="pokemon_details_error">Erro ao carregar Pokémon</string>
+    <string name="arrow_left">Voltar para o Pokémon anterior</string>
+    <string name="arrow_right">Avançar para o próximo Pokémon</string>
+    <string name="image_indicator">Indicação de qual imagem está sendo mostrada</string>
 
     <!--    menus-->
     <string name="menu_search_icon">Search</string>

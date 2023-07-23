@@ -32,4 +32,9 @@
     <style name="PokemonNomeDetails" parent="TagPokemonDetails">
         <item name="android:textSize">36sp</item>
     </style>
+    
+    <style name="ToolbarColor" >
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+
 </resources>

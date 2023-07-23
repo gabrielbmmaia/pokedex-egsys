@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/pokemon_image"
+        android:contentDescription="@string/pokemon_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:scaleType="centerCrop"

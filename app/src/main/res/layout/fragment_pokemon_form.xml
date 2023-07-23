@@ -11,6 +11,7 @@
         android:id="@+id/form_toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:theme="@style/ToolbarColor"
         android:background="@color/red_crimson"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
