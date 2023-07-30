@@ -166,6 +166,7 @@ class HomeFragment : Fragment() {
             viewModel.pokemonList.collectLatest { result ->
                 when (result) {
                     is PokemonListState.Data -> {
+                        binding.rvHomefragment.visibilityVisible()
                         with(binding.internetProblems) {
                             progressBar.visibilityGone()
                             errorMessage.visibilityGone()
@@ -182,6 +183,7 @@ class HomeFragment : Fragment() {
                     }
 
                     is PokemonListState.Error -> {
+                        binding.rvHomefragment.visibilityGone()
                         with(binding.internetProblems) {
                             errorMessage.visibilityVisible()
                             retryButton.visibilityVisible()
@@ -197,6 +199,7 @@ class HomeFragment : Fragment() {
                     }
 
                     PokemonListState.Loading -> {
+                        binding.rvHomefragment.visibilityGone()
                         with(binding.internetProblems) {
                             errorMessage.visibilityGone()
                             retryButton.visibilityGone()

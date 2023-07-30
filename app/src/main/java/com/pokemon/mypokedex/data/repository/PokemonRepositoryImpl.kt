@@ -1,7 +1,7 @@
 package com.pokemon.mypokedex.data.repository
 
 import android.util.Log
-import com.pokemon.mypokedex.core.Constantes.POKEMON_NAO_ENCONTRADO
+import com.pokemon.mypokedex.core.Constantes.POKEMON_ERROR_MESSAGE
 import com.pokemon.mypokedex.core.Constantes.REPOSITORY_ERROR_TAG
 import com.pokemon.mypokedex.core.Resource
 import com.pokemon.mypokedex.data.local.PokemonDatabase
@@ -78,7 +78,7 @@ class PokemonRepositoryImpl(
             emit(Resource.Success(pokemonDetail.toPokemonDetails()))
         } catch (e: Exception) {
             Log.e(REPOSITORY_ERROR_TAG, "getPokemonDetails: ${e.stackTrace}")
-            emit(Resource.Error(message = POKEMON_NAO_ENCONTRADO))
+            emit(Resource.Error(message = POKEMON_ERROR_MESSAGE))
         }
     }
 

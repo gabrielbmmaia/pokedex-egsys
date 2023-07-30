@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/data_color"
         android:gravity="center"
         android:text="@string/internet_problems" />
 
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/black_rustic_red" />
+        android:indeterminateTint="@color/data_color" />
 
     <Button
         android:id="@+id/retry_button"

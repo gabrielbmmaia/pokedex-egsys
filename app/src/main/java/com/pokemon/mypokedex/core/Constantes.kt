@@ -16,10 +16,7 @@ object Constantes {
     // Constantes Erro
     const val REPOSITORY_ERROR_TAG = "repository"
     const val USE_CASE_ERROR_TAG = "use_case"
-    const val POKEMON_ERROR_MESSAGE = "Erro ao carregar Pokemon"
-
-    // Constantes Pokemon
-    const val POKEMON_NAO_ENCONTRADO = "Erro ao carregar Pokémon"
+    const val POKEMON_ERROR_MESSAGE = "Problema com a conexão"
 
     //Preference
     const val KEY_LAST_POKEMON_NUMBER = "last_pokemon_number"

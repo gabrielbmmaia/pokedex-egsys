@@ -10,6 +10,7 @@ import com.pokemon.mypokedex.domain.useCases.PokemonUseCases
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonDetailsState
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonEvolutionsState
 import com.pokemon.mypokedex.presentation.pokemonDetails.state.PokemonFormsState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -43,6 +44,7 @@ class PokemonDetailsViewModel(
 
     fun getPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
+            delay(1000)
             pokemonRepository.getPokemonDetails(pokemonId).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> {
